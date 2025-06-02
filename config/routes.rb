@@ -9,4 +9,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :contents, except: [:destroy] do
+    resources :questions, only: [:create]
+  end
+  resources :questions do
+    resources :answers, only: [:new, :create]
+  end
+  post '/contents/:id/summary', to: 'contents#create_summary'
 end
