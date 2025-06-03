@@ -36,6 +36,6 @@ class Content < ApplicationRecord
     update(
       name: response["title"],
       duration: response["duration"],
-      thumbnail: response["thumbnail"],)
+      thumbnail: response["thumbnail"])
   end
 end
