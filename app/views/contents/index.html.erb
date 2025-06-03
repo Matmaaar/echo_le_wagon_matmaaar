@@ -1,11 +1,13 @@
 <div class="container">
   <h1>Tes vidéos</h1>
   <% @contents.each do |content| %>
-  <div class="card">
-    <%=image_tag content.thumbnail, class:"card-img-top" %>
-    <div class="card-body">
-    <%= content.name %>
-    </div>
-  </div>
+    <%= link_to content_path(content) do %>
+      <div class="card">
+        <%= image_tag content.thumbnail, class: "card-img-top" %>
+        <div class="card-body">
+          <%= content.name %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
