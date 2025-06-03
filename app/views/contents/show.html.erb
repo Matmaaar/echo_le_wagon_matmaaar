@@ -1,6 +1,9 @@
 <div class="container">
-<h1>À propos de <%= @content.title %> </h1>
-<p><%= @content.description %></p>
-<!-- CSS à faire pour désigner le bouton-->
-<%= link_to 'Retour à tous mes contenus', contents_path, class: 'custom-button' %>
+  <h1>About your video "<%= @content.name %>" </h1>
+    <%= image_tag @content.thumbnail, class: "img-fluid" %>
+      <p><%= @content.summary %></p>
+      <p>Language <strong><%= @content.language %></strong></p>
+      <p><%= @content.duration %></p>
+
+    <%= link_to 'Back to my contents', contents_path, class: 'custom-button' %>
 </div>
