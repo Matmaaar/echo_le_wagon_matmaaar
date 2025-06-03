@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_03_102827) do
   end
 
   create_table "contents", force: :cascade do |t|
-    t.string "source_type"
+    t.string "source_type", default: "youtube_video"
     t.string "url"
     t.string "thumbnail"
     t.string "name"
