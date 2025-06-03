@@ -1,11 +1,32 @@
 <div class="container">
-  <h1>Tes vidéos</h1>
-  <% @contents.each do |content| %>
-  <div class="card">
-    <%=image_tag content.thumbnail, class:"card-img-top" %>
-    <div class="card-body">
-    <%= content.name %>
+  <%= form_with model: @content, local: true do |form| %>
+    <div class="row mt-5">
+      <div class="col-6 mb-3">
+        <%= form.url_field :url, class: 'form-control', placeholder: 'Entrez une URL https://exemple.com', required: true %>
+      </div>
+     </div>
+    <div class="row">
+      <div class="col-6">
+        <%= form.submit 'Commencez maintenant', class: 'btn btn-primary w-100' %>
+      </div>
     </div>
-  </div>
   <% end %>
+  <h1 class="mt-5">Ta progression</h1>
+  <h1 class="mt-5">Tes vidéos</h1>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <% @contents.each do |content| %>
+    <div class="col">
+      <div class="card h-100">
+        <% if content.thumbnail.present? %>
+          <%= image_tag content.thumbnail, class: "card-img-top", alt: content.name %>
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= content.name %></h5>
+          <p class="card-text">Durée : <%= format_duration(content.duration) %></p>
+          <%= link_to 'Voir plus', content_path(content), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 </div>
