@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 ruby "3.3.5"
 
+gem 'httparty'
+
 gem 'ruby-openai'
 
 gem "cloudinary"
