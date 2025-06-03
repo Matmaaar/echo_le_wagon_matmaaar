@@ -1,0 +1,20 @@
+<h1>Générer des questions à partir d'une transcription</h1>
+
+<%= form_with url: questions_path, method: :post, local: true, data: { turbo: false } do |form| %>
+ <div>
+    <%= form.label :transcription, "Transcription de la vidéo" %><br>
+    <%= form.text_area :transcription, rows: 10, cols: 80 %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <%= form.submit "Générer les questions", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<% if flash[:questions] %>
+  <hr>
+  <h2>Questions générées :</h2>
+  <div style="white-space: pre-wrap; background: #f4f4f4; padding: 10px; border-radius: 5px;">
+    <%= flash[:questions] %>
+  </div>
+<% end %>
