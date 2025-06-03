@@ -3,6 +3,6 @@ class ChangeJsonTranscrition < ActiveRecord::Migration[7.1]
     remove_column :contents, :transcription, :text
     add_column :contents, :transcription, :jsonb
     # sources types => valeur par default = video
-    change_column_default :contents, :source_type, :string, default: 'youtube_video'
+    change_column_default :contents, :source_type, 'youtube_video'
   end
 end
