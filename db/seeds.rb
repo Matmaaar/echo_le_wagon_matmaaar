@@ -7,16 +7,18 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
+ContentTag.destroy_all
+Note.destroy_all
 Answer.destroy_all
 Question.destroy_all
 Content.destroy_all
+Tag.destroy_all
 User.destroy_all
 
 user = User.create!(
     email: "julien.dupont@example.com",
     password: "password",
-    nickname: "Julien"
+    nickname: "Julien",
 )
 
 content = Content.create!(
@@ -123,21 +125,21 @@ tags = Tag.create!([
     { name: "Coût de la vie" },
 ])
 ContentTag.create!([
-    { content_id: content.id, tag_id: tags[0].id }, 
-    { content_id: content.id, tag_id: tags[1].id }, 
-    { content_id: content.id, tag_id: tags[2].id }, 
+    { content_id: content.id, tag_id: tags[0].id },
+    { content_id: content.id, tag_id: tags[1].id },
+    { content_id: content.id, tag_id: tags[2].id },
 ])
 
 Note.create!([
     {
         user_id: user.id,
         content_id: content.id,
-        content: "Le visa B211 semble le plus pratique pour rester 6 mois à Bali sans trop de démarches répétées."
+        description: "Le visa B211 semble le plus pratique pour rester 6 mois à Bali sans trop de démarches répétées."
     },
     {
         user_id: user.id,
         content_id: content.id,
-        content: "À éviter : centre de Canggu pour du long terme à cause du bruit et des touristes. Préférer Pererenan ou North Canggu."
+        description: "À éviter : centre de Canggu pour du long terme à cause du bruit et des touristes. Préférer Pererenan ou North Canggu."
     },
 ])
 
@@ -201,7 +203,7 @@ Question.create!([
         content_id: content.id
     },
     {
-        statement: "Quelle est la caractéristique principale du stress post-traumatique illustrée dans la scène de Rambo ?", 
+        statement: "Quelle est la caractéristique principale du stress post-traumatique illustrée dans la scène de Rambo ?",
         answer_true: "La reviviscence, ou retour complet à la scène traumatique déclenché par des situations 'gâchettes'",
         answer_1: "L’absence d’empathie envers soi-même",
         answer_2: "La phase maniaque avec euphorie extrême",
@@ -209,7 +211,7 @@ Question.create!([
         explanation: "La scène de Rambo illustre la reviviscence, un symptôme clé du stress post-traumatique où le personnage revit intensément son traumatisme face à certains déclencheurs.",
         content_id: content.id
     }
-]) 
+])
 
 Tag.create!([
     { name: "Psychiatrie" },
@@ -223,13 +225,20 @@ ContentTag.create!([
     { content: content, tag: Tag.find_by!(name: "Troubles mentaux") }
 ])
 
-content.update!(
-    notes: "Analyse approfondie par un psychiatre des représentations des troubles mentaux dans des films célèbres. Corrige les idées reçues sur les psychopathes, la bipolarité, la schizophrénie ou encore le stress post-traumatique. Exemples issus de Rambo, Un homme d’exception, Split, Les Soprano, etc."
+puts "Creating users..."
+user1 = User.create!(
+  nickname: "Alice",
+  avatar: "https://res.cloudinary.com/demo/image/upload/c_fill,h_300,w_400/r4irpddfursvlpypkyrl.jpg",
+  password: "password123",
+  email: "alice@gmail.com"
 )
 
-puts "Creating users..."
-user1 = User.create!(nickname: "Alice", avatar: "https://res.cloudinary.com/demo/image/upload/sample.jpg")
-user2 = User.create!(nickname: "Bob", avatar: "https://res.cloudinary.com/demo/image/upload/sample.jpg")
+user2 = User.create!(
+  nickname: "Bob",
+  avatar: "https://res.cloudinary.com/demo/image/upload/c_fill,h_300,w_400/cld-sample.jpg",
+  password: "password123",
+  email: "bob@gmail.com"
+)
 
 puts "Creating tags..."
 tag1 = Tag.create!(name: "Ruby")
@@ -266,25 +275,25 @@ ContentTag.create!(content: content1, tag: tag1)
 ContentTag.create!(content: content1, tag: tag2)
 ContentTag.create!(content: content2, tag: tag3)
 puts "Creating notes..."
-Note.create!(content: "Rails utilise le modèle MVC pour organiser le code et faciliter le développement.", user: user1, content: content1)
-Note.create!(content: "L’IA englobe plusieurs sous-domaines dont le machine learning et le traitement du langage naturel.", user: user2, content: content2)
+Note.create!(description: "Rails utilise le modèle MVC pour organiser le code et faciliter le développement.", user: user1, content_id: content1.id)
+Note.create!(description: "L’IA englobe plusieurs sous-domaines dont le machine learning et le traitement du langage naturel.", user: user2, content_id: content2.id)
 puts "Creating questions..."
 question1 = Question.create!(
     content: content1,
     statement: "Quel modèle architectural est principalement utilisé dans Ruby on Rails pour organiser une application web ?",
     answer_true: "Modèle-Vue-Contrôleur (MVC)",
-    answer_2: "Modèle-View-Presenter (MVP)",
-    answer_3: "Flux unidirectionnel",
-    answer_4: "Architecture microservices",
+    answer_1: "Modèle-View-Presenter (MVP)",
+    answer_2: "Flux unidirectionnel",
+    answer_3: "Architecture microservices",
     explanation: "Ruby on Rails suit le modèle MVC qui sépare la logique métier, la présentation et les données."
 )
 question2 = Question.create!(
     content: content2,
     statement: "Quels sont certains des domaines couverts par l’intelligence artificielle ?",
     answer_true: "Machine learning, traitement du langage naturel, vision par ordinateur",
-    answer_2: "Développement web et bases de données",
-    answer_3: "Cryptographie et sécurité réseau",
-    answer_4: "Stockage en cloud et virtualisation",
+    answer_1: "Développement web et bases de données",
+    answer_2: "Cryptographie et sécurité réseau",
+    answer_3: "Stockage en cloud et virtualisation",
     explanation: "L’IA comprend plusieurs domaines comme le machine learning et la vision par ordinateur, permettant aux machines d’imiter des fonctions humaines."
 )
 puts "Creating answers..."
@@ -292,6 +301,3 @@ Answer.create!(user: user1, question: question1, result: true)
 Answer.create!(user: user2, question: question1, result: false)
 Answer.create!(user: user2, question: question2, result: true)
 puts ":coche_blanche: Done seeding!"
-
-
-
