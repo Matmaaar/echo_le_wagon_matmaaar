@@ -5,4 +5,8 @@ class Content < ApplicationRecord
   has_many :questions
   has_many :notes
 
+  def generate_question
+    QuestionGeneratorService.new(self).call
+  end
+
 end

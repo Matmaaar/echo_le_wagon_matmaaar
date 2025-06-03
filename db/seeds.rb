@@ -8,10 +8,13 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Answer.destroy_all
-Question.destroy_all
-Content.destroy_all
-User.destroy_all
+Answer.delete_all
+Question.delete_all
+Note.delete_all
+ContentTag.delete_all
+Tag.delete_all
+Content.delete_all
+User.delete_all
 
 user = User.create!(
     email: "julien.dupont@example.com",
@@ -68,6 +71,7 @@ Ciao !",
     thumbnail: "https://img.youtube.com/vi/sZX9YEJrrok/hqdefault.jpg",
     user: user
 )
+
 
 questions = Question.create!([
     {
@@ -267,7 +271,6 @@ ContentTag.create!(content: content1, tag: tag2)
 ContentTag.create!(content: content2, tag: tag3)
 puts "Creating notes..."
 Note.create!(content: "Rails utilise le modèle MVC pour organiser le code et faciliter le développement.", user: user1, content: content1)
-Note.create!(content: "L’IA englobe plusieurs sous-domaines dont le machine learning et le traitement du langage naturel.", user: user2, content: content2)
 puts "Creating questions..."
 question1 = Question.create!(
     content: content1,
