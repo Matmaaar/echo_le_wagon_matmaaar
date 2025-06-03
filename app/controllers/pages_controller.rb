@@ -3,4 +3,9 @@ class PagesController < ApplicationController
 
   def home
   end
+  def test  
+    @content= Content.first
+    @question = Question.new
+  end
 end
+

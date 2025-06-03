@@ -1,16 +1,23 @@
 class QuestionsController < ApplicationController
-    def new
-    redirect_back(fallback_location: new_question_path)
-    end
-
+  def new
+    @question = Question.new
+  end
 
   def create
-    transcription = params[:transcription]
-    questions = QuestionGeneratorService.new(transcription).call
+    transcription = params[:transcript]
 
-    flash[:questions] = questions
-    redirect_to new_question_path
+    if transcription.present?
+      questions_and_answers = QuestionGeneratorService.new(transcription).call
+      if questions_and_answers
+        flash[:questions_and_answers] = questions_and_answers
+      else
+        flash[:alert] = "Erreur lors de la génération de la question."
+      end
+    else
+      flash[:alert] = "Veuillez fournir une transcription."
+    end
+
+    @transcript = transcription
+    redirect_to test_path  
   end
 end
-
-
