@@ -1,9 +1,31 @@
 <div class="container">
   <h1>About your video "<%= @content.name %>" </h1>
     <%= image_tag @content.thumbnail, class: "img-fluid" %>
-      <p><%= @content.summary %></p>
       <p>Language <strong><%= @content.language %></strong></p>
-      <p><%= @content.duration %></p>
+      <p>This content is <%= @content.duration %>min long</p>
+        <%= link_to 'Summary', class: 'custom-button' %></div>
+          <h2>The summary</h2>
+            <p><%= @content.summary %></p>
+        <%= link_to 'quizz', class: 'custom-button' %></div>
+          <div class="quizz-questions">
+            <h2>Quiz questions</h2>
+              <ul>
+                  <% @questions.each do |question| %>
+                    <li>
+                      <strong><%= question.statement %></strong>
+                      <ul>
+                        <% [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle.each do |answer| %>
+                          <li><%= answer %></li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
+              </ul>
+          </div>
+            <% @questions.each do |question| %>
+                      <li><strong><%= question.explanation %></strong></li>
+                    <% end %>
+        <%= link_to 'chat', class: 'custom-button' %></div>
 
     <%= link_to 'Back to my contents', contents_path, class: 'custom-button' %>
 </div>
