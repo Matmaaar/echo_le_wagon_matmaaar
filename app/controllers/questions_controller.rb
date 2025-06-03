@@ -1,7 +1,9 @@
 class QuestionsController < ApplicationController
-  def new
-    @question = Question.new
-  end
+  
+ def new
+  @question = Question.new
+  @content = Content.find(params[:content_id]) if params[:content_id].present?
+end
 
   def create
     transcription = params[:transcript]

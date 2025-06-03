@@ -15,6 +15,7 @@ class ContentsController < ApplicationController
     )
 
     redirect_to @content, notice: "Question générée avec succès."
+    end
 
   def index
     @contents = current_user.contents

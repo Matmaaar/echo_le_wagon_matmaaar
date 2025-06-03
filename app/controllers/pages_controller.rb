@@ -8,4 +8,3 @@ class PagesController < ApplicationController
     @question = Question.new
   end
 end
-
