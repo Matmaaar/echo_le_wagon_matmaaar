@@ -56,9 +56,12 @@ class ContentsController < ApplicationController
     @content = Content.new(content_params)
     @content.user = current_user
     if @content.save
-      @content.get_transcript
-      @content.enrich
-      redirect_to @content, notice: "Transcription successful!"
+
+      @content.get_transcript!
+      @content.enrich!
+      @content.summarize!
+      redirect_to @content, notice: "Transcription réussie !"
+
     else
       render :new, status: :unprocessable_entity
     end
