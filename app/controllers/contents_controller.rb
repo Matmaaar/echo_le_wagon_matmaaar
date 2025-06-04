@@ -16,7 +16,7 @@ class ContentsController < ApplicationController
 
     redirect_to @content, notice: "Question generated successfully."
     end
-  
+
   def generate_summary
     @content = Content.find(params[:id])
     if @content.transcription.present?
@@ -47,33 +47,62 @@ class ContentsController < ApplicationController
     @content = Content.find(params[:id])
     @questions = @content.questions.shuffle
   end
+  def edit
+    @content = Content.find(params[:id])
+  end
+
+  def update
+    @content = Content.find(params[:id])
+    @content.update(content_params)
+    redirect_to content_path(@content), notice: "Le titre a bien été mis à jour."
+  end
 
   def new
     @content = Content.new
   end
 
   def create
-    @content = Content.new(content_params)
-    @content.user = current_user
-    if @content.save
+  @content = Content.new(content_params)
+  @content.user = current_user
 
+  if @content.save
+    begin
       @content.get_transcript!
       @content.enrich!
       @content.summarize!
-      redirect_to @content, notice: "Transcription réussie !"
 
-    else
-      render :new, status: :unprocessable_entity
+      # Génère une question automatiquement si la transcription existe
+      if @content.transcription.present?
+        question_data = @content.generate_question
+        if question_data.present?
+          correct = question_data[:correct_answer].to_sym
+          incorrect = question_data[:choices].except(correct).values
+
+          @content.questions.create!(
+            statement: question_data[:question],
+            answer_true: question_data[:choices][correct],
+            answer_1: incorrect[0],
+            answer_2: incorrect[1],
+            answer_3: incorrect[2],
+            explanation: question_data[:explanation]
+          )
+        end
+      end
+
+      redirect_to @content, notice: "Contenu enrichi avec résumé et question générée !"
+    rescue => e
+      Rails.logger.error("Erreur enrichissement ou génération question : #{e.message}")
+      redirect_to @content, alert: "Créé, mais une erreur est survenue lors de l’enrichissement ou la génération de question."
     end
+  else
+    render :new, status: :unprocessable_entity
   end
+end
 
   private
 
   def content_params
-    params.require(:content).permit(:url)
+    params.require(:content).permit(:url, :name)
   end
 
 end
-
-
-

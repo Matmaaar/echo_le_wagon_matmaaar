@@ -1,9 +1,27 @@
 <div class="container" data-controller="toggle-section">
-  <h1>About your video "<%= @content.name %>"</h1>
-  <%= image_tag @content.thumbnail, class: "img-fluid" %>
+  <%= content_for :title, @content.name %>
+  <h1><%= @content.name %></h1>
+  <p><em>Durée : <%= format_duration(@content.duration) %></em></p>
+
+  <%= image_tag @content.thumbnail, class: "img-fluid" if @content.thumbnail.present? %>
+
+  <% if (src = youtube_embed_url(@content.url)) %>
+    <div class="video-container">
+      <iframe
+        src="<%= src %>"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  <% else %>
+    <p>Impossible d’extraire l’ID YouTube depuis l’URL !</p>
+  <% end %>
+</div>
+
   <p>Language <strong><%= @content.language %></strong></p>
   <p>This content is <%= @content.duration %> min long</p>
 
+  <%= link_to 'EDIT', edit_content_path(@content), class: 'custom-button' %>
   <!-- Section bouton -->
   <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
   <%= button_tag 'QUIZZ',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
