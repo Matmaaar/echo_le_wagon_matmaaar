@@ -1,32 +1,41 @@
 <div class="container">
-  <%= form_with model: @content, local: true do |form| %>
-    <div class="row mt-5">
-      <div class="col-6 mb-3">
-        <%= form.url_field :url, class: 'form-control', placeholder: 'Entrez une URL https://exemple.com', required: true %>
-      </div>
-     </div>
-    <div class="row">
-      <div class="col-6">
-        <%= form.submit 'Commencez maintenant', class: 'btn btn-primary w-100' %>
-      </div>
-    </div>
-  <% end %>
-  <h1 class="mt-5">Ta progression</h1>
-  <h1 class="mt-5">Tes vidéos</h1>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-  <% @contents.each do |content| %>
-    <div class="col">
-      <div class="card h-100">
-        <% if content.thumbnail.present? %>
-          <%= image_tag content.thumbnail, class: "card-img-top", alt: content.name %>
-        <% end %>
-        <div class="card-body">
-          <h5 class="card-title"><%= content.name %></h5>
-          <p class="card-text">Durée : <%= format_duration(content.duration) %></p>
-          <%= link_to 'Voir plus', content_path(content), class: 'btn btn-primary' %>
+  <div class="mt-5">
+    <%= form_with model: @content, local: true do |form| %>
+      <%= form.url_field :url, class: 'form-control', placeholder: 'Enter URL https://example.com', required: true %>
+      <%= form.submit 'Start now', class: 'btn btn-primary w-100' %>
+    <% end %>
+  </div>
+  <h1 class="mt-5">Progress</h1>
+  <h1 class="mt-5">Video(s)</h1>
+  <div class="mt-5">
+    <%= form_with url: contents_path, method: :get, local: true do %>
+      <%= label_tag :query, "Search a content or tag :" %>
+      <%= text_field_tag :query, params[:query], placeholder: "Name or tag...", class: "form-control" %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="row row-cols-2 g-2 mt-5">
+    <% @contents.each do |content| %>
+      <div class="col">
+        <div class="card h-100">
+          <% if content.thumbnail.present? %>
+            <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
+          <% end %>
+          <div class="card-body p-2">
+            <h5 class="card-title" style="font-size: 0.8rem;"><%= content.name.downcase.capitalize %></h5>
+            <%= link_to 'See more', content_path(content), class: 'btn btn-primary btn-sm' %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 </div>

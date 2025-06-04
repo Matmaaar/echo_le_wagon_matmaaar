@@ -2,6 +2,11 @@ class ContentsController < ApplicationController
   def index
     @contents = current_user.contents
     @content = Content.new
+    if params[:query].present?
+      @contents = Content.search_by_name_and_tags(params[:query])
+    else
+      @contents
+    end
   end
 
   def show
@@ -25,7 +30,7 @@ class ContentsController < ApplicationController
     end
   end
 
-private
+  private
 
   def content_params
     params.require(:content).permit(:url)

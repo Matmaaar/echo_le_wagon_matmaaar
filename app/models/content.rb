@@ -38,4 +38,10 @@ class Content < ApplicationRecord
       duration: response["duration"],
       thumbnail: response["thumbnail"])
   end
+
+  def self.search_by_name_and_tags(query)
+    left_joins(:tags)
+      .where("contents.name ILIKE :q OR tags.name ILIKE :q", q: "%#{query}%")
+      .distinct
+  end
 end
