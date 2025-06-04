@@ -21,6 +21,7 @@
   <p>Language <strong><%= @content.language %></strong></p>
   <p>This content is <%= @content.duration %> min long</p>
 
+  <%= link_to 'EDIT', edit_content_path(@content), class: 'custom-button' %>
   <!-- Section bouton -->
   <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
   <%= button_tag 'QUIZZ',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
