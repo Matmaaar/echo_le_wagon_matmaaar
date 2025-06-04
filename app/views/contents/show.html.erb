@@ -5,10 +5,8 @@
   <p>This content is <%= @content.duration %> min long</p>
 
   <!-- Section bouton -->
-  <!-- Au chargement de la page, les sections sont cachées, lorsque l'on appuie sur un bouton, Javascript ajoute une classe pour faire apparaître la bonne partie de HTML -->
   <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
   <%= button_tag 'QUIZZ',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
-  <!-- Lorsque les fonctionnalités seront implémentées, il suffit de modifier le "target_id: "#""" -->
   <%= button_tag 'ASK IA', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
   <%= button_tag 'NOTES',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
 
@@ -20,21 +18,45 @@
 
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
     <h2>Quiz questions</h2>
-    <ul>
-      <% @questions.each do |question| %>
-        <li>
-          <strong><%= question.statement %></strong>
-          <ul>
-            <% [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle.each do |answer| %>
-              <li><%= answer %></li>
-            <% end %>
-          </ul>
-        </li>
-      <% end %>
-    </ul>
-  </div>
 
-  <div>
-    <%= link_to 'Back to my contents', contents_path, class: 'custom-button' %>
+    <% @questions.each_with_index do |question, index| %>
+      <div
+        data-controller="reveal-answer"
+        data-reveal-answer-index-value="<%= index %>"
+        class="question-block"
+        style="margin-bottom: 30px; display: <%= index == 0 ? 'block' : 'none' %>;">
+
+        <p><strong><%= question.statement %></strong></p>
+
+        <% answers = [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle %>
+        <% answers.each do |answer| %>
+          <button
+            type="button"
+            class="answer-button"
+            data-action="reveal-answer#select"
+            data-correct-answer="<%= question.answer_true %>">
+            <%= answer %>
+          </button>
+        <% end %>
+
+        <p data-reveal-answer-target="explanation" style="display: none; margin-top: 10px;">
+          ✅ <strong>Explication :</strong> <%= question.explanation %>
+        </p>
+
+        <button
+          data-action="reveal-answer#nextQuestion"
+          data-reveal-answer-target="nextButton"
+          style="display: none; margin-top: 10px;">
+          Next Question
+        </button>
+
+        <button
+          data-action="reveal-answer#retry"
+          data-reveal-answer-target="retryButton"
+          style="display: none; margin-top: 10px; margin-left: 10px;">
+          Retry Question
+        </button>
+      </div>
+    <% end %>
   </div>
 </div>
