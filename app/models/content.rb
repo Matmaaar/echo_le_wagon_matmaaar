@@ -20,17 +20,11 @@ class Content < ApplicationRecord
     }
   )
 
-  # Force l'encodage en UTF-8
-  raw_body = response.body.force_encoding("UTF-8")
-
-  puts "Supadata response:"
-  puts raw_body
-
-  parsed = JSON.parse(raw_body)
+response = JSON.parse(response.body)
 
   update(
-    transcription: parsed["content"],
-    language: parsed["lang"]
+    transcription: response["content"],
+    language: response["lang"]
   )
 end
 
@@ -50,16 +44,12 @@ end
       thumbnail: response["thumbnail"])
   end
 
-  def generate_summary!
-    return nil unless transcription.present?
+  def summarize!
+    summarizer = ContentSummarizer.new(transcription: transcription)
+    summary = summarizer.call
+    update(summary: summary) if summary.present?
+  end
 
-    summary = SummaryGeneratorService.new(transcription).call
-    if summary.present?
-      update(summary: summary)
-      summary
-    else
-      nil
-    end
   end
 
 
