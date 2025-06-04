@@ -1,6 +1,6 @@
 <div class="container" data-controller="toggle-section">
   <h1>About your video "<%= @content.name %>"</h1>
-  <%= image_tag @content.thumbnail, class: "img-fluid" %>
+  <%= image_tag @content.thumbnail, class: "img-fluid" if @content.thumbnail.present? %>
   <p>Language <strong><%= @content.language %></strong></p>
   <p>This content is <%= @content.duration %> min long</p>
 

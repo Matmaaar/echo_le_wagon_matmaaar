@@ -22,7 +22,9 @@
             <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
           <% end %>
           <div class="card-body p-2">
-            <h5 class="card-title" style="font-size: 0.8rem;"><%= content.name.downcase.capitalize %></h5>
+            <h5 class="card-title" style="font-size: 0.8rem;">
+              <%= content.name&.downcase&.capitalize || "Nom non disponible" %>
+            </h5>
             <%= link_to 'See more', content_path(content), class: 'btn btn-primary btn-sm' %>
           </div>
         </div>
