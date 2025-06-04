@@ -21,4 +21,5 @@ Rails.application.routes.draw do
     resources :answers, only: [:new, :create]
   end
   post '/contents/:id/summary', to: 'contents#create_summary', as: :summary_content
+  get '/uikit', to: 'pages#uikit', as: :uikit
 end
