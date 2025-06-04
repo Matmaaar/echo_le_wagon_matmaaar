@@ -14,8 +14,24 @@ class ContentsController < ApplicationController
       explanation: question_data[:explanation]
     )
 
-    redirect_to @content, notice: "Question générée avec succès."
+    redirect_to @content, notice: "Question generated successfully."
     end
+  
+  def generate_summary
+    @content = Content.find(params[:id])
+    if @content.transcription.present?
+      summary = SummaryGeneratorService.new(@content.transcription).call
+      if summary
+        @content.update(summary: summary)
+        flash[:notice] = "Summary generated successfully."
+      else
+        flash[:alert] = "Summary generated successfully."
+      end
+    else
+      flash[:alert] = "No transcript available to generate a summary."
+    end
+    redirect_to content_path(@content)
+  end
 
   def index
     @contents = current_user.contents
@@ -42,7 +58,7 @@ class ContentsController < ApplicationController
     if @content.save
       @content.get_transcript
       @content.enrich
-      redirect_to @content, notice: "Transcription réussie !"
+      redirect_to @content, notice: "Transcription successful!"
     else
       render :new, status: :unprocessable_entity
     end
