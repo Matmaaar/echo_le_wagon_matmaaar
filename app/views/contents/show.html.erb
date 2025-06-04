@@ -2,6 +2,9 @@
   <%= content_for :title, @content.name %>
   <h1><%= @content.name %></h1>
   <p><em>Durée : <%= format_duration(@content.duration) %></em></p>
+
+  <%= image_tag @content.thumbnail, class: "img-fluid" if @content.thumbnail.present? %>
+
   <% if (src = youtube_embed_url(@content.url)) %>
     <div class="video-container">
       <iframe
@@ -13,7 +16,8 @@
   <% else %>
     <p>Impossible d’extraire l’ID YouTube depuis l’URL !</p>
   <% end %>
- 
+</div>
+
   <p>Language <strong><%= @content.language %></strong></p>
   <p>This content is <%= @content.duration %> min long</p>
 
