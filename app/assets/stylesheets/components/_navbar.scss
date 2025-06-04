@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: $dark;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +8,42 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 80px;
+  margin-left: 20px;
 }
+
+.navbar-lewagon .navbar-icon img {
+  width: 22px;
+  margin-right: 32px;
+
+  display: block;
+}
+
+.navbar-lewagon button {
+  width: 22px;
+  margin-right: 32px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.navbar-lewagon .navbar-search img {
+  width: 22px;
+  margin-right: 5px;
+
+  display: block;
+}
+
+
+
+
+
+// .navbar-icon {
+//   margin-right: 20px;
+//   background-image: url("/images/echo_logo.png");
+//   width: 2rem;
+//   height: 2rem;
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   // Ajoute ici tes styles personnalisés
+// }
