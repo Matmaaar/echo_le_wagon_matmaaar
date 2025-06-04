@@ -1,41 +1,21 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
+
     <%= link_to "#", class: "navbar-brand" do %>
       <%= image_tag "echo_logo.png" %>
     <% end %>
 
+<div class="navbar-left d-flex align-items-center">
     <!-- Bouton Offcanvas pour mobile -->
+    <button class="navbar-search d-block d-sm-none" type="button" >
+      <%= image_tag "search_icon.png" %>
+    </button>
     <button class="navbar-icon d-block d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle navigation">
       <%= image_tag "burger_menu_icon.png" %>
     </button>
-
+</div>
     <!-- Menu classique pour desktop -->
-    <div class="collapse navbar-collapse d-none d-sm-block" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item dropdown">
-            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= image_tag "", class: "avatar", alt: "dropdown menu" %>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+
 
     <!-- Offcanvas menu pour mobile -->
     <div class="offcanvas offcanvas-start d-sm-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
