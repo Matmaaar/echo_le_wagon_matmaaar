@@ -46,9 +46,13 @@ class QuestionGeneratorService
   return nil unless content
 
   # Nettoyer le contenu pour extraire le JSON
-  json_text = content.dup
-  json_text.gsub!(/\A```json\s*/, '') 
-  json_text.gsub!(/```+\s*\z/, '')
+ json_text = content[/{.*}/m]
+
+  unless json_text
+    Rails.logger.error("Aucun JSON détecté dans la réponse : #{content.inspect}")
+    return nil
+  end
+
 
   begin
     JSON.parse(json_text, symbolize_names: true)
