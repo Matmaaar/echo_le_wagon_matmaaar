@@ -1,0 +1,13 @@
+.video-container {
+  position: relative;
+  width: 75%;
+  max-width: 700px;      /* optionnel */
+  padding-bottom: 56.25%; /* ratio 16/9 */
+  margin: 1em auto;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 75%; height: 75%;
+  border: 0;
+}
