@@ -6,6 +6,10 @@ class Content < ApplicationRecord
   has_many :questions
   has_many :notes
 
+  def generate_question
+    QuestionGeneratorService.new(self).call
+  end
+
 
   def get_transcript!
     api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
@@ -39,9 +43,17 @@ class Content < ApplicationRecord
       thumbnail: response["thumbnail"])
   end
 
+
   def summarize!
     summarizer = ContentSummarizer.new(transcription: transcription)
     summary = summarizer.call
     update!(summary: summary) if summary.present?
+  end
+
+  def self.search_by_name_and_tags(query)
+    left_joins(:tags)
+      .where("contents.name ILIKE :q OR tags.name ILIKE :q", q: "%#{query}%")
+      .distinct
+
   end
 end

@@ -1,31 +1,40 @@
-<div class="container">
-  <h1>About your video "<%= @content.name %>" </h1>
-    <%= image_tag @content.thumbnail, class: "img-fluid" %>
-      <p>Language <strong><%= @content.language %></strong></p>
-      <p>This content is <%= @content.duration %>min long</p>
-        <%= link_to 'Summary', class: 'custom-button' %></div>
-          <h2>The summary</h2>
-            <p><%= @content.summary %></p>
-        <%= link_to 'quizz', class: 'custom-button' %></div>
-          <div class="quizz-questions">
-            <h2>Quiz questions</h2>
-              <ul>
-                  <% @questions.each do |question| %>
-                    <li>
-                      <strong><%= question.statement %></strong>
-                      <ul>
-                        <% [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle.each do |answer| %>
-                          <li><%= answer %></li>
-                        <% end %>
-                      </ul>
-                    </li>
-                  <% end %>
-              </ul>
-          </div>
-            <% @questions.each do |question| %>
-                      <li><strong><%= question.explanation %></strong></li>
-                    <% end %>
-        <%= link_to 'chat', class: 'custom-button' %></div>
+<div class="container" data-controller="toggle-section">
+  <h1>About your video "<%= @content.name %>"</h1>
+  <%= image_tag @content.thumbnail, class: "img-fluid" %>
+  <p>Language <strong><%= @content.language %></strong></p>
+  <p>This content is <%= @content.duration %> min long</p>
 
+  <!-- Section bouton -->
+  <!-- Au chargement de la page, les sections sont cachées, lorsque l'on appuie sur un bouton, Javascript ajoute une classe pour faire apparaître la bonne partie de HTML -->
+  <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
+  <%= button_tag 'QUIZZ',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
+  <!-- Lorsque les fonctionnalités seront implémentées, il suffit de modifier le "target_id: "#""" -->
+  <%= button_tag 'ASK IA', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+  <%= button_tag 'NOTES',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+
+  <!-- Sections -->
+  <div id="summary-section" data-toggle-section-target="section" style="display: none;">
+    <h2>The summary</h2>
+    <p><%= @content.summary %></p>
+  </div>
+
+  <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
+    <h2>Quiz questions</h2>
+    <ul>
+      <% @questions.each do |question| %>
+        <li>
+          <strong><%= question.statement %></strong>
+          <ul>
+            <% [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle.each do |answer| %>
+              <li><%= answer %></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
     <%= link_to 'Back to my contents', contents_path, class: 'custom-button' %>
+  </div>
 </div>
