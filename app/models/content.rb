@@ -10,7 +10,6 @@ class Content < ApplicationRecord
     QuestionGeneratorService.new(self).call
   end
 
-
  def get_transcript
   api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
   response = HTTParty.get(
@@ -35,8 +34,7 @@ class Content < ApplicationRecord
   )
 end
 
-
-  def enrich
+  def enrich!
     api_url = "https://api.supadata.ai/v1/youtube/video?id=#{ERB::Util.url_encode(url)}"
     response = HTTParty.get(
       api_url,
@@ -46,7 +44,7 @@ end
       }
     )
     response =JSON.parse(response.body)
-    update(
+    update!(
       name: response["title"],
       duration: response["duration"],
       thumbnail: response["thumbnail"])
@@ -65,9 +63,3 @@ end
   end
 
 
-  def self.search_by_name_and_tags(query)
-    left_joins(:tags)
-      .where("contents.name ILIKE :q OR tags.name ILIKE :q", q: "%#{query}%")
-      .distinct
-  end
-end
