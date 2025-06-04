@@ -11,20 +11,29 @@ class Content < ApplicationRecord
   end
 
 
-  def get_transcript
-    api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
-    response = HTTParty.get(
-      api_url,
-      headers: {
-        'x-api-key' => ENV['SUPADATA_API_KEY'],
-        'Content-Type' => 'application/json'
-      }
-    )
-    response =JSON.parse(response.body)
-    update(
-      transcription: response["content"],
-      language: response["lang"])
-  end
+ def get_transcript
+  api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
+  response = HTTParty.get(
+    api_url,
+    headers: {
+      'x-api-key' => ENV['SUPADATA_API_KEY'],
+      'Content-Type' => 'application/json'
+    }
+  )
+
+  # Force l'encodage en UTF-8
+  raw_body = response.body.force_encoding("UTF-8")
+
+  puts "Supadata response:"
+  puts raw_body
+
+  parsed = JSON.parse(raw_body)
+
+  update(
+    transcription: parsed["content"],
+    language: parsed["lang"]
+  )
+end
 
 
   def enrich
@@ -42,6 +51,19 @@ class Content < ApplicationRecord
       duration: response["duration"],
       thumbnail: response["thumbnail"])
   end
+
+  def generate_summary!
+    return nil unless transcription.present?
+
+    summary = SummaryGeneratorService.new(transcription).call
+    if summary.present?
+      update(summary: summary)
+      summary
+    else
+      nil
+    end
+  end
+
 
   def self.search_by_name_and_tags(query)
     left_joins(:tags)

@@ -17,31 +17,25 @@ class ContentsController < ApplicationController
     redirect_to @content, notice: "Question generated successfully."
     end
   
-  def generate_summary
-    @content = Content.find(params[:id])
-    if @content.transcription.present?
-      summary = SummaryGeneratorService.new(@content.transcription).call
-      if summary
-        @content.update(summary: summary)
-        flash[:notice] = "Summary generated successfully."
-      else
-        flash[:alert] = "Summary generated successfully."
-      end
-    else
-      flash[:alert] = "No transcript available to generate a summary."
-    end
-    redirect_to content_path(@content)
-  end
+  def create_summary
+  @content = Content.find(params[:id])
+  Rails.logger.info "Starting summary generation for Content id=#{@content.id}"
 
-  def index
-    @contents = current_user.contents
-    @content = Content.new
-    if params[:query].present?
-      @contents = Content.search_by_name_and_tags(params[:query])
+  if @content.transcription.present?
+    summary = SummaryGeneratorService.new(@content.transcription).call
+    Rails.logger.info "Summary generated: #{summary.inspect}"
+
+    if summary
+      @content.update(summary: summary)
+      flash[:notice] = "Summary generated successfully."
     else
-      @contents
+      flash[:alert] = "Failed to generate summary."
     end
+  else
+    flash[:alert] = "No transcript available to generate a summary."
   end
+  redirect_to content_path(@content)
+end
 
   def show
     @content = Content.find(params[:id])
