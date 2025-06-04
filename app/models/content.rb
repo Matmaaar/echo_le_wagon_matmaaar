@@ -10,7 +10,7 @@ class Content < ApplicationRecord
     QuestionGeneratorService.new(self).call
   end
 
- def get_transcript
+ def get_transcript!
   api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
   response = HTTParty.get(
     api_url,
@@ -51,5 +51,3 @@ end
   end
 
   end
-
-
