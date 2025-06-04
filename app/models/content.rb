@@ -7,7 +7,7 @@ class Content < ApplicationRecord
   has_many :notes
 
 
-  def get_transcript
+  def get_transcript!
     api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
     response = HTTParty.get(
       api_url,
@@ -17,13 +17,13 @@ class Content < ApplicationRecord
       }
     )
     response =JSON.parse(response.body)
-    update(
+    update!(
       transcription: response["content"],
       language: response["lang"])
   end
 
 
-  def enrich
+  def enrich!
     api_url = "https://api.supadata.ai/v1/youtube/video?id=#{ERB::Util.url_encode(url)}"
     response = HTTParty.get(
       api_url,
@@ -33,9 +33,15 @@ class Content < ApplicationRecord
       }
     )
     response =JSON.parse(response.body)
-    update(
+    update!(
       name: response["title"],
       duration: response["duration"],
       thumbnail: response["thumbnail"])
+  end
+
+  def summarize!
+    summarizer = ContentSummarizer.new(transcription: transcription)
+    summary = summarizer.call
+    update!(summary: summary) if summary.present?
   end
 end
