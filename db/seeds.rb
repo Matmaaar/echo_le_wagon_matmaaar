@@ -71,6 +71,7 @@ Ciao !",
     user: user
 )
 
+
 questions = Question.create!([
     {
         statement: "Quel est le principal avantage de choisir Canggu à Bali pour un digital nomade ?",

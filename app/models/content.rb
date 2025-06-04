@@ -6,6 +6,10 @@ class Content < ApplicationRecord
   has_many :questions
   has_many :notes
 
+  def generate_question
+    QuestionGeneratorService.new(self).call
+  end
+
 
   def get_transcript
     api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
