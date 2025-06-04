@@ -74,6 +74,7 @@ class ContentsController < ApplicationController
       # Génère une question automatiquement si la transcription existe
       if @content.transcription.present?
         question_data = @content.generate_question
+        Rails.logger.debug("Question data reçue : #{question_data.inspect}")
         if question_data.present?
           correct = question_data[:correct_answer].to_sym
           incorrect = question_data[:choices].except(correct).values
