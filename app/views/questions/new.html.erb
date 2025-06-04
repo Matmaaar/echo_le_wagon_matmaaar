@@ -1,1 +1,1 @@
-<%= link_to "Nouvelle question", new_question_path(content_id: @content.id) %>
+<%= button_to "Nouvelle question", generate_question_content_path(@content), method: :post %>

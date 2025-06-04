@@ -5,21 +5,19 @@ class QuestionsController < ApplicationController
   @content = Content.find(params[:content_id]) if params[:content_id].present?
 end
 
-  def create
-    transcription = params[:transcript]
+def create
+  @content = Content.find(params[:id]) 
 
-    if transcription.present?
-      questions_and_answers = QuestionGeneratorService.new(transcription).call
-      if questions_and_answers
-        flash[:questions_and_answers] = questions_and_answers
-      else
-        flash[:alert] = "Erreur lors de la génération de la question."
-      end
-    else
-      flash[:alert] = "Veuillez fournir une transcription."
-    end
+  questions_and_answers = QuestionGeneratorService.new(@content).call
 
-    @transcript = transcription
-    redirect_to test_path  
+  if questions_and_answers.present?
+    flash[:notice] = "Question générée avec succès !"
+  else
+    flash[:alert] = "Erreur lors de la génération de la question."
   end
+
+  redirect_to content_path(@content)
 end
+ 
+end
+
