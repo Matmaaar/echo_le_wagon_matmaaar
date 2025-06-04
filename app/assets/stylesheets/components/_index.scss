@@ -15,4 +15,11 @@
 
 @import "buttons";
 @import "lecteur_video";
+@import "frame";
 
+.glow {
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.35);
+}
+.glow-light {
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+}
