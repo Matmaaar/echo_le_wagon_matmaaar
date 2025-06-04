@@ -16,7 +16,7 @@ class ContentsController < ApplicationController
 
     redirect_to @content, notice: "Question generated successfully."
     end
-  
+
   def generate_summary
     @content = Content.find(params[:id])
     if @content.transcription.present?
@@ -46,6 +46,15 @@ class ContentsController < ApplicationController
   def show
     @content = Content.find(params[:id])
     @questions = @content.questions.shuffle
+  end
+  def edit
+    @content = Content.find(params[:id])
+  end
+
+  def update
+    @content = Content.find(params[:id])
+    @content.update(content_params)
+    redirect_to content_path(@content), notice: "Le titre a bien été mis à jour."
   end
 
   def new
@@ -93,10 +102,7 @@ end
   private
 
   def content_params
-    params.require(:content).permit(:url)
+    params.require(:content).permit(:url, :name)
   end
 
 end
-
-
-
