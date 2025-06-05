@@ -1,0 +1,43 @@
+.content-card {
+  overflow: hidden;
+  background: $dark;
+  border-radius: 8px;
+  border: 2px solid $gray;
+}
+
+.content-card > img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.content-card h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+
+}
+
+.content-card p {
+  font-size: 12px;
+  opacity: .7;
+  margin: 0;
+}
+
+
+.content-card .content-card-infos {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  border-radius: 8px;
+}
+
+.content-card-infos .content-card-user {
+  position: absolute;
+  right: 16px;
+  top: -20px;
+  width: 40px;
+}
