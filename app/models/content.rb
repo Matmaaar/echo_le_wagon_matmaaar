@@ -6,6 +6,8 @@ class Content < ApplicationRecord
   has_many :questions
   has_many :notes
 
+  #after_commit :generate_ai_tags_later, on: [:create]
+
   def generate_question
     return nil unless transcription.present?
     QuestionGeneratorService.new(transcription).call
@@ -52,4 +54,7 @@ end
     update(summary: summary) if summary.present?
   end
 
+  def generate_ai_tags_later
+    GenerateTagsJob.perform_later(self)
   end
+end

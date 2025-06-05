@@ -1,0 +1,15 @@
+.content-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  scroll-snap-type: x mandatory;
+}
+
+.content-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.content-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
