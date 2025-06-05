@@ -29,23 +29,6 @@ def generate_question
   }
 end
 
-
-  def generate_summary
-    @content = Content.find(params[:id])
-    if @content.transcription.present?
-      summary = SummaryGeneratorService.new(@content.transcription).call
-      if summary
-        @content.update(summary: summary)
-        flash[:notice] = "Summary generated successfully."
-      else
-        flash[:alert] = "Summary generated successfully."
-      end
-    else
-      flash[:alert] = "No transcript available to generate a summary."
-    end
-    redirect_to content_path(@content)
-  end
-
   def index
     @contents = current_user.contents
     @content = Content.new
@@ -80,10 +63,12 @@ end
 
     if @content.save
       begin
-        @content.get_transcript!
         @content.enrich!
-        @content.summarize!
-        @content.generate_ai_tags_later
+        ContentJob.perform_later(@content)
+        # @content.get_transcript!
+        # @content.enrich!
+        # @content.summarize!
+        # @content.generate_ai_tags_later
 
         Rails.logger.info("Contenu créé avec enrichissement et résumé.")
         redirect_to @content, notice: "Contenu enrichi avec résumé !"
