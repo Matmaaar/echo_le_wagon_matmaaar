@@ -11,9 +11,10 @@
   font-family: "Inter", sans-serif;
   width: 183px;
   height: 39px;
+  text-align: center;
 }
 
-.enter-url input {
+.input-form input {
   color: $light-dark;
   background-color: $dark;
   border-radius: 33px;
@@ -25,4 +26,115 @@
   border-color: white;
   text-align: left;
   padding-left: 12px;
+  padding-top: 3px;
 }
+
+.active-summary input {
+  color: $gray;
+  background-color: $white;
+  border-radius: 33px;
+  border-style: none;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+}
+
+.unactivated-summary input{
+  color: $white;
+  background-color: $dark;
+  border-radius: 33px;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+  border: 2px solid $white;
+}
+
+.active-quizz input {
+  color: $gray;
+  background-color: $white;
+  border-radius: 33px;
+  border-style: none;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+}
+
+.unactivated-quizz input {
+  color: $white;
+  background-color: $dark;
+  border-radius: 33px;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+  border: 2px solid $white;
+}
+
+.active-ask-ai input {
+  color: $gray;
+  background-color: $white;
+  border-radius: 33px;
+  border-style: none;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+}
+
+.unactivated-ask-ai input {
+  color: $white;
+  background-color: $dark;
+  border-radius: 33px;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+  border: 2px solid $white;
+}
+
+.active-notes input {
+  color: $gray;
+  background-color: $white;
+  border-radius: 33px;
+  border-style: none;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+}
+
+
+.unactivated-notes input {
+  color: $white;
+  background-color: $dark;
+  border-radius: 33px;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
+  height: 27px;
+  text-align: center;
+  border: 2px solid $white;
+}
+
+.next-question input {
+  color: $white;
+  background-color: $green;
+  border-radius: 33px;
+  border-style: none;
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+  width: 129px;
+  height: 27px;
+  text-align: center;
+}
+
