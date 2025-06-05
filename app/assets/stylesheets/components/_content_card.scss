@@ -1,12 +1,13 @@
 .content-card {
-  overflow: hidden;
   background: $dark;
   border-radius: 8px;
   border: 2px solid $gray;
+
+  flex-shrink: 0;
 }
 
 .content-card > img {
-  height: 200px;
+  height: 140px;
   width: 100%;
   object-fit: cover;
   border-top-left-radius: 8px;
@@ -17,22 +18,51 @@
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+  margin-bottom: 15px;
 
 }
 
-.content-card button {
-  margin-top: 5px;
-
+.content-card-infos a {
+  margin-bottom: 10px;
+  display: block;
+  width: fit-content;
 }
-
-
 
 
 .content-card .content-card-infos {
   padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative;
   border-radius: 8px;
+}
+
+
+
+
+
+
+.content-carousel {
+  position: relative;
+  margin-right: -25px;
+
+}
+
+.content-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 0;
+
+  .content-card {
+    width: 250px;
+
+
+  }
+
+  // Style de la scrollbar
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE and Edge
+
 }

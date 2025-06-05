@@ -1,36 +1,62 @@
+<!-- HERO SECTION START -->
+
 <div class="hero-section">
   <div class="container-custom">
-  <div class="hero-content">
-    <div class="text-content">
+    <div class="hero-content">
+      <div class="text-content">
 
-      <h1 class="hero-title">
-        Learn<br>
-        Everything<br>
-        Faster
-      </h1>
-      <p class="hero-subtitle">
-        Unlock deeper learning from<br>
-        your favorite content.
-      </p>
+        <h1 class="hero-title">
+          Learn<br>
+          Everything<br>
+          Faster
+        </h1>
+        <p class="hero-subtitle">
+          Unlock deeper learning from<br>
+          your favorite content.
+        </p>
 
-      <%= form_with model: @content, local: true, class: 'hero-form' do |form| %>
-        <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
-        <%= form.submit 'START NOW', class: 'cta-button' %>
-      <% end %>
+        <%= form_with model: @content, local: true, class: 'hero-form' do |form| %>
+          <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
+          <%= form.submit 'START NOW', class: 'cta-button glow' %>
+        <% end %>
+      </div>
+
+      <div class="hero-visual">
+        <div class="light-beam"></div>
+        <div class="light-glow"></div>
+      </div>
     </div>
-
-    <div class="hero-visual">
-      <div class="light-beam"></div>
-      <div class="light-glow"></div>
-    </div>
-  </div>
   </div>
 </div>
 
+<!-- HERO SECTION END -->
+
+<div class="container-custom">
+<!-- CARD SECTION START -->
+
+<h3>Latest Content</h3>
+<div class="content-carousel">
+    <div class="content-row">
+<% @contents.each do |content| %>
+  <%= link_to content_path(content), class: "content-card glow-light", style: "text-decoration: none; color: inherit;" do %>
+    <% if content.thumbnail.present? %>
+      <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
+    <% end %>
+    <div class="content-card-infos">
+      <h2><%= content.name&.downcase&.capitalize || "Nom non disponible" %></h2>
+      <span class="small-round-button">START LEARNING</span>
+    </div>
+  <% end %>
+<% end %>
+    </div>
 </div>
-  <div class="container-custom">
+
+<!-- CARD SECTION END -->
+
+
   <h1 class="mt-5">Progress</h1>
   <h1 class="mt-5">Video(s)</h1>
+
   <div class="mt-5">
     <%= form_with url: contents_path, method: :get, local: true do %>
       <%= label_tag :query, "Search a content or tag :" %>
@@ -38,24 +64,17 @@
       <%= submit_tag "Search", class: "btn btn-primary" %>
     <% end %>
   </div>
-  <div class="row row-cols-2 g-2 mt-5">
-    <% @contents.each do |content| %>
-      <div class="col">
-        <div class="card h-100">
-          <% if content.thumbnail.present? %>
-            <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
-          <% end %>
-          <div class="card-body p-2">
-            <h5 class="card-title" style="font-size: 0.8rem;">
-              <%= content.name&.downcase&.capitalize || "Nom non disponible" %>
-            </h5>
-            <%= link_to 'See more', content_path(content), class: 'btn btn-primary btn-sm' %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  </div>
+
+
+  <%# CARDS %>
+
+
+
+
+
+
+</div>
+
 <br>
 <br>
 <br>
