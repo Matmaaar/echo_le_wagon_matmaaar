@@ -16,7 +16,7 @@ class ContentsController < ApplicationController
 
     redirect_to @content, notice: "Question generated successfully."
     end
-  
+
   def generate_summary
     @content = Content.find(params[:id])
     if @content.transcription.present?
@@ -97,6 +97,3 @@ end
   end
 
 end
-
-
-
