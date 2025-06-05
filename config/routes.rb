@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       post :summary, to: "contents#create_summary"
     end
 
-    resources :questions, only: [:new, :create]
+    resources :questions, only: [:index, :new, :create]
   end
 
   # Questions & answers

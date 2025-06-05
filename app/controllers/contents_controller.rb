@@ -1,37 +1,33 @@
 class ContentsController < ApplicationController
 
-  def generate_question
-    @content = Content.find(params[:id])
+def generate_question
+  @content = Content.find(params[:id])
+  data = @content.generate_question
 
-    question_data = @content.generate_question
-
-    @content.questions.create!(
-      statement: question_data[:question],
-      answer_true: question_data[:choices][question_data[:correct_answer].to_sym],
-      answer_1: (question_data[:choices].except(question_data[:correct_answer].to_sym).values[0]),
-      answer_2: (question_data[:choices].except(question_data[:correct_answer].to_sym).values[1]),
-      answer_3: (question_data[:choices].except(question_data[:correct_answer].to_sym).values[2]),
-      explanation: question_data[:explanation]
-    )
-
-  redirect_to content_path(@content, quizz: true), notice: "Question générée"
-    end
-
-  def generate_summary
-    @content = Content.find(params[:id])
-    if @content.transcription.present?
-      summary = SummaryGeneratorService.new(@content.transcription).call
-      if summary
-        @content.update(summary: summary)
-        flash[:notice] = "Summary generated successfully."
-      else
-        flash[:alert] = "Summary generated successfully."
-      end
-    else
-      flash[:alert] = "No transcript available to generate a summary."
-    end
-    redirect_to content_path(@content)
+  if data.nil?
+    render json: { error: "Aucune question générée" }, status: :unprocessable_entity
+    return
   end
+
+  correct = data[:correct_answer].to_sym
+  question = @content.questions.create!(
+    statement: data[:question],
+    answer_true: data[:choices][correct],
+    answer_1: data[:choices].except(correct).values[0],
+    answer_2: data[:choices].except(correct).values[1],
+    answer_3: data[:choices].except(correct).values[2],
+    explanation: data[:explanation]
+  )
+
+  render json: {
+    question: {
+      statement: question.statement,
+      answers: [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle,
+      correct: question.answer_true,
+      explanation: question.explanation
+    }
+  }
+end
 
   def index
     @contents = current_user.contents
@@ -67,10 +63,12 @@ class ContentsController < ApplicationController
 
     if @content.save
       begin
-        @content.get_transcript!
         @content.enrich!
-        @content.summarize!
-        @content.generate_ai_tags_later
+        ContentJob.perform_later(@content)
+        # @content.get_transcript!
+        # @content.enrich!
+        # @content.summarize!
+        # @content.generate_ai_tags_later
 
         Rails.logger.info("Contenu créé avec enrichissement et résumé.")
         redirect_to @content, notice: "Contenu enrichi avec résumé !"
