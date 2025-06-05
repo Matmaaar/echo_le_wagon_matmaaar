@@ -30,7 +30,7 @@
   <!-- Sections -->
   <div id="summary-section" data-toggle-section-target="section" style="display: none;">
     <h2>The summary</h2>
-    <p><%= @content.summary %></p>
+    <%= raw @content.summary[7..-4] %>
   </div>
 
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
