@@ -9,7 +9,8 @@
   height: 200px;
   width: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .content-card h2 {
@@ -19,11 +20,12 @@
 
 }
 
-.content-card p {
-  font-size: 12px;
-  opacity: .7;
-  margin: 0;
+.content-card button {
+  margin-top: 5px;
+
 }
+
+
 
 
 .content-card .content-card-infos {
@@ -33,11 +35,4 @@
   align-items: flex-end;
   position: relative;
   border-radius: 8px;
-}
-
-.content-card-infos .content-card-user {
-  position: absolute;
-  right: 16px;
-  top: -20px;
-  width: 40px;
 }
