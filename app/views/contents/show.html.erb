@@ -28,7 +28,7 @@
   <%= button_tag 'NOTES',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
 
   <!-- Sections -->
-  <div id="summary-section" data-toggle-section-target="section" style="display: none;">
+  <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
     <h2>The summary</h2>
     <%= raw @content.summary[7..-4] %>
   </div>
