@@ -1,0 +1,37 @@
+.box-data-container {
+
+    display: flex;
+
+}
+
+
+.box-data {
+  background-color: transparent;
+  border: 1px solid $gray;
+  width: 33%;
+  height: 115px;
+  display: flex;
+  flex-direction: column; // Ajouté pour aligner les éléments en colonne
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: semibold;
+  }
+  h3.number {
+    font-size: 32px;
+  }
+  p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: semibold;
+    color: $light-dark;
+  }
+
+  img {
+    width: 70%;
+  }
+
+}

@@ -1,15 +1,17 @@
 
-
+<br>
 <div class="container-custom">
+
+
+<%# QUIZZ ANSWER %>
 
 <button class="answer-button">
   <div>
-
-  <span class="answer-letter">B</span>
+    <span class="answer-letter">B</span>
   </div>
   Overcoming five hindrances to mental
-
 </button>
+  
 <br />
 <!-- BOUTON START -->
 <div>
@@ -20,6 +22,120 @@
 <div class="url-input-component">
   <input type="url" name="website-url" placeholder="URL"/></div>
   <br />
+
+
+
+<%# QUIZZ ANSWER %>
+
+<br>
+
+    <h1>main page bouton "START NOW"</h1>
+
+<!-- BOUTON START -->
+
+    <div class="start-now-button">
+      <input type="button" value="START NOW"/>
+    </div><br />
+
+<!-- BOUTON FORMULAIRE ET RECHERCHE -->
+    <div class="input-form">
+      <input type="button" value="Enter URL"/>
+    </div><br />
+
+<!-- BOUTON SHOW SOMMAIRE -->
+    <div class="active-summary">
+      <input type="button" value="SUMMARY"/>
+    </div>
+
+
+<br>
+
+<%## FRAME QUIZZ CHAT NOTES %>
+
+<div class="frame glow-light">
+  <div class="progress-bar">
+    <div class="progress" style="width: 10%;"></div>
+  </div>
+  YOUR CONTENT HERE
+</div>
+
+
+<%# ## FRAME QUIZZ CHAT NOTES %>
+
+
+
+
+<br>
+
+<div class="content-card glow-light">
+  <%= image_tag("thumbnail_doac.jpg", alt: "DOAC")%>
+  <div class="content-card-infos">
+    <div>
+      <h2>Title here</h2>
+      <p>Short description here!</p>
+    </div>
+
+  </div>
+</div>
+
+
+
+</div>
+
+<br>
+<%# BOX DATA %>
+<%# ATTENTION: Ne doit pas etre dans le "container-custom" car sinon il ne prend pas toute la largeur de l'ecran %>
+
+<div class="box-data-container">
+
+            <div class="box-data">
+                <h3>Powered by</h3>
+                <%= image_tag("openai_logo.png", alt: "OpenAI Logo")%>
+            </div>
+             <div class="box-data">
+                <h3 class="number">50%</h3>
+                <p>better retention</p>
+            </div>
+             <div class="box-data">
+                <h3>Powered by</h3>
+                <%= image_tag("le_wagon_logo.png", alt: "Le Wagon Logo")%>
+            </div>
+</div>
+
+<%# BOX DATA %>
+
+
+    <div class="unactivated-summary">
+      <input type="button" value="SUMMARY"/>
+    </div><br />
+
+
+
+
+<%#
+<div class="video-container">
+      <iframe
+        src="https://www.youtube.com/embed/yHCtfU3syM4?si=9qiKpypLXiMW32_Z"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        controls=0
+        showinfo=0
+        frameborder="0"
+        modestbranding=1
+        allowfullscreen>
+      </iframe>
+    </div>
+</div>
+
+ %>
+
+
+
+  </div>
+
+<!-- BOUTON SHOW QUIZZ -->
+    <div class="active-quizz">
+      <input type="button" value="QUIZZ"/>
+    </div>
 
 <!-- BOUTON SMALL ROUND -->
 <div>
@@ -43,3 +159,4 @@
       <h3>Master Sha Hengyi emphasizes that breaking physical objects like bricks is not about strength but about extreme focus. He uses this metaphor to delve into deeper psychological teachings on overcoming life’s obstacles.</h3>
     </div>
 </div>
+
