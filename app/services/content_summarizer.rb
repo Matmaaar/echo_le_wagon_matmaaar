@@ -23,10 +23,10 @@ class ContentSummarizer
   - Langage : **HTML uniquement** (aucun texte en dehors des balises HTML)
   - ne met pas de balise markdown
   - Structure attendue :
-    - <h3>Partie I : Titre</h3>
-    - <p> <strong>A. Sous-partie</strong></p>
-    - <p>Contenu pédagogique détaillé et fidèle à la transcription, avec exemples si présents dans la transcription</p>
-  - En fin de document : un glossaire des termes techniques
+    - <h2>Partie I : Titre</h2>
+    - <h3><strong> A. Sous-partie</strong> </h3>
+    - <h3>Contenu pédagogique détaillé et fidèle à la transcription, avec exemples si présents dans la transcription</h3>
+    - En fin de document : un glossaire des termes techniques
     - <h2>Glossaire</h2>
     - <ul><li><strong>Terme</strong> : Définition courte et claire</li></ul>
 
