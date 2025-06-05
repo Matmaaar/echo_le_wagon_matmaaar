@@ -2,16 +2,20 @@
 <br>
 <div class="container-custom">
 
+
+<%# QUIZZ ANSWER %>
+
 <button class="answer-button">
   <div>
-
-  <span class="answer-letter">B</span>
+    <span class="answer-letter">B</span>
   </div>
   Overcoming five hindrances to mental
-
 </button>
 
+<%# QUIZZ ANSWER %>
+
 <br>
+
     <h1>main page bouton "START NOW"</h1>
     <div class="start-now-button">
       <input type="button" value="START NOW"/>
@@ -22,22 +26,41 @@
       <input type="button" value="Enter URL"/>
     </div>
 
-
-
-<%# La frame qui contient les quizz le chat et les notes %>
 <br>
+
+<%## FRAME QUIZZ CHAT NOTES %>
+
 <div class="frame glow-light">
   <div class="progress-bar">
     <div class="progress" style="width: 10%;"></div>
   </div>
-
+  YOUR CONTENT HERE
 </div>
 
-<div class="box">
 
+<%# ## FRAME QUIZZ CHAT NOTES %>
 
 </div>
+<%# BOX DATA %>
 
+<div class="box-data-container">
+
+            <div class="box-data">
+                <h3>Powered by</h3>
+                <%= image_tag("openai_logo.png", alt: "OpenAI Logo")%>
+            </div>
+             <div class="box-data">
+                <h3 class="number">50%</h3>
+                <p>better retention</p>
+            </div>
+             <div class="box-data">
+                <h3>Powered by</h3>
+                <%= image_tag("le_wagon_logo.png", alt: "Le Wagon Logo")%>
+            </div>
+</div>
+
+<%# BOX DATA %>
+<%#
 <div class="video-container">
       <iframe
         src="https://www.youtube.com/embed/yHCtfU3syM4?si=9qiKpypLXiMW32_Z"
@@ -51,7 +74,7 @@
     </div>
 </div>
 
-
+ %>
 
 
 
