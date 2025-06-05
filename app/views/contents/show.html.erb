@@ -1,36 +1,60 @@
-<div class="container" data-controller="toggle-section">
-  <%= content_for :title, @content.name %>
-
-  <%# section image et video %>
   <div id="video-wrapper">
-    <%= image_tag @content.thumbnail, id: "video-thumbnail", class: "img-fluid", onclick: "showVideo()" if @content.thumbnail.present? %>
+    <% if @content.thumbnail.present? %>
+      <%= image_tag @content.thumbnail, id: "video-thumbnail", class: "img-fluid w-100", onclick: "showVideo()" %>
+    <% end %>
   </div>
-  <h1><%= @content.name %></h1>
-  <p><em>Durée : <%= format_duration(@content.duration) %></em></p>
-    <script>
-      const thumbnailHtml = `<img src="<%= @content.thumbnail %>" id="video-thumbnail" class="img-fluid" onclick="showVideo()">`;
-      const videoHtml = `
-        <iframe class="img-fluid" src="<%= youtube_embed_url(@content.url) %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <br>
-        <button onclick="showThumbnail()" style="margin-top: 10px;" class="btn btn-secondary">Close</button>`;
-      function showVideo() {
-        document.getElementById("video-wrapper").innerHTML = videoHtml;
-      }
-      function showThumbnail() {
-        document.getElementById("video-wrapper").innerHTML = thumbnailHtml;
-      }
-    </script>
 
-  <p>Language <strong><%= @content.language %></strong></p>
-  <p>This content is <%= @content.duration %> min long</p>
+<div class="container-custom">
+<!-- À voir si on garde -->
+  <!-- <div class="container-custom" data-controller="toggle-section"> -->
+    <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
+  <!-- </div> -->
 
-  <%= link_to 'EDIT', edit_content_path(@content), class: 'custom-button' %>
-  <!-- Section bouton -->
-  <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-  <%= button_to 'QUIZZ', generate_question_content_path(@content), method: :post, class: 'custom-button' %>
-  <%= button_tag 'ASK IA', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-  <%= button_tag 'NOTES',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+<div>
+    <h1><%= @content.name %></h1>
+    <%= link_to 'EDIT', edit_content_path(@content), class: 'button-custom' %>
+  </div>
+ <br>
 
+<script>
+  const thumbnailHtml = `
+    <img src="<%= @content.thumbnail %>" id="video-thumbnail" class="img-fluid w-100" onclick="showVideo()">
+  `;
+
+  const videoHtml = `
+    <div class="ratio ratio-16x9">
+      <iframe
+        src="<%= youtube_embed_url(@content.url) %>"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        frameborder="0">
+      </iframe>
+    </div>
+    <br>
+    <button onclick="showThumbnail()" style="margin-top: 10px;" class="btn btn-secondary">Close</button>
+  `;
+
+  function showVideo() {
+    document.getElementById("video-wrapper").innerHTML = videoHtml;
+  }
+
+  function showThumbnail() {
+    document.getElementById("video-wrapper").innerHTML = thumbnailHtml;
+  }
+</script>
+<!-- À voir si on garde -->
+  <!-- <p>Language <strong><%= @content.language %></strong></p> -->
+  <!-- <p>This content is <%= @content.duration %> min long</p> -->
+
+  <div class="button-row">
+    <!-- Section bouton -->
+    <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
+    <%= button_to 'QUIZZ', generate_question_content_path(@content), method: :post, class: 'small-round-button' %>
+    <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+    <%= button_tag 'NOTES',   type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+  </div>
+
+  <br>
   <!-- Sections -->
   <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
     <h1> <%= @content.name %></h1>
