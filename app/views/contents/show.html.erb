@@ -23,7 +23,7 @@
   <%= link_to 'EDIT', edit_content_path(@content), class: 'custom-button' %>
   <!-- Section bouton -->
   <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-  <%= button_tag 'QUIZZ',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
+  <%= button_to 'QUIZZ', generate_question_content_path(@content), method: :post, class: 'custom-button' %>
   <%= button_tag 'ASK IA', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
   <%= button_tag 'NOTES',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
 
@@ -33,7 +33,7 @@
     <p><%= @content.summary %></p>
   </div>
 
-  <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
+  <div id="quizz-section" data-toggle-section-target="section" style="<%= params[:quizz] ? 'display: block;' : 'display: none;' %>">
     <h2>Quiz questions</h2>
 
     <% @questions.each_with_index do |question, index| %>
