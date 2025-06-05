@@ -1,11 +1,11 @@
 
 .answer-button.correct-answer {
-  background-color: #4caf50;
+  background-color: $green;
   color: white;
 }
 
 .answer-button.wrong-answer {
-  background-color: #f44336;
+  background-color: $red;
   color: white;
 }
 
@@ -42,4 +42,6 @@
   font-weight: bold;
   margin-right: 8px;
   font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

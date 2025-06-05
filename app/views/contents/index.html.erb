@@ -1,10 +1,34 @@
-<div class="container">
-  <div class="mt-5">
-    <%= form_with model: @content, local: true do |form| %>
-      <%= form.url_field :url, class: 'form-control', placeholder: 'Enter URL https://example.com', required: true %>
-      <%= form.submit 'Start now', class: 'btn btn-primary w-100' %>
-    <% end %>
+<div class="hero-section">
+  <div class="container-custom">
+  <div class="hero-content">
+    <div class="text-content">
+
+      <h1 class="hero-title">
+        Learn<br>
+        Everything<br>
+        Faster
+      </h1>
+      <p class="hero-subtitle">
+        Unlock deeper learning from<br>
+        your favorite content.
+      </p>
+
+      <%= form_with model: @content, local: true, class: 'hero-form' do |form| %>
+        <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
+        <%= form.submit 'START NOW', class: 'cta-button' %>
+      <% end %>
+    </div>
+
+    <div class="hero-visual">
+      <div class="light-beam"></div>
+      <div class="light-glow"></div>
+    </div>
   </div>
+  </div>
+</div>
+
+</div>
+  <div class="container-custom">
   <h1 class="mt-5">Progress</h1>
   <h1 class="mt-5">Video(s)</h1>
   <div class="mt-5">
@@ -31,6 +55,7 @@
       </div>
     <% end %>
   </div>
+  </div>
 <br>
 <br>
 <br>
@@ -40,4 +65,3 @@
 <br>
 <br>
 <br>
-</div>

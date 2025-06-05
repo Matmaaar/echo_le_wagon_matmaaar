@@ -1,21 +1,25 @@
 <div class="container" data-controller="toggle-section">
-  <%= content_for :title, @content.name %>
+
+
+  <%# section image et video %>
+  <div id="video-wrapper">
+    <%= image_tag @content.thumbnail, id: "video-thumbnail", class: "img-fluid", onclick: "showVideo()" if @content.thumbnail.present? %>
+  </div>
   <h1><%= @content.name %></h1>
   <p><em>Durée : <%= format_duration(@content.duration) %></em></p>
-
-  <%= image_tag @content.thumbnail, class: "img-fluid" if @content.thumbnail.present? %>
-
-  <% if (src = youtube_embed_url(@content.url)) %>
-    <div class="video-container">
-      <iframe
-        src="<%= src %>"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
-  <% else %>
-    <p>Impossible d’extraire l’ID YouTube depuis l’URL !</p>
-  <% end %>
+    <script>
+      const thumbnailHtml = `<img src="<%= @content.thumbnail %>" id="video-thumbnail" class="img-fluid" onclick="showVideo()">`;
+      const videoHtml = `
+        <iframe class="img-fluid" src="<%= youtube_embed_url(@content.url) %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <br>
+        <button onclick="showThumbnail()" style="margin-top: 10px;" class="btn btn-secondary">Close</button>`;
+      function showVideo() {
+        document.getElementById("video-wrapper").innerHTML = videoHtml;
+      }
+      function showThumbnail() {
+        document.getElementById("video-wrapper").innerHTML = thumbnailHtml;
+      }
+    </script>
 
   <p>Language <strong><%= @content.language %></strong></p>
   <p>This content is <%= @content.duration %> min long</p>
@@ -29,8 +33,8 @@
 
   <!-- Résumé -->
   <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
-    <h2>Résumé</h2>
-    <%= raw @content.summary[7..-4] %>
+    <h1> <%= @content.name %></h1>
+    <%= raw @content.summary[7..-4] if @content.summary %>
   </div>
 
   <!-- QUIZZ Dynamique -->

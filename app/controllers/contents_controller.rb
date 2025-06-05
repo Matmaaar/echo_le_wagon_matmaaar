@@ -83,6 +83,7 @@ end
         @content.get_transcript!
         @content.enrich!
         @content.summarize!
+        @content.generate_ai_tags_later
 
         Rails.logger.info("Contenu créé avec enrichissement et résumé.")
         redirect_to @content, notice: "Contenu enrichi avec résumé !"
