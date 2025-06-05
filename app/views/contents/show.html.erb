@@ -30,7 +30,7 @@
   <!-- Sections -->
   <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
     <h1> <%= @content.name %></h1>
-    <%= raw @content.summary[7..-4] %>
+    <%= raw @content.summary[7..-4] if @content.summary %>
   </div>
 
   <div id="quizz-section" data-toggle-section-target="section" style="<%= params[:quizz] ? 'display: block;' : 'display: none;' %>">
