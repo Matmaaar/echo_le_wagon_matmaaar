@@ -20,7 +20,7 @@
   color: $light-dark;
   background-color: $dark;
   border-radius: 33px;
-  border: 2px solid $white;
+  border: 1px solid $white;
   font-size: 11px;
   font-family: "Inter", sans-serif;
   width: 183px;
@@ -54,6 +54,19 @@
   font-size: 12px;
   font-family: "Inter", sans-serif;
   width: 129px;
+  height: 27px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.active {
+  color: $white;
+  background-color: $dark;
+  border-radius: 33px;
+  border: 1px solid $white;
+  font-size: 9px;
+  font-family: "Inter", sans-serif;
+  width: 73px;
   height: 27px;
   text-align: center;
   cursor: pointer;
