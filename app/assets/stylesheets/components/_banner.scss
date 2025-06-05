@@ -1,0 +1,10 @@
+.banner {
+  background-image: asset-path('home_thumbnail.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
