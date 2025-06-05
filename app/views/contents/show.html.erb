@@ -25,60 +25,29 @@
   <p>This content is <%= @content.duration %> min long</p>
 
   <%= link_to 'EDIT', edit_content_path(@content), class: 'custom-button' %>
-  <!-- Section bouton -->
-  <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-  <%= button_to 'QUIZZ', generate_question_content_path(@content), method: :post, class: 'custom-button' %>
-  <%= button_tag 'ASK IA', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-  <%= button_tag 'NOTES',   type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
 
-  <!-- Sections -->
+  <!-- Boutons -->
+  <%= button_tag 'SUMMARY', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
+  <%= button_tag 'QUIZZ', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle quiz-loader#startQuiz", target_id: "quizz-section" } %>  <%= button_tag 'ASK IA', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+  <%= button_tag 'NOTES', type: 'button', class: 'custom-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+
+  <!-- Résumé -->
   <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
     <h1> <%= @content.name %></h1>
     <%= raw @content.summary[7..-4] if @content.summary %>
   </div>
 
-  <div id="quizz-section" data-toggle-section-target="section" style="<%= params[:quizz] ? 'display: block;' : 'display: none;' %>">
-    <h2>Quiz questions</h2>
+  <!-- QUIZZ Dynamique -->
+ <div id="quizz-section"
+     data-controller="quiz-loader"
+     data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
+     data-toggle-section-target="section"
+     style="display: block;">
+  <h2>Quiz questions</h2>
+  <div id="quiz-container"></div>
 
-    <% @questions.each_with_index do |question, index| %>
-      <div
-        data-controller="reveal-answer"
-        data-reveal-answer-index-value="<%= index %>"
-        class="question-block"
-        style="margin-bottom: 30px; display: <%= index == 0 ? 'block' : 'none' %>;">
-
-        <p><strong><%= question.statement %></strong></p>
-
-        <% answers = [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle %>
-        <% answers.each do |answer| %>
-          <button
-            type="button"
-            class="answer-button"
-            data-action="reveal-answer#select"
-            data-correct-answer="<%= question.answer_true %>">
-            <%= answer %>
-          </button>
-        <% end %>
-
-        <p data-reveal-answer-target="explanation" style="display: none; margin-top: 10px;">
-          ✅ <strong>Explication :</strong> <%= question.explanation %>
-        </p>
-
-        <button
-          data-action="reveal-answer#nextQuestion"
-          data-reveal-answer-target="nextButton"
-          style="display: none; margin-top: 10px;">
-          Next Question
-        </button>
-
-        <button
-          data-action="reveal-answer#retry"
-          data-reveal-answer-target="retryButton"
-          style="display: none; margin-top: 10px; margin-left: 10px;">
-          Retry Question
-        </button>
-      </div>
-    <% end %>
+  <div class="mt-3">
+    <button data-action="quiz-loader#generateQuestion" class="btn btn-primary">Next Question</button>
   </div>
 </div>
 </div>

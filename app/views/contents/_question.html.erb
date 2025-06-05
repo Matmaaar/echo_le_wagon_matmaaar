@@ -1,0 +1,38 @@
+<div
+  data-controller="reveal-answer"
+  data-reveal-answer-index-value="<%= index %>"
+  class="question-block"
+  style="margin-bottom: 30px;">
+
+  <p><strong><%= question.statement %></strong></p>
+
+  <% answers = [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle %>
+  <% answers.each do |answer| %>
+    <button
+      type="button"
+      class="answer-button"
+      data-action="reveal-answer#select"
+      data-correct-answer="<%= question.answer_true %>">
+      <%= answer %>
+    </button>
+  <% end %>
+
+  <p data-reveal-answer-target="explanation" style="display: none; margin-top: 10px;">
+    ✅ <strong>Explication :</strong> <%= question.explanation %>
+  </p>
+
+  <button
+    data-action="reveal-answer#nextQuestion"
+    data-controller="quiz-loader"
+    data-quiz-loader-url-value="<%= generate_next_question_content_path(question.content) %>"
+    style="margin-top: 10px;">
+    Next Question
+  </button>
+
+  <button
+    data-action="reveal-answer#retry"
+    data-reveal-answer-target="retryButton"
+    style="display: none; margin-top: 10px; margin-left: 10px;">
+    Retry Question
+  </button>
+</div>
