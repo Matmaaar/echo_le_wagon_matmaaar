@@ -1,5 +1,21 @@
   require "erb"
 
+
+class Content < ApplicationRecord
+  belongs_to :user
+  has_many :content_tags
+  has_many :tags, through: :content_tags
+  has_many :questions
+  has_many :notes
+
+  #after_commit :generate_ai_tags_later, on: [:create]
+
+  def generate_question
+    return nil unless transcription.present?
+    QuestionGeneratorService.new(transcription).call
+  end
+
+
   class Content < ApplicationRecord
     belongs_to :user
     has_many :content_tags
@@ -54,6 +70,7 @@
       end
     end
 
+
     def summarize!
       if transcription.blank?
         Rails.logger.warn("No transcription available for summarization.")
@@ -63,4 +80,9 @@
         update!(summary: summary) if summary.present?
       end
     end
+
+  def generate_ai_tags_later
+    GenerateTagsJob.perform_later(self)
+
   end
+end
