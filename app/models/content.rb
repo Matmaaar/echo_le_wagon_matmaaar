@@ -57,4 +57,12 @@ end
   def generate_ai_tags_later
     GenerateTagsJob.perform_later(self)
   end
+
+  def self.search_by_name_and_tags(query)
+    query = "%#{query.downcase}%"
+
+    left_joins(:tags)
+      .where("LOWER(contents.name) LIKE :q OR LOWER(tags.name) LIKE :q", q: query)
+      .distinct
+  end
 end
