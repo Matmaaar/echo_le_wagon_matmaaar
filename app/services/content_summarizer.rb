@@ -26,6 +26,7 @@ class ContentSummarizer
         - <h2>Partie I : Titre</h2>
         - <h3><strong> A. Sous-partie</strong> </h3>
         - <h3>Contenu pédagogique détaillé et fidèle à la transcription, avec exemples si présents dans la transcription</h3>
+        - <strong> mot-clé ou informations importantes </strong>
         - En fin de document : un glossaire des termes techniques
         - <h2>Glossaire</h2>
         - <ul><li><strong>Terme</strong> : Définition courte et claire</li></ul>
@@ -36,10 +37,12 @@ class ContentSummarizer
 
       ### 🚫 Consignes strictes :
       - Ne mentionnez jamais la vidéo, son auteur, la plateforme, les blagues, la musique ou l’intro/outro.
+      - Le résumé doit être en Anglais.
       - Ne faites pas de résumé global, mais développez chaque point abordé dans la transcription.
       - Ne faites pas de conclusion, le contenu doit être autonome.
       - Développez toutes les idées évoquées, avec des explications claires, précises et pédagogiques.
       - Aucun avis personnel, aucun commentaire, aucun métadiscours.
+      - Si il y a des colaboration commerciale, des pubs, des partenariats, ne pas en parler.
 
       Voici la transcription à analyser :
       #{@transcription}
