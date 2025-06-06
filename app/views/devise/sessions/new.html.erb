@@ -1,5 +1,5 @@
 <div class="echo-auth">
-  <h1 class="echo-title">Log in</h1>
+  <h1 class="echo-title">Log In</h1>
 
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <%= f.error_notification %>
@@ -13,16 +13,16 @@
 
       <%= f.input :password,
                   required: true,
-                  input_html: { autocomplete: "current-password", placeholder: "Mot de passe", class: "auth-input" },
+                  input_html: { autocomplete: "current-password", placeholder: "Password", class: "auth-input" },
                   label: false %>
 
       <% if devise_mapping.rememberable? %>
         <div class="remember-me">
-          <%= f.input :remember_me, as: :boolean, label: "Se souvenir de moi" %>
+          <%= f.input :remember_me, as: :boolean, label: "Remember me" %>
         </div>
       <% end %>
 
-      <%= f.button :submit, "Se connecter", class: "auth-button" %>
+      <%= f.button :submit, "Log In", class: "auth-button" %>
     </div>
   <% end %>
 
@@ -30,4 +30,5 @@
     <%= render "devise/shared/links" %>
   </div>
 </div>
+
 
