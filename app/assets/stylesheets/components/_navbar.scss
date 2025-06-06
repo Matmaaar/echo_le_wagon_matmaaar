@@ -1,6 +1,7 @@
 .navbar-lewagon {
   justify-content: space-between;
   background: $dark;
+  padding-top: 20px;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -35,7 +36,6 @@
 .navbar-lewagon .navbar-search img {
   width: 22px;
   margin-right: 5px;
-
   display: block;
 }
 
