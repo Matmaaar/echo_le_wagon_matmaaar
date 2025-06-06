@@ -47,7 +47,7 @@
     <div class="button-row">
       <!-- Section bouton -->
       <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-      <%= button_to 'QUIZZ', generate_question_content_path(@content), method: :post, class: 'small-round-button' %>
+      <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
       <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
       <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
     </div>
@@ -59,15 +59,16 @@
     </div>
     <!-- QUIZZ Dynamique -->
     <div id="quizz-section"
-         data-controller="quiz-loader"
-         data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
-         data-toggle-section-target="section"
-         style="display: block;">
-      <h2>Quiz questions</h2>
-      <div id="quiz-container"></div>
-      <div class="mt-3">
-        <button data-action="quiz-loader#generateQuestion" class="btn btn-primary">Next Question</button>
-      </div>
+      data-controller="quiz-loader"
+      data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
+      data-toggle-section-target="section"
+      style="display: none;">
+        <h2>Quiz questions</h2>
+    <div id="quiz-container"></div>
+
+    <div class="mt-3">
+      <%# <button data-action="quiz-loader#generateQuestion" class="btn btn-primary">Next Question</button> %>
+      <%= button_to 'Générer une question', generate_question_content_path(@content), method: :post, class: 'small-round-button' %>
     </div>
   </div>
 </div>
