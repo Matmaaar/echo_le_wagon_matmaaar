@@ -1,0 +1,5 @@
+<turbo-stream action="append" target="quizz-section">
+  <template>
+    <%= render partial: "question", locals: { question: @question, index: Time.now.to_i } %>
+  </template>
+</turbo-stream>

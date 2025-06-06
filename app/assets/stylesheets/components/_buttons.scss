@@ -45,12 +45,18 @@
   text-align: center;
   cursor: pointer;
   text-decoration: none;
+
   display: block;
   width: fit-content;
 
   .card {
     margin-top: 10px;
   }
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 // BOUTON SHOW NEXT QUESTION
@@ -80,4 +86,18 @@
   cursor: pointer;
   display: block;
   width: fit-content;
+}
+
+.button-row button {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  padding: 5px 10px;
+  margin: 0;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
