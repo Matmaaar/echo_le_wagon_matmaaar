@@ -1,20 +1,33 @@
-<h2>Log in</h2>
+<div class="echo-auth">
+  <h1 class="echo-title">Log in</h1>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="auth-form">
+      <%= f.input :email,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "email", placeholder: "example@gmail.com", class: "auth-input" },
+                  label: false %>
+
+      <%= f.input :password,
+                  required: true,
+                  input_html: { autocomplete: "current-password", placeholder: "Mot de passe", class: "auth-input" },
+                  label: false %>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="remember-me">
+          <%= f.input :remember_me, as: :boolean, label: "Se souvenir de moi" %>
+        </div>
+      <% end %>
+
+      <%= f.button :submit, "Se connecter", class: "auth-button" %>
+    </div>
+  <% end %>
+
+  <div class="auth-legal">
+    <%= render "devise/shared/links" %>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
