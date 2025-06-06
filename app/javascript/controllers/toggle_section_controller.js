@@ -19,4 +19,10 @@ export default class extends Controller {
     // Afficher uniquement la section cible
     targetSection.style.display = "block"
   }
+  hide(event) {
+    const targetId = event.currentTarget.dataset.targetId
+    const targetSection = this.sectionTargets.find(section => section.id === targetId)
+    if (!targetSection) return
+    targetSection.style.display = "none"
+  }
 }

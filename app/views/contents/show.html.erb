@@ -58,22 +58,23 @@
   <br>
   <!-- Sections -->
 
+
   <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
-    <h1> <%= @content.name %></h1>
+    <h1><%= @content.name %></h1>
     <%= raw @content.summary[7..-4] if @content.summary %>
   </div>
 
   <!-- QUIZZ Dynamique -->
- <div id="quizz-section"
-     data-controller="quiz-loader"
-     data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
-     data-toggle-section-target="section"
-     style="display: block;">
-  <h2>Quiz questions</h2>
-  <div id="quiz-container"></div>
-
-  <div class="mt-3">
-    <button data-action="quiz-loader#generateQuestion" class="btn btn-primary">Next Question</button>
+  <div id="quizz-section"
+       data-controller="quiz-loader"
+       data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
+       data-toggle-section-target="section"
+       style="display: block;">
+    <h2>Quiz questions</h2>
+    <div id="quiz-container"></div>
+    <div class="mt-3">
+      <button data-action="quiz-loader#generateQuestion" class="btn btn-primary">Next Question</button>
+    </div>
   </div>
-</div>
+
 </div>
