@@ -8,7 +8,7 @@ class QuestionGeneratorService
                      else
                        transcription
                      end
-    @client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
+    @client = OpenAI::Client.new
   end
 
   def call

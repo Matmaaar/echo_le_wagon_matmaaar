@@ -19,14 +19,7 @@ def generate_question
     explanation: data[:explanation]
   )
 
-  render json: {
-    question: {
-      statement: question.statement,
-      answers: [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle,
-      correct: question.answer_true,
-      explanation: question.explanation
-    }
-  }
+  render turbo_stream: turbo_stream.update("quiz-container", partial: "contents/question", locals: { question: question })
 end
 
   def index
