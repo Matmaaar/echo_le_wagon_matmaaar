@@ -17,38 +17,30 @@
     </div>
     <!-- Menu classique pour desktop -->
 
-    <!-- Offcanvas menu pour mobile : Menu burger -->
-    <div class="offcanvas offcanvas-start d-sm-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+<div class="offcanvas offcanvas-end d-sm-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel" style="background: rgba(9, 9, 9, 0.8);">
+      <div class="offcanvas-header justify-content-end">
+        <%= image_tag "close_cross.png", alt: "Close", class: "btn-close-white", role: "button", data: { bs_dismiss: "offcanvas" }, aria: { label: "Close" } %>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav">
-          <% if user_signed_in? %>
-            <li class="nav-item active">
-              <%= link_to "Home", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
+        <div class="container-custom">
+          <h3 class="mb-3">Menu</h3>
+           <% if user_signed_in? %>
+             <%= link_to "#", class: "nav-link" do %>
+  <i class="fa-brands fa-youtube"></i>
+<% end %>
+
               <%= link_to "Messages", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
               <%= link_to "Action", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
               <%= link_to "Another action", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
               <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
-            </li>
           <% else %>
-            <li class="nav-item">
               <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-            </li>
           <% end %>
-        </ul>
+        </div>
       </div>
     </div>
+
 
     <!-- Offcanvas menu pour mobile : Search -->
     <div class="offcanvas offcanvas-end d-sm-none" tabindex="-1" id="mobileSearchMenu" aria-labelledby="mobileSearchMenuLabel" style="background: rgba(9, 9, 9, 0.8);">
