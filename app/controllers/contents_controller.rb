@@ -1,33 +1,32 @@
 class ContentsController < ApplicationController
+  def generate_question
+    @content = Content.find(params[:id])
+    data = @content.generate_question
 
-def generate_question
-  @content = Content.find(params[:id])
-  data = @content.generate_question
+    if data.nil?
+      render json: { error: "Aucune question générée" }, status: :unprocessable_entity
+      return
+    end
 
-  if data.nil?
-    render json: { error: "Aucune question générée" }, status: :unprocessable_entity
-    return
-  end
+    correct = data[:correct_answer].to_sym
+    question = @content.questions.create!(
+      statement: data[:question],
+      answer_true: data[:choices][correct],
+      answer_1: data[:choices].except(correct).values[0],
+      answer_2: data[:choices].except(correct).values[1],
+      answer_3: data[:choices].except(correct).values[2],
+      explanation: data[:explanation]
+    )
 
-  correct = data[:correct_answer].to_sym
-  question = @content.questions.create!(
-    statement: data[:question],
-    answer_true: data[:choices][correct],
-    answer_1: data[:choices].except(correct).values[0],
-    answer_2: data[:choices].except(correct).values[1],
-    answer_3: data[:choices].except(correct).values[2],
-    explanation: data[:explanation]
-  )
-
-  render json: {
-    question: {
-      statement: question.statement,
-      answers: [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle,
-      correct: question.answer_true,
-      explanation: question.explanation
+    render json: {
+      question: {
+        statement: question.statement,
+        answers: [question.answer_1, question.answer_2, question.answer_3, question.answer_true].shuffle,
+        correct: question.answer_true,
+        explanation: question.explanation
+      }
     }
-  }
-end
+  end
 
   def index
     @contents = current_user.contents
@@ -43,6 +42,7 @@ end
     @content = Content.find(params[:id])
     @questions = @content.questions.shuffle
   end
+
   def edit
     @content = Content.find(params[:id])
   end
@@ -81,11 +81,9 @@ end
     end
   end
 
-
   private
 
   def content_params
     params.require(:content).permit(:url, :name)
   end
-
 end
