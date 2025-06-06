@@ -6,48 +6,72 @@
     <% end %>
 
 <div class="navbar-left d-flex align-items-center">
-    <!-- Bouton Offcanvas pour mobile -->
-    <button class="navbar-search d-block d-sm-none" type="button" >
-      <%= image_tag "search_icon.png" %>
-    </button>
-    <button class="navbar-icon d-block d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle navigation">
-      <%= image_tag "burger_menu_icon.png" %>
-    </button>
+  <!-- Bouton Offcanvas pour mobile : Search -->
+  <button class="navbar-search d-block d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSearchMenu" aria-controls="mobileSearchMenu" aria-label="Open search">
+    <%= image_tag "search_icon.png" %>
+  </button>
+  <!-- Bouton Offcanvas pour mobile : Menu burger -->
+  <button class="navbar-icon d-block d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle navigation">
+    <%= image_tag "burger_menu_icon.png" %>
+  </button>
 </div>
-    <!-- Menu classique pour desktop -->
+<!-- Menu classique pour desktop -->
+
+<!-- Offcanvas menu pour mobile : Menu burger -->
+<div class="offcanvas offcanvas-start d-sm-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+        <li class="nav-item active">
+          <%= link_to "Home", "#", class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Messages", "#", class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Action", "#", class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Another action", "#", class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link" %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- Offcanvas menu pour mobile : Search -->
+<div class="offcanvas offcanvas-end d-sm-none" tabindex="-1" id="mobileSearchMenu" aria-labelledby="mobileSearchMenuLabel" style="background: rgba(9, 9, 9, 0.8);">
+
+  <div class="offcanvas-header justify-content-end">
+    <%= image_tag "close_cross.png", alt: "Close", class: "btn-close-white", role: "button", data: { bs_dismiss: "offcanvas" }, aria: { label: "Close" } %>
+  </div>
+  <div class="offcanvas-body">
+<div class="container-custom">
+    <h3 class="mb-3">Search</h3>
+    <%= form_with url: contents_path, method: :get, local: true, data:{turbo_frame: :content} do %>
+<div class="search-container">
+      <%= text_field_tag :query, params[:query], placeholder: "Search a content", class: "search-input" %>
+  <%= image_tag("search_icon.png", alt: "Search", class: "search-icon") %>
+  </div>
+  <%=turbo_frame_tag :content %>
 
 
-    <!-- Offcanvas menu pour mobile -->
-    <div class="offcanvas offcanvas-start d-sm-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav">
-          <% if user_signed_in? %>
-            <li class="nav-item active">
-              <%= link_to "Home", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Messages", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Action", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Another action", "#", class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link" %>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+    <% end %>
+    <%=turbo_frame_tag :content %>
     </div>
+</div>
+
+</div>
   </div>
 </div>

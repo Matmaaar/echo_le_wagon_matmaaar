@@ -35,6 +35,7 @@
 <!-- CARD SECTION START -->
 
 <h3>Latest Content</h3>
+<%= turbo_frame_tag :content do%>
 <div class="content-carousel">
     <div class="content-row">
 <% @contents.each do |content| %>
@@ -50,20 +51,9 @@
 <% end %>
     </div>
 </div>
+<% end %>
 
 <!-- CARD SECTION END -->
-
-
-  <h1 class="mt-5">Progress</h1>
-  <h1 class="mt-5">Video(s)</h1>
-
-  <div class="mt-5">
-    <%= form_with url: contents_path, method: :get, local: true do %>
-      <%= label_tag :query, "Search a content or tag :" %>
-      <%= text_field_tag :query, params[:query], placeholder: "Name or tag...", class: "form-control" %>
-      <%= submit_tag "Search", class: "btn btn-primary" %>
-    <% end %>
-  </div>
 
 
   <%# CARDS %>
