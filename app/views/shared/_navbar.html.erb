@@ -27,16 +27,23 @@
           <h3 class="mb-3">Menu</h3>
            <% if user_signed_in? %>
              <%= link_to "#", class: "nav-link" do %>
-  <i class="fa-brands fa-youtube"></i>
-<% end %>
-
-              <%= link_to "Messages", "#", class: "nav-link" %>
-              <%= link_to "Action", "#", class: "nav-link" %>
-              <%= link_to "Another action", "#", class: "nav-link" %>
-              <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
-          <% else %>
+              <i class="fa-brands fa-youtube"></i>
+            <% end %>
+              <%= link_to "#", class: "nav-link" do %>
+                <i class="fa-solid fa-house"></i>
+              <% end %>
+              <%= link_to "#", class: "nav-link" do %>
+                <i class="fa-solid fa-bell"></i>
+              <% end %>
+              <%= link_to "#", class: "nav-link" do %>
+                <i class="fa-solid fa-face-smile"></i>
+              <% end %>
+              <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" do %>
+                <i class="fa-solid fa-xmark"></i>
+              <% end %>
+              <% else %>
               <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          <% end %>
+             <% end %>
         </div>
       </div>
     </div>
