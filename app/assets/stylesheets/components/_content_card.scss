@@ -41,7 +41,7 @@
 
 .content-carousel {
   position: relative;
-  margin-right: -25px;
+  margin-inline: -7%;
 
 }
 
@@ -51,6 +51,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 1rem 0;
+  padding-left: 5.8%;
 
   .content-card {
     width: 250px;
