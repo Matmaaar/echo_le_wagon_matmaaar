@@ -13,8 +13,8 @@
           your favorite content.
         </p>
 
-        <%= form_with model: @content, local: true, class: 'hero-form' do |form| %>
-          <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
+        <%= form_with url: contents_path, local: true, class: 'hero-form' do |form| %>
+          <%= form.url_field :url, name: 'content[url]', class: 'url-input', placeholder: 'Enter URL', required: true %>
           <%= form.submit 'START NOW', class: 'cta-button glow' %>
         <% end %>
       </div>
