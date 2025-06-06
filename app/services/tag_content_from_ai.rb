@@ -6,7 +6,9 @@ class TagContentFromAi
   end
 
   def call
-    tags = generate_tags(@content.transcription.map { |chunk| chunk["text"] }.join(" "))
+    tags = generate_tags(
+      @content.transcription.map { |chunk| chunk["text"] }.join(" ")
+    )
 
     tags.each do |tag_name|
       tag = Tag.find_or_create_by!(name: tag_name.downcase)

@@ -1,1 +1,26 @@
 // Specific CSS for your home-page
+.center-texte {
+  text-align: center;
+}
+
+.home-small-font {
+  font-size: 70%;
+}
+
+.home-card-container {
+  background: $dark;
+  border-radius: 8px;
+  border: 2px solid $gray;
+}
+
+.home-card-image {
+  width: 90%;
+  padding-top: 10%;
+  padding: 10%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+}

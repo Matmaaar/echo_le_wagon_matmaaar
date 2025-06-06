@@ -6,9 +6,9 @@
         data: { action: "click->toggle-section#toggle", target_id: "video-section" },
         style: "cursor: pointer;" %>
       <div id="video-section"
-        data-toggle-section-target="section"
-        class="video-overlay"
-        style="display: none;">
+           data-toggle-section-target="section"
+           class="video-overlay"
+           style="display: none;">
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
             <iframe
@@ -29,11 +29,14 @@
       </div>
     </div>
   <% end %>
+
   <!-- À voir si on garde -->
   <!-- <div class="container-custom" data-controller="toggle-section"> -->
   <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
   <!-- </div> -->
+
   <div class="container-custom" data-controller="toggle-section">
+
 
     <!-- Bouton edit -->
   <div class="edit-div">
@@ -72,6 +75,7 @@
     <div class="mt-3">
       <button data-action="quiz-loader#generateQuestion" class="green-round-button">Next Question</button>
      </div>
+
     </div>
   </div>
 </div>
