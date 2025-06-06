@@ -2,29 +2,27 @@
 // Exemple : $gray, $white, $dark, $light-dark, $green
 
 // BOUTON START
-.start-now-button {
+.big-round-button {
   color: $gray;
   background-color: $white;
   border-radius: 33px;
   border: none;
   font-size: 11px;
   font-family: "Inter", sans-serif;
-  width: 183px;
-  height: 39px;
+  padding: 5px 25px;
   text-align: center;
   cursor: pointer;
 }
 
 // BOUTON FORMULAIRE ET RECHERCHE
-.url-input-component input {
+.round-input {
   color: $light-dark;
   background-color: $dark;
   border-radius: 33px;
   border: 1px solid $white;
   font-size: 11px;
   font-family: "Inter", sans-serif;
-  width: 183px;
-  height: 39px;
+  padding: 5px 15px;
   text-align: left;
   padding-left: 12px;
   padding-top: 3px;
@@ -38,23 +36,22 @@
   border-radius: 33px;
   border: none;
   font-size: 9px;
+  padding: 5px 15px;
   font-family: "Inter", sans-serif;
-  width: 73px;
-  height: 27px;
   text-align: center;
   cursor: pointer;
+  text-decoration: none;
 }
 
 // BOUTON SHOW NEXT QUESTION
-.next-question {
+.green-round-button{
   color: $white;
   background-color: $green;
   border-radius: 33px;
   border: none;
   font-size: 12px;
   font-family: "Inter", sans-serif;
-  width: 129px;
-  height: 27px;
+  padding: 5px 15px;
   text-align: center;
   cursor: pointer;
 }
@@ -66,8 +63,19 @@
   border: 1px solid $white;
   font-size: 9px;
   font-family: "Inter", sans-serif;
-  width: 73px;
-  height: 27px;
+  padding: 5px 15px;
   text-align: center;
   cursor: pointer;
+}
+
+.button-row button {
+  width: 73px;
+  height: 26px;
+  text-align: center;
+}
+
+.button-row {
+
+  display: flex;
+  justify-content: space-between;
 }
