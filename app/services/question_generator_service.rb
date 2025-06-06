@@ -19,6 +19,7 @@ class QuestionGeneratorService
 
       ### ❌ Interdictions :
       - Ne fais aucune référence à la transcription, à une vidéo, à un auteur ou à une plateforme.
+      - Si il y a des colaboration commerciale, des pubs, des partenariats, ne pas faire de question dessus.
       - La question et ses réponses doivent être **autonomes et compréhensibles seules**.
       - N’invente aucune information absente du texte.
       - Ne répète pas des questions précédentes si appelées plusieurs fois.
