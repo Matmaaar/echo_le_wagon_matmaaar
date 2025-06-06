@@ -40,6 +40,7 @@
   font-family: "Inter", sans-serif;
   text-align: center;
   cursor: pointer;
+  text-decoration: none;
 }
 
 // BOUTON SHOW NEXT QUESTION
@@ -65,4 +66,16 @@
   padding: 5px 15px;
   text-align: center;
   cursor: pointer;
+}
+
+.button-row button {
+  width: 73px;
+  height: 26px;
+  text-align: center;
+}
+
+.button-row {
+
+  display: flex;
+  justify-content: space-between;
 }
