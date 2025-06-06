@@ -1,3 +1,65 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="hero-section">
+  <div class="container-custom">
+    <div class="hero-content">
+      <div class="text-content">
 
+        <h1 class="hero-title">
+          Learn<br>
+          Everything<br>
+          Faster
+        </h1>
+        <p class="hero-subtitle">
+          Unlock deeper learning from<br>
+          your favorite content.
+        </p>
+
+        <%= form_with model: @content, local: true, class: 'hero-form' do |form| %>
+          <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
+          <%= form.submit 'START NOW', class: 'cta-button glow' %>
+        <% end %>
+      </div>
+
+      <div class="hero-visual">
+        <div class="light-beam"></div>
+        <div class="light-glow"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-custom">
+  <div class="center-texte">
+    <h2>60,270,218</h2>
+    <p class ="home-small-font">Gigabytes of data processed</p>
+  </div>
+</div>
+<div class="box-data-container">
+  <div class="box-data">
+      <h3>Powered by</h3>
+      <%= image_tag("openai_logo.png", alt: "OpenAI Logo")%>
+  </div>
+    <div class="box-data">
+      <h3 class="number">42%</h3>
+      <p>Better retention</p>
+  </div>
+    <div class="box-data">
+      <h3>Trusted By</h3>
+      <%= image_tag("le_wagon_logo.png", alt: "Le Wagon Logo")%>
+  </div>
+</div>
+<br>
+<div class="container-custom">
+  <h2><strong>Features:</strong></h2>
+  <br>
+  <h4 class="center-texte my-2"><em>1. Enter a youtube url </em> </h4>
+  <div class="home-card-container">
+    <%= image_tag("url.png", alt: "Url", class: "home-card-image") %>
+  </div>
+  <h4 class="center-texte my-2"><em>2. Create a summary </em></h4>
+  <div class="home-card-container">
+    <%= image_tag("summary.png", alt: "Summary", class: "home-card-image") %>
+  </div>
+  <h4 class="center-texte my-2"><em>3. Answer questions</em> </h4>
+  <div class="home-card-container">
+    <%= image_tag("quizz.png", alt: "Quizz", class: "home-card-image") %>
+  </div>
+</div>
