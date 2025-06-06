@@ -9,13 +9,18 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 80px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .navbar-lewagon .navbar-icon img {
   width: 22px;
   margin-right: 32px;
+  display: block;
+}
 
+.navbar-lewagon .navbar-icon {
+  width: 22px;
+  margin-right: 20px;
   display: block;
 }
 
