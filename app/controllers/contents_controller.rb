@@ -1,24 +1,24 @@
 class ContentsController < ApplicationController
+  before_action :authenticate_user!, only: [:create]
+  def generate_question
+    @content = Content.find(params[:id])
+    data = @content.generate_question
 
-def generate_question
-  @content = Content.find(params[:id])
-  data = @content.generate_question
+    if data.nil?
+      render json: { error: "Aucune question générée" }, status: :unprocessable_entity
+      return
+    end
 
-  if data.nil?
-    render json: { error: "Aucune question générée" }, status: :unprocessable_entity
-    return
-  end
-
-  correct = data[:correct_answer].to_sym
-  question = @content.questions.create!(
-    statement: data[:question],
-    answer_true: data[:choices][correct],
-    answer_1: data[:choices].except(correct).values[0],
-    answer_2: data[:choices].except(correct).values[1],
-    answer_3: data[:choices].except(correct).values[2],
-    explanation: data[:explanation]
-  )
-
+    correct = data[:correct_answer].to_sym
+    question = @content.questions.create!(
+      statement: data[:question],
+      answer_true: data[:choices][correct],
+      answer_1: data[:choices].except(correct).values[0],
+      answer_2: data[:choices].except(correct).values[1],
+      answer_3: data[:choices].except(correct).values[2],
+      explanation: data[:explanation]
+    )
+    
   render turbo_stream: turbo_stream.update("quiz-container", partial: "contents/question", locals: { question: question })
 end
 
@@ -36,6 +36,7 @@ end
     @content = Content.find(params[:id])
     @questions = @content.questions.shuffle
   end
+
   def edit
     @content = Content.find(params[:id])
   end
@@ -43,7 +44,11 @@ end
   def update
     @content = Content.find(params[:id])
     @content.update(content_params)
+    if turbo_frame_request?
+      render partial: "contents/title"
+    else
     redirect_to content_path(@content), notice: "Le titre a bien été mis à jour."
+    end
   end
 
   def new
@@ -74,11 +79,9 @@ end
     end
   end
 
-
   private
 
   def content_params
     params.require(:content).permit(:url, :name)
   end
-
 end

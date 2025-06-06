@@ -1,5 +1,9 @@
-<h1>Modifier le contenu</h1>
-<%= simple_form_for @content do |f| %>
-  <%= f.input :name, label: "Titre" %>
-  <%= f.submit "Mettre à jour" %>
-<% end %>
+<div>
+  <h1>Modifier le contenu</h1>
+  <%= turbo_frame_tag :edit do %>
+  <%= simple_form_for @content do |f| %>
+    <%= f.input :name, label: "Titre" %>
+    <%= f.submit "Mettre à jour", class: "green-round-button" %>
+    <% end %>
+  <% end %>
+</div>
