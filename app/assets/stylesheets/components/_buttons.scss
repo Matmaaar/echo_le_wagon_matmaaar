@@ -102,6 +102,13 @@
   align-items: center;
 }
 
+
+.video-title {
+  margin-top: 15px;
+  font-size: 20px;
+  font-family: "Inter", sans-serif, bold;
+  font-weight: medium;
+
 .search-container {
   position: relative;
   width: 100%;
@@ -148,4 +155,5 @@
   -webkit-box-shadow: 0 0 0 1000px $dark inset !important; // Remplace $dark par ta couleur de fond souhaitée
   -webkit-text-fill-color: white !important; // Remplace $green par ta couleur de texte souhaitée
   transition: background-color 9999s ease-in-out 0s;
+
 }
