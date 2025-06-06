@@ -32,47 +32,30 @@
 <!-- HERO SECTION END -->
 
 <div class="container-custom">
-<!-- CARD SECTION START -->
+  <!-- CARD SECTION START -->
 
-<h3>Latest Content</h3>
-<div class="content-carousel">
-    <div class="content-row">
-<% @contents.each do |content| %>
-  <%= link_to content_path(content), class: "content-card glow-light", style: "text-decoration: none; color: inherit;" do %>
-    <% if content.thumbnail.present? %>
-      <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
-    <% end %>
-    <div class="content-card-infos">
-      <h2><%= content.name&.downcase&.capitalize || "Nom non disponible" %></h2>
-      <span class="small-round-button">START LEARNING</span>
+  <h3>Latest Content</h3>
+  <%= turbo_frame_tag :content do %>
+    <div class="content-carousel">
+      <div class="content-row">
+        <% @contents.each do |content| %>
+          <%= link_to content_path(content), class: "content-card glow-light", style: "text-decoration: none; color: inherit;" do %>
+            <% if content.thumbnail.present? %>
+              <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
+            <% end %>
+            <div class="content-card-infos">
+              <h2><%= content.name&.downcase&.capitalize || "Nom non disponible" %></h2>
+              <span class="small-round-button">START LEARNING</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   <% end %>
-<% end %>
-    </div>
-</div>
 
-<!-- CARD SECTION END -->
-
-
-  <h1 class="mt-5">Progress</h1>
-  <h1 class="mt-5">Video(s)</h1>
-
-  <div class="mt-5">
-    <%= form_with url: contents_path, method: :get, local: true do %>
-      <%= label_tag :query, "Search a content or tag :" %>
-      <%= text_field_tag :query, params[:query], placeholder: "Name or tag...", class: "form-control" %>
-      <%= submit_tag "Search", class: "btn btn-primary" %>
-    <% end %>
-  </div>
-
+  <!-- CARD SECTION END -->
 
   <%# CARDS %>
-
-
-
-
-
-
 </div>
 
 <br>
