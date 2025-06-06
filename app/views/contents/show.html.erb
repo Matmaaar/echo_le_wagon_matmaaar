@@ -63,13 +63,13 @@
       <%= raw @content.summary[7..-4] if @content.summary %>
     </div>
 
-  <!-- QUIZZ Dynamique -->
-  <div id="quizz-section"
-       data-controller="quiz-loader"
-       data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
+<!-- QUIZZ Dynamique -->
+    <div id="quizz-section"
+      data-controller="quiz-loader"
+      data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
       data-toggle-section-target="section"
-       style="display: block;">
-    <h2>Quiz questions</h2>
+      style="display: block;">
+        <h2>Quiz questions</h2>
     <div id="quiz-container"></div>
 
     <div class="mt-3">
