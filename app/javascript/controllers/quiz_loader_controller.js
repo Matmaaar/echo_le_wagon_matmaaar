@@ -13,21 +13,21 @@ export default class extends Controller {
   generateQuestion() {
     this.container.innerHTML = "<p>⏳ Chargement de la question...</p>"
 
-    fetch(this.urlValue, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        this.displayQuestion(data.question)
-      })
-      .catch(err => {
-        this.container.innerHTML = `<p>❌ Erreur : ${err.message}</p>`
-        console.error(err)
-      })
+    //fetch(this.urlValue, {
+    //  method: "POST",
+    //  headers: {
+    //    "Accept": "application/json",
+    //    "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
+    //  }
+    //})
+    //  .then(res => res.json())
+    //  .then(data => {
+    //    this.displayQuestion(data.question)
+    //  })
+    //  .catch(err => {
+    //    this.container.innerHTML = `<p>❌ Erreur : ${err.message}</p>`
+    //    console.error(err)
+    //  })
   }
 
   displayQuestion(data) {
