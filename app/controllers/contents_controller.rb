@@ -1,4 +1,5 @@
 class ContentsController < ApplicationController
+  before_action :authenticate_user!, only: [:create]
   def generate_question
     @content = Content.find(params[:id])
     data = @content.generate_question
