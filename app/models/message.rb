@@ -8,6 +8,10 @@ class Message < ApplicationRecord
   private
 
   def fetch_ai_answer
+    broadcast_append_to "messages_for_content_#{content.id}",
+                       target: "messages",
+                       partial: "messages/message",
+                       locals: { message: self }
     ChatbotJob.perform_later(self)
   end
 
