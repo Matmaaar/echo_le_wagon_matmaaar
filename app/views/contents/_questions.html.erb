@@ -1,0 +1,14 @@
+
+<% questions.each_with_index do |question, i| %>
+  <div class="question-block mb-4">
+    <p><strong>Q<%= i + 1 %>. <%= question.statement %></strong></p>
+    <% [question.answer_true, question.answer_1, question.answer_2, question.answer_3].shuffle.each do |answer| %>
+      <button class="btn btn-outline-primary mb-2 answer-button" data-correct="<%= question.answer_true %>">
+        <%= answer %>
+      </button>
+    <% end %>
+    <p class="explanation" style="display: none;">
+      ✅ <strong>Explication :</strong> <%= question.explanation %>
+    </p>
+  </div>
+<% end %>

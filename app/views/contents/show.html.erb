@@ -1,20 +1,64 @@
-<div id="video-wrapper">
+<div data-controller="toggle-section" class="b">
+
+
   <% if @content.thumbnail.present? %>
-    <%= image_tag @content.thumbnail, id: "video-thumbnail", class: "img-fluid w-100", onclick: "showVideo()" %>
-  <% end %>
-</div>
+    <div class="video-thumbnail-container">
+      <%= image_tag @content.thumbnail,
+        class: "img-fluid w-100 thumbnail",
+        data: { action: "click->toggle-section#toggle", target_id: "video-section" },
+        style: "cursor: pointer;" %>
 
-<div class="container-custom" data-controller="toggle-section">
-
-    <!-- À voir si on garde -->
-    <!-- <div class="container-custom" data-controller="toggle-section"> -->
-    <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
-    <!-- </div> -->
-
-  <div>
-      <h1><%= @content.name %></h1>
-      <%= link_to 'EDIT', edit_content_path(@content), class: 'button-custom' %>
+      <!-- Superposition de la vidéo -->
+      <div id="video-section"
+        data-toggle-section-target="section"
+        class="video-overlay hidden">
+        <% if (src = youtube_embed_url(@content.url)) %>
+          <div class="video-container">
+            <iframe
+              src="<%= src %>"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+        <% else %>
+          <p>Impossible d'extraire l'ID YouTube depuis l'URL !</p>
+        <% end %>
+      </div>
     </div>
+  <% end %>
+
+  <!-- Espacement -->
+  <div class="spacing-elements"></div>
+
+  <!-- création du container -->
+
+    <div class="container-custom">
+
+  <!-- Espacement -->
+      <h1 class="title-show">
+        <%= @content.name.truncate(50, omission: "...") %>
+      </h1>
+
+  <!-- Container custom -->
+      <div class="spacing-elements"></div>
+        <div class="carousel-container">
+          <div class="button-row button-carousel-slider">
+            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
+            <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
+            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
+          </div>
+        </div>
+
+
+  <!-- Sections Summary-->
+   <%= turbo_stream_from "content_#{@content.id}_details" %>
+  <div id="summary-section" data-toggle-section-target="section" style="display: none;">
+    <div class="spacing-elements"></div>
+      <h1><%= @content.name %></h1>
+      <%= render partial: "contents/summary_text", locals: { content: @content } %>
+    </div>
+
     <div class="button-row">
       <% @content.tags.each do |tag| %>
         <%= button_to "#{tag.name}",
@@ -25,64 +69,51 @@
   </div>
   <br>
 
-  <script>
-   const thumbnailHtml = `
-     <img src="<%= @content.thumbnail %>" id="video-thumbnail" class="img-fluid w-100" onclick="showVideo()">
-   `;
 
-   const videoHtml = `
-     <div class="ratio ratio-16x9">
-       <iframe
-         src="<%= youtube_embed_url(@content.url) %>"
-         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-         allowfullscreen
-         frameborder="0">
-       </iframe>
-     </div>
-     <br>
-     <button onclick="showThumbnail()" style="margin-top: 10px;" class="btn btn-secondary">Close</button>
-    `;
 
-    function showVideo() {
-      document.getElementById("video-wrapper").innerHTML = videoHtml;
-    }
+  <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
+      <div class="spacing-elements"></div>
+      <%= turbo_frame_tag :quizz_container do %>
+            <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
+        data: { action: "click->quiz-loader#generateQuestions" } do%>
+        <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
+        <% end %>
 
-    function showThumbnail() {
-      document.getElementById("video-wrapper").innerHTML = thumbnailHtml;
-    }
-  </script>
-    <!-- À voir si on garde -->
-    <!-- <p>Language <strong><%= @content.language %></strong></p> -->
-    <!-- <p>This content is <%= @content.duration %> min long</p> -->
-
-    <div class="button-row">
-    <!-- Section bouton -->
-      <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-      <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
-      <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-      <%= button_tag 'NOTES',   type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+      <br>
+   
+      <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
+    <% end %>
     </div>
 
-    <br>
-  <!-- Sections -->
-
-    <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
-      <h1> <%= @content.name %></h1>
-      <%= raw @content.summary[7..-4] if @content.summary %>
+    <div id="askia-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <p>Fonctionnalité IA à venir...</p>
     </div>
 
-<!-- QUIZZ Dynamique -->
-    <div id="quizz-section"
-      data-controller="quiz-loader"
-      data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
-      data-toggle-section-target="section"
-      style="display: none;">
-        <h2>Quiz questions</h2>
-    <div id="quiz-container"></div>
-
-    <div class="mt-3">
-      <%# <button data-action="quiz-loader#generateQuestion" class="btn btn-primary">Next Question</button> %>
-      <%= button_to 'Générer une question', generate_question_content_path(@content), method: :post, class: 'small-round-button' %>
+    <div id="notes-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <p>Notes utilisateur ici</p>
     </div>
   </div>
 </div>
+
+<!-- À voir si on garde => détails sur la vidéo -->
+    <!-- <div class="container-custom" data-controller="toggle-section"> -->
+    <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
+    <!-- </div> -->
+
+<!-- À voir si on garde => détails sur la vidéo -->
+    <!-- <p>Language <strong><%= @content.language %></strong></p> -->
+    <!-- <p>This content is <%= @content.duration %> min long</p> -->
+
+<!-- À voir si on garde => bouton retour sur l'overlay de la vidéo-->
+     <!-- <div id="return-button-wrapper" class="hidden">-->
+        <!--<button-->
+          <!--type="button"-->
+          <!--class="small-round-button mt-3"-->
+          <!--data-action="click->toggle-section#hide"-->
+          <!--data-target-id="video-section"-->
+          <!--data-target-wrapper-id="return-button-wrapper">-->
+          <!--← Retour-->
+        <!--</button>-->
+      <!--</div>-->

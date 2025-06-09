@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_09_095938) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_09_123717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,6 +77,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_09_095938) do
     t.index ["user_id"], name: "index_contents_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "user_question"
+    t.text "ai_answer"
+    t.bigint "content_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_messages_on_content_id"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.text "description"
     t.bigint "user_id", null: false
@@ -98,6 +107,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_09_095938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["content_id"], name: "index_questions_on_content_id"
+  end
+
+  create_table "solid_cable_messages", force: :cascade do |t|
+    t.text "channel"
+    t.text "payload"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
+    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -248,6 +266,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_09_095938) do
   add_foreign_key "content_tags", "contents"
   add_foreign_key "content_tags", "tags"
   add_foreign_key "contents", "users"
+  add_foreign_key "messages", "contents"
   add_foreign_key "notes", "contents"
   add_foreign_key "notes", "users"
   add_foreign_key "questions", "contents"

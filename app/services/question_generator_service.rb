@@ -12,49 +12,54 @@ class QuestionGeneratorService
   end
 
   def call
-    prompt = <<~PROMPT
-      Tu es un assistant pédagogique spécialisé dans la création de quiz pour des étudiants de niveau universitaire.
+    prompt = prompt = <<~PROMPT
+  Tu es un assistant pédagogique spécialisé dans la création de quiz pour des étudiants de niveau universitaire.
 
-      À partir du texte ci-dessous, génère **une seule** question à choix multiples (QCM) pertinente pour tester la compréhension du contenu.
+  À partir du texte ci-dessous, génère **10 questions à choix multiples (QCM)** pertinentes pour tester la compréhension du contenu.
 
-      ### ❌ Interdictions :
-      - Ne fais aucune référence à la transcription, à une vidéo, à un auteur ou à une plateforme.
-      - Si il y a des colaboration commerciale, des pubs, des partenariats, ne pas faire de question dessus.
-      - La question et ses réponses doivent être **autonomes et compréhensibles seules**.
-      - N’invente aucune information absente du texte.
-      - Ne répète pas des questions précédentes si appelées plusieurs fois.
+  ### ❌ Interdictions :
+  - Ne fais **aucune** référence à une transcription, vidéo, auteur ou plateforme.
+  - Ignore les publicités, partenariats, ou collaborations commerciales.
+  - **N’invente aucune information** absente du texte.
+  - Ne répète pas les mêmes questions, même reformulées.
 
-      ### 🎯 Objectif :
-      - Couvrir **un concept distinct** abordé dans le texte.
-      - La question doit être claire, précise et pertinente.
-      - Varie le style : définition, cause/effet, application, déduction, vrai/faux, comparaison, etc.
+  ### 🎯 Objectifs :
+  - Chaque question doit aborder **un concept distinct** du texte.
+  - Varier les styles de questions : définition, cause/effet, application, déduction, vrai/faux, comparaison, etc.
 
-      ### 🧠 Pour la question :
-      - Propose une question claire.
-      - Donne 4 choix de réponse :
-        - A : Bonne réponse
-        - B, C, D : Réponses incorrectes mais crédibles
-      - Indique la lettre de la bonne réponse.
-      - Donne une explication brève et pédagogique, **sans jamais mentionner le texte d’origine**.
+  ### 🧠 Pour chaque question :
+  - Donne une **formulation claire**
+  - 4 choix de réponse :
+    - A : Bonne réponse
+    - B, C, D : Réponses incorrectes mais crédibles
+  - Indique **la lettre exacte** de la bonne réponse (A, B, C ou D)
+  - Fournis **une explication brève, pédagogique et autonome**
 
-      ### 📦 Format strict :
-      Retourne un **objet JSON** au format suivant :
-      {
-        "question": "Texte de la question",
-        "choices": {
-          "A": "Réponse A",
-          "B": "Réponse B",
-          "C": "Réponse C",
-          "D": "Réponse D"
-        },
-        "correct_answer": "Lettre de la bonne réponse",
-        "explanation": "Brève justification sans mention du texte ou de la vidéo"
-      }
+  ### 📦 Format strict :
+  Réponds uniquement avec un **array JSON contenant exactement 10 objets**, tous suivant ce format strict :
 
-      Voici le texte à analyser :
+  [
+    {
+      "question": "Texte de la question",
+      "choices": {
+        "A": "Réponse A",
+        "B": "Réponse B",
+        "C": "Réponse C",
+        "D": "Réponse D"
+      },
+      "correct_answer": "Lettre de la bonne réponse (A, B, C ou D)",
+      "explanation": "Brève justification sans mention du texte"
+    },
+    ...
+    (9 autres questions avec le même format)
+  ]
 
-      #{@transcription}
-    PROMPT
+  Voici le texte à analyser :
+
+  Le GR20 est l’un des sentiers de grande randonnée les plus difficiles d’Europe. Il traverse la Corse du nord au sud, sur plus de 180 kilomètres. Les randonneurs y découvrent des paysages montagneux spectaculaires, mais doivent aussi affronter des conditions météorologiques imprévisibles, des dénivelés extrêmes et un terrain souvent escarpé. Il est conseillé d’avoir une bonne condition physique et une préparation sérieuse avant de s’y aventurer.
+
+PROMPT
+
 
     puts "Prompt to OpenAI:"
     p prompt
@@ -74,7 +79,7 @@ class QuestionGeneratorService
       json_text = content.dup
       json_text.gsub!(/\A```json\s*/, '')
       json_text.gsub!(/```+\s*\z/, '')
-      json_text = json_text[/\{.*\}/m]
+      json_text.strip!
 
       raise "Aucun JSON détecté" unless json_text
 
