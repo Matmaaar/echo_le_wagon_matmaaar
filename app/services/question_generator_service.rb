@@ -15,7 +15,7 @@ class QuestionGeneratorService
     prompt = <<~PROMPT
       Tu es un assistant pédagogique spécialisé dans la création de quiz pour des étudiants de niveau universitaire.
 
-      À partir du texte ci-dessous, génère **une seule** question à choix multiples (QCM) pertinente pour tester la compréhension du contenu.
+      À partir du texte ci-dessous, génère **10** questions à choix multiples (QCM) pertinente pour tester la compréhension du contenu.
 
       ### ❌ Interdictions :
       - Ne fais aucune référence à la transcription, à une vidéo, à un auteur ou à une plateforme.
@@ -38,7 +38,7 @@ class QuestionGeneratorService
       - Donne une explication brève et pédagogique, **sans jamais mentionner le texte d’origine**.
 
       ### 📦 Format strict :
-      Retourne un **objet JSON** au format suivant :
+      Retourne un **array JSON** contenant **10 objets** au format suivant :
       {
         "question": "Texte de la question",
         "choices": {
