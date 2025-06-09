@@ -65,6 +65,7 @@ class Content < ApplicationRecord
       Rails.logger.info("Generated summary: #{summary}")
       update!(summary: summary) if summary.present?
     end
+  end
 
     def self.search_by_name_and_tags(query)
       query = "%#{query.downcase}%"
@@ -73,5 +74,5 @@ class Content < ApplicationRecord
         .where("LOWER(contents.name) LIKE :q OR LOWER(tags.name) LIKE :q", q: query)
         .distinct
     end
-  end
+
 end
