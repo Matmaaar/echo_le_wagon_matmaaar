@@ -49,21 +49,21 @@
             <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
           </div>
         </div>
-      <br>
-  <br>
   <!-- Sections -->
 
   <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
     <h1><%= @content.name %></h1>
     <%= raw @content.summary[7..-4] if @content.summary %>
   </div>
-
+  <!-- Espacement -->
+    <div class="spacing-elements"></div>
   <!-- QUIZZ Dynamique -->
     <div id="quiz-container"></div>
-    <div class="mt-3">
-      <%= button_tag 'Générer 10 questions', type: 'button', class: 'small-round-button',
+    <div>
+      <%= button_tag 'GENERATE 10 QUESTIONS', type: 'button', class: 'green-round-button',
         data: { action: "quiz-loader#generateQuestions" } %>
     </div>
+    <div class="spacing-elements"></div>
     <%= render 'contents/questions', questions: @content.questions %>
   </div>
 </div>
