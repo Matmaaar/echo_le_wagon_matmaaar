@@ -38,6 +38,15 @@
         <%= @content.name.truncate(50, omission: "...") %>
       </h1>
 
+      <div class="button-row">
+      <% @content.tags.each do |tag| %>
+        <%= button_to "#{tag.name}",
+            content_tags_toggle_favorite_path(content_id: @content.id, tag_name: tag.name),
+            method: :post,
+            class: "small-round-button" %>
+      <% end %>
+    </div>
+
   <!-- Container custom -->
       <div class="spacing-elements"></div>
         <div class="carousel-container">
@@ -59,14 +68,7 @@
       <%= render partial: "contents/summary_text", locals: { content: @content } %>
     </div>
 
-    <div class="button-row">
-      <% @content.tags.each do |tag| %>
-        <%= button_to "#{tag.name}",
-            content_tags_toggle_favorite_path(content_id: @content.id, tag_name: tag.name),
-            method: :post,
-            class: "small-round-button" %>
-      <% end %>
-  </div>
+
   <br>
 
 
@@ -80,7 +82,7 @@
         <% end %>
 
       <br>
-   
+
       <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
     <% end %>
     </div>

@@ -23,14 +23,13 @@ class ContentsController < ApplicationController
     )
 
 
-  
+
   end.compact
 
 
     render :show
 
 end
-
 
   def index
     @content = Content.new
