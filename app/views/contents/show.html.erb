@@ -7,10 +7,11 @@
         class: "img-fluid w-100 thumbnail",
         data: { action: "click->toggle-section#toggle", target_id: "video-section" },
         style: "cursor: pointer;" %>
+
+      <!-- Superposition de la vidéo -->
       <div id="video-section"
         data-toggle-section-target="section"
-        class="video-overlay"
-        style="display: none;">
+        class="video-overlay hidden">
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
             <iframe
@@ -18,59 +19,82 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen></iframe>
           </div>
-          <button
-            type="button"
-            class="btn small-round-button"
-            data-action="click->toggle-section#hide"
-            data-target-id="video-section">
-            ← Retour
-          </button>
         <% else %>
           <p>Impossible d'extraire l'ID YouTube depuis l'URL !</p>
         <% end %>
       </div>
     </div>
   <% end %>
-  <!-- À voir si on garde -->
-  <!-- <div class="container-custom" data-controller="toggle-section"> -->
-  <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
-  <!-- </div> -->
-  <div class="container-custom" data-controller="toggle-section">
-  <div>
-    <%= link_to 'EDIT', edit_content_path(@content), class: 'button-custom' %>
-  </div>
-  <h1><%= @content.name %></h1>
-  <br>
-  <%= turbo_frame_tag :test %>
-  <!-- À voir si on garde -->
-  <!-- <p>Language <strong><%= @content.language %></strong></p> -->
-  <!-- <p>This content is <%= @content.duration %> min long</p> -->
-  <div class="button-row">
-    <!-- Section bouton -->
-    <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-    <%= button_to 'QUIZZ', generate_question_content_path(@content), method: :post, class: 'small-round-button' %>
-    <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-    <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-  </div>
-  <br>
-  <!-- Sections -->
+
+  <!-- Espacement -->
+  <div class="spacing-elements"></div>
+
+  <!-- création du container -->
+
+    <div class="container-custom">
+
+  <!-- Espacement -->
+      <h1 class="title-show">
+        <%= @content.name.truncate(50, omission: "...") %>
+      </h1>
+
+  <!-- Container custom -->
+      <div class="spacing-elements"></div>
+        <div class="carousel-container">
+          <div class="button-row button-carousel-slider">
+            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
+            <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
+            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
+          </div>
+        </div>
+
+
+  <!-- Sections Summary-->
    <%= turbo_stream_from "content_#{@content.id}_details" %>
   <div id="summary-section" data-toggle-section-target="section" style="display: none;">
-    <h1><%= @content.name %></h1>
-    <%= render partial: "contents/summary_text", locals: { content: @content } %>
+    <div class="spacing-elements"></div>
+      <h1><%= @content.name %></h1>
+      <%= render partial: "contents/summary_text", locals: { content: @content } %>
+    </div>
 
-  </div>
-  <!-- QUIZZ Dynamique -->
-  <div id="quizz-section"
-    data-controller="quiz-loader"
-    data-quiz-loader-url-value="<%= generate_question_content_path(@content) %>"
-    data-toggle-section-target="section"
-    style="display: block;">
-    <h2>Quiz questions</h2>
-    <div id="quiz-container"></div>
-    <div class="mt-3">
-      <button data-action="quiz-loader#generateQuestion" class="btn btn-primary">Next Question</button>
-     </div>
+  <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <%= button_tag 'GENERATE 10 QUESTIONS', type: 'button', class: 'green-round-button',
+        data: { action: "quiz-loader#generateQuestions" } %>
+      <%= render 'contents/questions', questions: @content.questions %>
+    </div>
+
+    <div id="askia-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <p>Fonctionnalité IA à venir...</p>
+    </div>
+
+    <div id="notes-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <p>Notes utilisateur ici</p>
     </div>
   </div>
 </div>
+
+<!-- À voir si on garde => détails sur la vidéo -->
+    <!-- <div class="container-custom" data-controller="toggle-section"> -->
+    <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
+    <!-- </div> -->
+
+<!-- À voir si on garde => détails sur la vidéo -->
+    <!-- <p>Language <strong><%= @content.language %></strong></p> -->
+    <!-- <p>This content is <%= @content.duration %> min long</p> -->
+
+<!-- À voir si on garde => bouton retour sur l'overlay de la vidéo-->
+     <!-- <div id="return-button-wrapper" class="hidden">-->
+        <!--<button-->
+          <!--type="button"-->
+          <!--class="small-round-button mt-3"-->
+          <!--data-action="click->toggle-section#hide"-->
+          <!--data-target-id="video-section"-->
+          <!--data-target-wrapper-id="return-button-wrapper">-->
+          <!--← Retour-->
+        <!--</button>-->
+      <!--</div>-->

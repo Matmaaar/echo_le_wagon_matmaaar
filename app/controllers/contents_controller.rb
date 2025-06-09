@@ -1,16 +1,19 @@
 class ContentsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
-  def generate_question
-    @content = Content.find(params[:id])
-    data = @content.generate_question
+  def generate_questions
+   @content = Content.find(params[:id])
+  questions_data = @content.generate_questions
 
-    if data.nil?
-      render json: { error: "Aucune question générée" }, status: :unprocessable_entity
-      return
-    end
+  if questions_data.blank? || !questions_data.is_a?(Array)
+    render json: { error: "Aucune question générée." }, status: :unprocessable_entity
+    return
+  end
 
-    correct = data[:correct_answer].to_sym
-    question = @content.questions.create!(
+  saved_questions = questions_data.map do |data|
+    correct = data[:correct_answer]&.to_sym
+    next unless correct && data[:choices]&.key?(correct)
+
+    @content.questions.create(
       statement: data[:question],
       answer_true: data[:choices][correct],
       answer_1: data[:choices].except(correct).values[0],
@@ -18,9 +21,19 @@ class ContentsController < ApplicationController
       answer_3: data[:choices].except(correct).values[2],
       explanation: data[:explanation]
     )
-    
-  render turbo_stream: turbo_stream.update("quiz-container", partial: "contents/question", locals: { question: question })
+  end.compact
+
+  if saved_questions.empty?
+    render json: { error: "Les questions générées n'étaient pas valides." }, status: :unprocessable_entity
+  else
+    render turbo_stream: turbo_stream.replace(
+      "quiz-container",
+      partial: "contents/questions", # tu crées `_questions.html.erb` avec une boucle
+      locals: { questions: saved_questions }
+    )
+  end
 end
+
 
   def index
     @contents = current_user.contents
