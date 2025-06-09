@@ -1,4 +1,6 @@
 <div data-controller="toggle-section" class="b">
+
+
   <% if @content.thumbnail.present? %>
     <div class="video-thumbnail-container">
       <%= image_tag @content.thumbnail,
@@ -24,7 +26,6 @@
     </div>
   <% end %>
 
-
   <!-- Espacement -->
   <div class="spacing-elements"></div>
 
@@ -48,13 +49,15 @@
             <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
           </div>
         </div>
-  <!-- Sections -->
 
-  <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
+
+  <!-- Sections Summary-->
+   <%= turbo_stream_from "content_#{@content.id}_details" %>
+  <div id="summary-section" data-toggle-section-target="section" style="display: none;">
     <div class="spacing-elements"></div>
-    <h1><%= @content.name %></h1>
-    <%= raw @content.summary[7..-4] if @content.summary %>
-  </div>
+      <h1><%= @content.name %></h1>
+      <%= render partial: "contents/summary_text", locals: { content: @content } %>
+    </div>
 
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
       <div class="spacing-elements"></div>
