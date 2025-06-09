@@ -7,6 +7,8 @@ class Content < ApplicationRecord
   has_many :questions
   has_many :notes
 
+
+
   # after_commit :generate_stuff_content, on: [:create]
 
   def generate_question
@@ -65,6 +67,14 @@ class Content < ApplicationRecord
       Rails.logger.info("Generated summary: #{summary}")
       update!(summary: summary) if summary.present?
     end
+    Rails.logger.info("Content summary updated for content ID: #{id} and start broadcasting.")
+    broadcast_replace_to(
+      "content_#{id}_details",
+      target:  "summary",
+      partial: "contents/summary_text",
+      locals:  { content: self }
+    )
+    Rails.logger.info("Content summary broadcasted for content ID: #{id}. for channel: content_#{id}_details")
   end
 
   def self.search_by_name_and_tags(query)

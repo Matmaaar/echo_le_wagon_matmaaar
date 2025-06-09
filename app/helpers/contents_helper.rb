@@ -3,6 +3,7 @@ require 'cgi'
 
 module ContentsHelper
   def format_duration(seconds)
+    return "00:00:00" if seconds.nil? || seconds < 0
     hours = seconds / 3600
     minutes = (seconds % 3600) / 60
     seconds = seconds % 60

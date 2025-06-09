@@ -1,4 +1,6 @@
 <div data-controller="toggle-section" class="b">
+
+
   <% if @content.thumbnail.present? %>
     <div class="video-thumbnail-container">
       <%= image_tag @content.thumbnail,
@@ -39,6 +41,7 @@
   </div>
   <h1><%= @content.name %></h1>
   <br>
+  <%= turbo_frame_tag :test %>
   <!-- À voir si on garde -->
   <!-- <p>Language <strong><%= @content.language %></strong></p> -->
   <!-- <p>This content is <%= @content.duration %> min long</p> -->
@@ -51,9 +54,11 @@
   </div>
   <br>
   <!-- Sections -->
-  <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
+   <%= turbo_stream_from "content_#{@content.id}_details" %>
+  <div id="summary-section" data-toggle-section-target="section" style="display: none;">
     <h1><%= @content.name %></h1>
-    <%= raw @content.summary[7..-4] if @content.summary %>
+    <%= render partial: "contents/summary_text", locals: { content: @content } %>
+
   </div>
   <!-- QUIZZ Dynamique -->
   <div id="quizz-section"
