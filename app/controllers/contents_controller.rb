@@ -23,22 +23,13 @@ class ContentsController < ApplicationController
 end
 
   def index
-    @contents = current_user.contents.by_recent
     @content = Content.new
-    @favorite_tags = Tag.joins(:content_tags)
-                        .where(content_tags: { favorite: true })
-                        .distinct
-
-    @personal_playlists = @favorite_tags.each_with_object({}) do |tag, hash|
-      contents = Content.joins(:content_tags)
-                        .where(content_tags: { favorite: true, tag_id: tag.id })
-      hash[tag] = contents if contents.any?
-    end
-    if params[:query].present?
-      @contents = Content.search_by_name_and_tags(params[:query])
-    else
-      @contents
-    end
+    @contents = if params[:query].present?
+                  Content.search_by_name_and_tags(params[:query])
+                else
+                  current_user.contents.by_recent
+                end
+    build_personal_playlists
   end
 
   def show
@@ -92,5 +83,17 @@ end
 
   def content_params
     params.require(:content).permit(:url, :name)
+  end
+
+  def build_personal_playlists
+    @favorite_tags = Tag.joins(:content_tags)
+                        .where(content_tags: { favorite: true })
+                        .distinct
+
+    @personal_playlists = @favorite_tags.each_with_object({}) do |tag, hash|
+      contents = Content.joins(:content_tags)
+                        .where(content_tags: { favorite: true, tag_id: tag.id })
+      hash[tag] = contents if contents.any?
+    end
   end
 end
