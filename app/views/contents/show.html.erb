@@ -34,8 +34,7 @@
 
   <!-- Espacement -->
       <h1 class="title-show">
-        <%= @content.name.split[0...6].join(" ") %>
-        <% if @content.name.split.size > 6 %>...<% end %>
+        <%= @content.name.truncate(50, omission: "...") %>
       </h1>
 
   <!-- Container custom -->
