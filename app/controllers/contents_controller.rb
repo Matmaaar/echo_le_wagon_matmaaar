@@ -9,7 +9,7 @@ class ContentsController < ApplicationController
     return
   end
 
-  saved_questions = questions_data.map do |data|
+  @saved_questions = questions_data.map do |data|
     correct = data[:correct_answer]&.to_sym
     next unless correct && data[:choices]&.key?(correct)
 
@@ -23,15 +23,8 @@ class ContentsController < ApplicationController
     )
   end.compact
 
-  if saved_questions.empty?
-    render json: { error: "Les questions générées n'étaient pas valides." }, status: :unprocessable_entity
-  else
-    render turbo_stream: turbo_stream.replace(
-      "quizz_container",
-      partial: "contents/questions", # tu crées `_questions.html.erb` avec une boucle
-      locals: { questions: saved_questions } # tu passes les questions sauvegardées
-    )
-  end
+
+    render :show
 end
 
 

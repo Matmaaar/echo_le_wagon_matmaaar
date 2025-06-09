@@ -7,11 +7,10 @@ export default class extends Controller {
 
   connect() {
     console.log("✅ quiz-loader connected")
-    console.log("🔗 URL:", this.urlValue)
-    this.container = this.element.querySelector("#quiz-container")
   }
 
   generateQuestions() {
-    this.element.innerHTML = "<p id='quizz_container'>⏳ Génération de 10 questions en cours...</p>"
+    questions = this.element.getElementById("quizz_container")
+    this.element.innerHTML = "<turbo-frame id='quizz_container'>⏳ Génération de 10 questions en cours...</turbo-frame>"
   }
 }

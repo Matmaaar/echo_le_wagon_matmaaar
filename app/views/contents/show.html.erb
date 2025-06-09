@@ -61,14 +61,16 @@
 
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
-
+      <%= turbo_frame_tag :quizz_container do %>
             <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
-        data: { action: "click->quiz-loader#generateQuestions",turbo_frame: "quizz_container" } do%>
+        data: { action: "click->quiz-loader#generateQuestions" } do%>
         <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
         <% end %>
+
       <br>
    
       <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
+    <% end %>
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">

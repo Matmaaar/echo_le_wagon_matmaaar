@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :quizz_container do %>
+
 <% questions.each_with_index do |question, i| %>
   <div class="question-block mb-4">
     <p><strong>Q<%= i + 1 %>. <%= question.statement %></strong></p>
@@ -12,4 +12,3 @@
     </p>
   </div>
 <% end %>
-<%end%>
