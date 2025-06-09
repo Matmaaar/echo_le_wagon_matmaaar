@@ -3,9 +3,9 @@
 
   <div class="input-group mb-3 w-100">
     <div class="form-floating">
-      <%= f.input :user_question, label: false, wrapper: false %>
+      <%= f.input :user_question, label: false, wrapper: false, class: "round-input" %>
       <%= f.label :user_question, "Your question" %>
     </div>
-    <%= f.submit "Ask", id: "new-question-button", class: "btn btn-primary" %>
+    <%= f.submit "Ask AI", id: "new-question-button", class: "green-round-button" %>
   </div>
 <% end %>

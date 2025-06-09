@@ -1,5 +1,5 @@
 .chatbot {
-  background: white;
+  background: $dark;
   margin-top: 9px;
   height: calc(100vh - 75px);
   display: flex;
@@ -18,38 +18,38 @@
     overflow: scroll;
     padding: 1rem;
   }
-
-  .question {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .user-question, .ai-answer {
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    max-width: 70%;
-    width: fit-content;
-    word-wrap: break-word;
-  }
-
-  .user-question {
-    align-self: flex-end;
-    background: $blue;
-    color: $light-gray;
-  }
-
-  .ai-answer {
-    align-self: flex-start;
-    background: $gray-200;
-  }
-
-  #new_question {
-    border-top: 1px solid $gray-200;
-    padding: 1rem;
-
-    .form-group {
-      margin-bottom: 0;
-    }
-  }
 }
+//   .question {
+//     display: flex;
+//     flex-direction: column;
+//   }
+
+//   .user-question, .ai-answer {
+//     border-radius: 1rem;
+//     margin-bottom: 1rem;
+//     padding: 0.5rem;
+//     max-width: 70%;
+//     width: fit-content;
+//     word-wrap: break-word;
+//   }
+
+//   .user-question {
+//     align-self: flex-end;
+//     background: $blue;
+//     color: $light-gray;
+//   }
+
+//   .ai-answer {
+//     align-self: flex-start;
+//     background: $gray-200;
+//   }
+
+//   #new_question {
+//     border-top: 1px solid $gray-200;
+//     padding: 1rem;
+
+//     .form-group {
+//       margin-bottom: 0;
+//     }
+//   }
+// }
