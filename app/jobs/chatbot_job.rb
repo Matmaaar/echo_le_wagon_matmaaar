@@ -26,9 +26,11 @@ class ChatbotJob < ApplicationJob
   end
 
    def questions_formatted_for_openai
+    @transcription = @message.content.transcription
+    @transcription_text = @transcription.map { |seg| seg["text"] }.join(" ")
     messages = @message.content.messages
     results = []
-    results << { role: "system", content: "You are an assistant that helps me answer questions on some content." }
+    results << { role: "system", content: "You are an assistant that helps me answer questions on the following content #{@transcription_text}." }
     messages.each do |message|
       results << { role: "user", content: message.user_question }
       results << { role: "assistant", content: message.ai_answer || "" }
