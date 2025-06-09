@@ -1,3 +1,8 @@
+
+
 <div id="summary">
+  <% if content.summary.nil? %>
+    <div> LOADING</div>
+  <% end %>
   <%= raw content.summary[7..-4] if content.summary %>
 </div>
