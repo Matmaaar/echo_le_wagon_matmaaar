@@ -34,7 +34,22 @@
 <div class="container-custom">
 
   <!-- CARD SECTION START -->
-
+  <% if @personal_playlists.present? %>
+    <h2>🎧 Own playlist(s)</h2>
+    <% @personal_playlists.each do |tag, contents| %>
+      <h3><%= tag.name %></h3>
+      <%= turbo_frame_tag "playlist_#{tag.id}" do %>
+        <div class="content-carousel">
+          <div class="content-row">
+            <% contents.each do |content| %>
+              <%= render partial: "content_card", locals: { content: content } %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+  
   <h3>Latest Content</h3>
   <%= turbo_frame_tag :content do %>
     <div class="content-carousel">
@@ -59,14 +74,5 @@
     </div>
   <% end %>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
 
 </div>

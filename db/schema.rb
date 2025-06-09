@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_09_123717) do
     t.bigint "content_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "favorite", default: false, null: false
     t.index ["content_id"], name: "index_content_tags_on_content_id"
     t.index ["tag_id"], name: "index_content_tags_on_tag_id"
   end

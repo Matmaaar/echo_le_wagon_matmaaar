@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
+  post "content_tags/toggle_favorite", to: "content_tags#toggle_favorite"
 
   # Health check & test
   get "up" => "rails/health#show", as: :rails_health_check
