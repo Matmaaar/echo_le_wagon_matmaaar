@@ -24,20 +24,21 @@
 //     flex-direction: column;
 //   }
 
-//   .user-question, .ai-answer {
-//     border-radius: 1rem;
-//     margin-bottom: 1rem;
-//     padding: 0.5rem;
-//     max-width: 70%;
-//     width: fit-content;
-//     word-wrap: break-word;
-//   }
+  .user-question, .ai-answer {
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    max-width: 70%;
+    width: fit-content;
+    word-wrap: break-word;
+    border: 1px solid $gray;
+  }
 
-//   .user-question {
-//     align-self: flex-end;
-//     background: $blue;
-//     color: $light-gray;
-//   }
+  .user-question {
+    align-self: flex-end;
+    color: $light-gray;
+    margin-left: auto;
+  }
 
 //   .ai-answer {
 //     align-self: flex-start;

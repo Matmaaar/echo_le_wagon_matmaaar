@@ -43,8 +43,8 @@
           <div class="button-row button-carousel-slider">
             <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
-            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section" } %>
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>
             <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
           </div>
         </div>
@@ -65,6 +65,8 @@
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">
       <div class="spacing-elements"></div>
+      <turbo-frame id="chat" src="<%= content_messages_path( @content) %>">
+
       <p>Fonctionnalité IA à venir...</p>
     </div>
 

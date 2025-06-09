@@ -1,11 +1,14 @@
+
+<%= turbo_frame_tag :chat do %>
 <%= turbo_stream_from "messages_for_content_#{@content.id}" %>
 <div class="container-custom">
   <div class="container chatbot">
     <h1>Ask AI Anything</h1>
     <!-- Changez l'id de "messages" vers "message" ou ajustez le controller -->
-    <div id="message">
+    <div id="messages">
       <%= render @messages %>
     </div>
     <%= render "form", message: @message %>
   </div>
 </div>
+<% end %>
