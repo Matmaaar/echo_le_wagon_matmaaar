@@ -5,10 +5,11 @@
         class: "img-fluid w-100 thumbnail",
         data: { action: "click->toggle-section#toggle", target_id: "video-section" },
         style: "cursor: pointer;" %>
+
+      <!-- Superposition de la vidéo -->
       <div id="video-section"
         data-toggle-section-target="section"
-        class="video-overlay"
-        style="display: none;">
+        class="video-overlay hidden">
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
             <iframe
@@ -16,29 +17,27 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen></iframe>
           </div>
-          <button
-            type="button"
-            class="btn small-round-button"
-            data-action="click->toggle-section#hide"
-            data-target-id="video-section">
-            ← Retour
-          </button>
         <% else %>
           <p>Impossible d'extraire l'ID YouTube depuis l'URL !</p>
         <% end %>
       </div>
     </div>
   <% end %>
-  <!-- Espacement -->
-    <div class="spacing-elements"></div>
-  <!-- création du container -->
-<div class="container-custom" data-controller="toggle-section">
+</div>
 
   <!-- Espacement -->
-  <h1 class="title-show"> <%= @content.name %> </h1>
+  <div class="spacing-elements"></div>
+
+  <!-- création du container -->
+    <div class="container-custom" data-controller="toggle-section">
+
+  <!-- Espacement -->
+      <h1 class="title-show">
+        <%= @content.name.split[0...6].join(" ") %>
+        <% if @content.name.split.size > 6 %>...<% end %>
+      </h1>
 
   <!-- Container custom -->
-
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
@@ -74,10 +73,23 @@
   </div>
 </div>
 
-<!-- À voir si on garde -->
+<!-- À voir si on garde => détails sur la vidéo -->
     <!-- <div class="container-custom" data-controller="toggle-section"> -->
     <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
     <!-- </div> -->
- <!-- À voir si on garde -->
+
+<!-- À voir si on garde => détails sur la vidéo -->
     <!-- <p>Language <strong><%= @content.language %></strong></p> -->
     <!-- <p>This content is <%= @content.duration %> min long</p> -->
+
+<!-- À voir si on garde => bouton retour sur l'overlay de la vidéo-->
+     <!-- <div id="return-button-wrapper" class="hidden">-->
+        <!--<button-->
+          <!--type="button"-->
+          <!--class="small-round-button mt-3"-->
+          <!--data-action="click->toggle-section#hide"-->
+          <!--data-target-id="video-section"-->
+          <!--data-target-wrapper-id="return-button-wrapper">-->
+          <!--← Retour-->
+        <!--</button>-->
+      <!--</div>-->
