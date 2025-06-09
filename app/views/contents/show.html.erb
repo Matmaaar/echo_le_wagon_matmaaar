@@ -59,11 +59,18 @@
       <%= render partial: "contents/summary_text", locals: { content: @content } %>
     </div>
 
-  <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
+  <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
-      <%= button_tag 'GENERATE 10 QUESTIONS', type: 'button', class: 'green-round-button',
-        data: { action: "quiz-loader#generateQuestions" } %>
-      <%= render 'contents/questions', questions: @content.questions %>
+      <%= turbo_frame_tag :quizz_container do %>
+            <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
+        data: { action: "click->quiz-loader#generateQuestions" } do%>
+        <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
+        <% end %>
+
+      <br>
+   
+      <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
+    <% end %>
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">
