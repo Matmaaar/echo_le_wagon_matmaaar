@@ -39,8 +39,8 @@
   background-color: $white;
   border-radius: 33px;
   border: none;
-  font-size: 9px;
-  padding: 5px 15px;
+  font-size: 12px;
+  padding: 5px 30px;
   font-family: "Inter", sans-serif;
   text-align: center;
   cursor: pointer;
@@ -72,6 +72,7 @@
   cursor: pointer;
   display: block;
   width: fit-content;
+  text-decoration: none;
 }
 
 .active {
@@ -89,7 +90,7 @@
 }
 
 .button-row button {
-  width: 73px;
+  width: 120px;
   height: 30px;
   text-align: center;
   padding: 5px 10px;
@@ -100,6 +101,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0px;
 }
 
 
@@ -156,4 +158,20 @@
   -webkit-box-shadow: 0 0 0 1000px $dark inset !important; // Remplace $dark par ta couleur de fond souhaitée
   -webkit-text-fill-color: white !important; // Remplace $green par ta couleur de texte souhaitée
   transition: background-color 9999s ease-in-out 0s;
+}
+
+.edit-custom-button {
+  color: $gray;
+  background-color: $white;
+  border-radius: 33px;
+  border: none;
+  font-size: 12px;
+  padding: 5px 30px;
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  width: 120px;
+  height: 30px;
 }
