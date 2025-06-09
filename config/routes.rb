@@ -6,13 +6,16 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get "test", to: "pages#test"
 
+
+
+
   # Main content routes
   resources :contents, except: [:destroy] do
     member do
       post :generate_questions
       post :summary, to: "contents#create_summary"
     end
-
+    resources :messages, only: [:index, :create]
     resources :questions, only: [:index, :new, :create]
   end
 
