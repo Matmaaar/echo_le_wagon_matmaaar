@@ -27,9 +27,9 @@ class ContentsController < ApplicationController
     render json: { error: "Les questions générées n'étaient pas valides." }, status: :unprocessable_entity
   else
     render turbo_stream: turbo_stream.replace(
-      "quiz-container",
+      "quizz_container",
       partial: "contents/questions", # tu crées `_questions.html.erb` avec une boucle
-      locals: { questions: saved_questions }
+      locals: { questions: saved_questions } # tu passes les questions sauvegardées
     )
   end
 end

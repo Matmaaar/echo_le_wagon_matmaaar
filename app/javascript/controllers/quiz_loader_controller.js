@@ -7,22 +7,11 @@ export default class extends Controller {
 
   connect() {
     console.log("✅ quiz-loader connected")
+    console.log("🔗 URL:", this.urlValue)
     this.container = this.element.querySelector("#quiz-container")
   }
 
   generateQuestions() {
-    this.container.innerHTML = "<p>⏳ Génération de 10 questions en cours...</p>"
-
-    fetch(this.urlValue, {
-      method: "POST",
-      headers: {
-        "Accept": "text/vnd.turbo-stream.html",
-        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
-      }
-    })
-      .catch(err => {
-        this.container.innerHTML = `<p>❌ Erreur : ${err.message}</p>`
-        console.error(err)
-      })
+    this.element.innerHTML = "<p id='quizz_container'>⏳ Génération de 10 questions en cours...</p>"
   }
 }
