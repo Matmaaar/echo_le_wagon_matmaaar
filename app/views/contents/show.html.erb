@@ -30,7 +30,7 @@
 
   <!-- création du container -->
 
-    <div class="container-custom" data-controller="toggle-section">
+    <div class="container-custom">
 
   <!-- Espacement -->
       <h1 class="title-show">
@@ -52,19 +52,27 @@
   <!-- Sections -->
 
   <div id="summary-section" class="summary-text" data-toggle-section-target="section" style="display: none;">
+    <div class="spacing-elements"></div>
     <h1><%= @content.name %></h1>
     <%= raw @content.summary[7..-4] if @content.summary %>
   </div>
-  <!-- Espacement -->
-    <div class="spacing-elements"></div>
-  <!-- QUIZZ Dynamique -->
-    <div id="quiz-container"></div>
-    <div>
+
+  <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
       <%= button_tag 'GENERATE 10 QUESTIONS', type: 'button', class: 'green-round-button',
         data: { action: "quiz-loader#generateQuestions" } %>
+      <%= render 'contents/questions', questions: @content.questions %>
     </div>
-    <div class="spacing-elements"></div>
-    <%= render 'contents/questions', questions: @content.questions %>
+
+    <div id="askia-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <p>Fonctionnalité IA à venir...</p>
+    </div>
+
+    <div id="notes-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <p>Notes utilisateur ici</p>
+    </div>
   </div>
 </div>
 
