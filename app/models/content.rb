@@ -55,14 +55,14 @@
       end
     end
 
-    def summarize!
-      if transcription.blank?
-        Rails.logger.warn("No transcription available for summarization.")
-      else
-        summarizer = ContentSummarizer.new(transcription: transcription)
-        summary = summarizer.call
-        update!(summary: summary) if summary.present?
-      end
+  def summarize!
+    if transcription.blank?
+      Rails.logger.warn("No transcription available for summarization.")
+    else
+      summarizer = ContentSummarizer.new(transcription: transcription)
+      summary = summarizer.call
+      Rails.logger.info("Generated summary: #{summary}")
+      update!(summary: summary) if summary.present?
     end
 
     def self.search_by_name_and_tags(query)
