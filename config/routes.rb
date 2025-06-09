@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # Main content routes
   resources :contents, except: [:destroy] do
     member do
-      post :generate_question
+      post :generate_questions
       post :summary, to: "contents#create_summary"
     end
 
