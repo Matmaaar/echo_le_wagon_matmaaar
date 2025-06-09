@@ -62,6 +62,7 @@ class Content < ApplicationRecord
     else
       summarizer = ContentSummarizer.new(transcription: transcription)
       summary = summarizer.call
+      Rails.logger.info("Generated summary: #{summary}")
       update!(summary: summary) if summary.present?
     end
   end
