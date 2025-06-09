@@ -6,6 +6,7 @@ class Content < ApplicationRecord
   has_many :tags, through: :content_tags
   has_many :questions
   has_many :notes
+  scope :by_recent, -> { order(created_at: :desc) }
 
   # after_commit :generate_stuff_content, on: [:create]
 

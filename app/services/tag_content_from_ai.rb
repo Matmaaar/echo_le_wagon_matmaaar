@@ -11,7 +11,7 @@ class TagContentFromAi
     )
 
     tags.each do |tag_name|
-      tag = Tag.find_or_create_by!(name: tag_name.downcase)
+      tag = Tag.find_or_create_by!(name: tag_name.downcase.capitalize)
       @content.tags << tag unless @content.tags.include?(tag)
     end
 
@@ -23,7 +23,13 @@ class TagContentFromAi
   def generate_tags(text)
     client = OpenAI::Client.new
     prompt = <<~PROMPT
-      Analyze this text and identify three key concepts, each expressed in a single word, that reflect the general themes discussed. List them separated by commas, without adding any explanatory phrases.
+      Analyze this text and identify key concepts, that reflect the general themes discussed.
+      Pick from the following list [Nature, Science, Travel, Art, Society, Culture, History, Sport, Cooking, Politics, Other],
+      one to three words that best represent the text. Pick only Other if no other words fit.
+      List them separated by commas, without adding any explanatory phrases.
+      Example:
+      Text: “Tropical rainforests are home to thousands of species…”
+      Response: Nature, Science
 
       Texte :
       #{text}

@@ -18,13 +18,22 @@ class ContentsController < ApplicationController
       answer_3: data[:choices].except(correct).values[2],
       explanation: data[:explanation]
     )
-    
+
   render turbo_stream: turbo_stream.update("quiz-container", partial: "contents/question", locals: { question: question })
 end
 
   def index
-    @contents = current_user.contents
+    @contents = current_user.contents.by_recent
     @content = Content.new
+    @favorite_tags = Tag.joins(:content_tags)
+                        .where(content_tags: { favorite: true })
+                        .distinct
+
+    @personal_playlists = @favorite_tags.each_with_object({}) do |tag, hash|
+      contents = Content.joins(:content_tags)
+                        .where(content_tags: { favorite: true, tag_id: tag.id })
+      hash[tag] = contents if contents.any?
+    end
     if params[:query].present?
       @contents = Content.search_by_name_and_tags(params[:query])
     else
