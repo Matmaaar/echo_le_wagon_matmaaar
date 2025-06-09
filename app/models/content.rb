@@ -8,55 +8,53 @@ class Content < ApplicationRecord
   has_many :notes
   has_many :messages, dependent: :destroy
 
+    # after_commit :generate_stuff_content, on: [:create]
 
-  # after_commit :generate_stuff_content, on: [:create]
-
-  def generate_question
-    return nil unless transcription.present?
-    QuestionGeneratorService.new(transcription).call
-  end
-
-  def get_transcript!
-    api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
-    response = HTTParty.get(
-      api_url,
-      headers: {
-        'x-api-key' => ENV['SUPADATA_API_KEY'],
-        'Content-Type' => 'application/json'
-      }
-    )
-
-    response = JSON.parse(response.body)
-    if response.nil? || response["content"].nil? || response["lang"].nil?
-      raise "Failed to fetch transcript or language from API"
-    else
-      update!(
-        transcription: response["content"],
-        language: response["lang"]
-      )
+    def generate_questions
+      QuestionGeneratorService.new(self.transcription).call
     end
-  end
 
-  def enrich!
-    api_url = "https://api.supadata.ai/v1/youtube/video?id=#{ERB::Util.url_encode(url)}"
-    response = HTTParty.get(
-      api_url,
-      headers: {
-        'x-api-key' => ENV['SUPADATA_API_KEY'],
-        'Content-Type' => 'application/json'
-      }
-    )
-    response = JSON.parse(response.body)
-    if response.nil? || response["title"].nil? || response["duration"].nil? || response["thumbnail"].nil?
-      raise "Failed to fetch video details from API"
-    else
-      update!(
-        name: response["title"],
-        duration: response["duration"],
-        thumbnail: response["thumbnail"]
+    def get_transcript!
+      api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
+      response = HTTParty.get(
+        api_url,
+        headers: {
+          'x-api-key' => ENV['SUPADATA_API_KEY'],
+          'Content-Type' => 'application/json'
+        }
       )
+
+      response = JSON.parse(response.body)
+      if response.nil? || response["content"].nil? || response["lang"].nil?
+        raise "Failed to fetch transcript or language from API"
+      else
+        update!(
+          transcription: response["content"],
+          language: response["lang"]
+        )
+      end
     end
-  end
+
+    def enrich!
+      api_url = "https://api.supadata.ai/v1/youtube/video?id=#{ERB::Util.url_encode(url)}"
+      response = HTTParty.get(
+        api_url,
+        headers: {
+          'x-api-key' => ENV['SUPADATA_API_KEY'],
+          'Content-Type' => 'application/json'
+        }
+      )
+      response = JSON.parse(response.body)
+      if response.nil? || response["title"].nil? || response["duration"].nil? || response["thumbnail"].nil?
+        raise "Failed to fetch video details from API"
+      else
+        update!(
+          name: response["title"],
+          duration: response["duration"],
+          thumbnail: response["thumbnail"]
+        )
+      end
+    end
 
   def summarize!
     if transcription.blank?
@@ -67,13 +65,13 @@ class Content < ApplicationRecord
       Rails.logger.info("Generated summary: #{summary}")
       update!(summary: summary) if summary.present?
     end
-  end
 
-  def self.search_by_name_and_tags(query)
-    query = "%#{query.downcase}%"
+    def self.search_by_name_and_tags(query)
+      query = "%#{query.downcase}%"
 
-    left_joins(:tags)
-      .where("LOWER(contents.name) LIKE :q OR LOWER(tags.name) LIKE :q", q: query)
-      .distinct
+      left_joins(:tags)
+        .where("LOWER(contents.name) LIKE :q OR LOWER(tags.name) LIKE :q", q: query)
+        .distinct
+    end
   end
 end
