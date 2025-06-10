@@ -46,12 +46,12 @@
         </h1>
   <% end %>
 
-      <div class="button-row">
+      <div class="tag-custom-container">
       <% @content.tags.each do |tag| %>
         <%= button_to "#{tag.name}",
             content_tags_toggle_favorite_path(content_id: @content.id, tag_name: tag.name),
             method: :post,
-            class: "small-round-button" %>
+            class: "tag-custom-button" %>
       <% end %>
     </div>
 
