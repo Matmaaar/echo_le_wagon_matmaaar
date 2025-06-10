@@ -7,7 +7,9 @@ def index
 end
 
 def show
+  @content = Content.find(params[:content_id])
   @question = Question.find(params[:id])
+  @questions = @content.questions
 end
 
 
