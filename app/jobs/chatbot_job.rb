@@ -13,10 +13,7 @@ class ChatbotJob < ApplicationJob
     new_content = chatgpt_response["choices"][0]["message"]["content"]
 
     message.update(ai_answer: new_content)
-    Turbo::StreamsChannel.broadcast_update_to(
-      "question_#{@message.id}",
-      target: "question_#{@message.id}",
-      partial: "messages/message", locals: { message: message })
+ 
   end
 
   private
