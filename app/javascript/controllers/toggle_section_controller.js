@@ -2,8 +2,14 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["section"]
+  connect() {
+    // Initialiser toutes les sections à "none" sauf la première
+  console.log("toggle_section_controller.js")
+    }
+
 
   toggle(event) {
+    console.log("toggle")
     const targetId = event.currentTarget.dataset.targetId
     const targetSection = this.sectionTargets.find(section => section.id === targetId)
     if (!targetSection) return

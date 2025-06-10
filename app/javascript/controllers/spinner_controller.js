@@ -1,10 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="spinner"
 export default class extends Controller {
   static targets = ["spinner"]
 
   connect() {
-    console.log("Spinner controller connected")
+    console.log("spinner_controller.js")
   }
+  toggle_show() {
+    this.spinnerTarget.classList.toggle("hidden")
+  }
+
 }
