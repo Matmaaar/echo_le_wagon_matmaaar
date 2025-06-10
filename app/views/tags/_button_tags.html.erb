@@ -1,0 +1,16 @@
+<%= turbo_frame_tag :tags do %>
+ <div class="button-row">
+  <% if @content.content_tags.any?%>
+            <% @content.content_tags.sort.each do |content_tag| %>
+              <%= button_to "##{content_tag.tag.name}",
+                  content_tags_toggle_favorite_path(content_id: @content.id, tag_name: content_tag.tag.name),
+                  method: :post,
+                  class: "#{content_tag.favorite?  ? 'small-round-button-green' : ''}"
+              %>
+            <% end %>
+          <% else %>
+            <div class = loader></div>
+            <p class="tag-loading-fsize">Loading tags...</p>
+          <% end %>
+</div>
+<% end %>

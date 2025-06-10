@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get :generate_questions
       post :summary, to: "contents#create_summary"
     end
+    resources :tags, only: :index
     resources :messages, only: [:index, :create]
     resources :questions, only: [:index, :new, :create]
   end

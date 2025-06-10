@@ -7,8 +7,8 @@ class ContentTagsController < ApplicationController
     content_tag = ContentTag.find_or_initialize_by(content_id: content.id, tag_id: tag.id)
 
     content_tag.favorite = !content_tag.favorite
-    content_tag.save
+    content_tag.save!
 
-    redirect_to content_path(content_tag.content_id)
+    redirect_to content_tags_path(content)
   end
 end

@@ -38,22 +38,8 @@
         <h1 class="title-show">
           <%= @content.name.truncate(50, omission: "...") %>
         </h1>
-        <% end %>
-
-      <div class="button-row">
-        <% if @content.tags.any?%>
-          <% @content.tags.each do |tag| %>
-            <%= button_to "#{tag.name}",
-                content_tags_toggle_favorite_path(content_id: @content.id, tag_name: tag.name),
-                method: :post,
-                class: "small-round-button" %>
-          <% end %>
-        <% else %>
-          <div class = loader></div>
-          <p class="tag-loading-fsize">Loading tags...</p>
-        <% end %>
-      </div>
-
+  <% end %>
+  <%= render "tags/button_tags" %>
   <!-- Container custom -->
       <div class="spacing-elements"></div>
         <div class="carousel-container">
@@ -87,15 +73,13 @@
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
       <%= turbo_frame_tag :quizz_container do %>
-            <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
+        <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
         data: { action: "click->quiz-loader#generateQuestions" } do%>
         <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
         <% end %>
-
-      <br>
-
-      <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
-    <% end %>
+        <br>
+        <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
+      <% end %>
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">

@@ -59,6 +59,32 @@
 
 }
 
+.small-round-button-invisible {
+  color: $white;
+  background-color: $black;
+  border-radius: 33px;
+  border: none;
+  font-size: 12px;
+  padding: 5px 30px;
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+
+  display: block;
+  width: fit-content;
+
+
+  .card {
+    margin-top: 10px;
+  }
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 // BOUTON SHOW NEXT QUESTION
 .green-round-button{
   color: $white;
