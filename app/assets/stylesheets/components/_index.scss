@@ -32,3 +32,16 @@
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.10);
 }
 @import "summary_text";
+
+.sticky-bottom {
+      position: sticky;
+      bottom: 0;
+    }
+
+
+.sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}

@@ -1,0 +1,9 @@
+<%= link_to content_path(content), class: "content-card glow-light", style: "text-decoration: none; color: inherit;", data: { turbo_frame: :_top } do %>
+  <% if content.thumbnail.present? %>
+    <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
+  <% end %>
+  <div class="content-card-infos">
+    <h2><%= content.name&.downcase&.capitalize || "Nom non disponible" %></h2>
+    <span class="small-round-button">START LEARNING</span>
+  </div>
+<% end %>

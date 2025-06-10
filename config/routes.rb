@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
+  post "content_tags/toggle_favorite", to: "content_tags#toggle_favorite"
 
   # Health check & test
   get "up" => "rails/health#show", as: :rails_health_check
@@ -12,7 +13,7 @@ Rails.application.routes.draw do
   # Main content routes
   resources :contents, except: [:destroy] do
     member do
-      post :generate_questions
+      get :generate_questions
       post :summary, to: "contents#create_summary"
     end
     resources :messages, only: [:index, :create]

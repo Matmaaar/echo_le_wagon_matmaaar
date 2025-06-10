@@ -34,9 +34,20 @@
     <div class="container-custom">
 
   <!-- Espacement -->
-      <h1 class="title-show">
-        <%= @content.name.truncate(50, omission: "...") %>
-      </h1>
+  <%= turbo_frame_tag :content_title do %>
+        <h1 class="title-show">
+          <%= @content.name.truncate(50, omission: "...") %>
+        </h1>
+        <% end %>
+
+      <div class="button-row">
+      <% @content.tags.each do |tag| %>
+        <%= button_to "#{tag.name}",
+            content_tags_toggle_favorite_path(content_id: @content.id, tag_name: tag.name),
+            method: :post,
+            class: "small-round-button" %>
+      <% end %>
+    </div>
 
   <!-- Container custom -->
       <div class="spacing-elements"></div>
@@ -44,9 +55,9 @@
           <div class="button-row button-carousel-slider">
             <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
-            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
+            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section" } %>
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>
+            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button', data: {turbo_frame: :content_title} %>
           </div>
         </div>
 
@@ -66,17 +77,26 @@
       <% end %>
   </div>
 
-    <div id="quizz-section" data-toggle-section-target="section" style="display: none;">
+
+ <!-- Sections Quizz-->
+  <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
-      <%= button_tag 'GENERATE 10 QUESTIONS', type: 'button', class: 'green-round-button',
-        data: { action: "quiz-loader#generateQuestions" } %>
-      <% else %>
-        <%= render 'contents/questions', questions: @content.questions %>
-      <% end %>
+      <%= turbo_frame_tag :quizz_container do %>
+            <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
+        data: { action: "click->quiz-loader#generateQuestions" } do%>
+        <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
+        <% end %>
+
+      <br>
+
+      <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
+    <% end %>
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">
       <div class="spacing-elements"></div>
+      <turbo-frame id="chat" src="<%= content_messages_path( @content) %>">
+
       <p>Fonctionnalité IA à venir...</p>
     </div>
 

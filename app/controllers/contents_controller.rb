@@ -9,7 +9,7 @@ class ContentsController < ApplicationController
     return
   end
 
-  saved_questions = questions_data.map do |data|
+  @saved_questions = questions_data.map do |data|
     correct = data[:correct_answer]&.to_sym
     next unless correct && data[:choices]&.key?(correct)
 
@@ -21,28 +21,24 @@ class ContentsController < ApplicationController
       answer_3: data[:choices].except(correct).values[2],
       explanation: data[:explanation]
     )
+
+
+
   end.compact
 
-  if saved_questions.empty?
-    render json: { error: "Les questions générées n'étaient pas valides." }, status: :unprocessable_entity
-  else
-    render turbo_stream: turbo_stream.replace(
-      "quiz-container",
-      partial: "contents/questions", # tu crées `_questions.html.erb` avec une boucle
-      locals: { questions: saved_questions }
-    )
-  end
+
+    render :show
+
 end
 
-
   def index
-    @contents = current_user.contents
     @content = Content.new
-    if params[:query].present?
-      @contents = Content.search_by_name_and_tags(params[:query])
-    else
-      @contents
-    end
+    @contents = if params[:query].present?
+                  Content.search_by_name_and_tags(params[:query])
+                else
+                  current_user.contents.by_recent
+                end
+    build_personal_playlists
   end
 
   def show
@@ -57,11 +53,7 @@ end
   def update
     @content = Content.find(params[:id])
     @content.update(content_params)
-    if turbo_frame_request?
-      render partial: "contents/title"
-    else
-    redirect_to content_path(@content), notice: "Le titre a bien été mis à jour."
-    end
+    render :show, notice: "Le titre a bien été mis à jour."
   end
 
   def new
@@ -96,5 +88,17 @@ end
 
   def content_params
     params.require(:content).permit(:url, :name)
+  end
+
+  def build_personal_playlists
+    @favorite_tags = Tag.joins(:content_tags)
+                        .where(content_tags: { favorite: true })
+                        .distinct
+
+    @personal_playlists = @favorite_tags.each_with_object({}) do |tag, hash|
+      contents = Content.joins(:content_tags)
+                        .where(content_tags: { favorite: true, tag_id: tag.id })
+      hash[tag] = contents if contents.any?
+    end
   end
 end
