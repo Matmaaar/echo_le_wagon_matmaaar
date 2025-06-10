@@ -12,6 +12,12 @@
   scroll-behavior: smooth;
   margin-inline: -7%;
   padding-left: 25px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
 }
 
 .button-carousel-slider {
@@ -19,8 +25,13 @@
   gap: 0.75rem;
   scroll-snap-type: x mandatory;
 }
+
 .button-carousel-slider .small-round-button {
   flex: 0 0 auto;
   scroll-snap-align: center;
   white-space: nowrap;
+}
+
+#edit-pen {
+  color: white;
 }
