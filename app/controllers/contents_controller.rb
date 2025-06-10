@@ -1,35 +1,15 @@
 class ContentsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
   def generate_questions
-   @content = Content.find(params[:id])
-  questions_data = @content.generate_questions
+    @content = Content.find(params[:id])
+    @saved_questions = @content.generate_questions
 
-  if questions_data.blank? || !questions_data.is_a?(Array)
-    render json: { error: "Aucune question générée." }, status: :unprocessable_entity
-    return
-  end
-
-  @saved_questions = questions_data.map do |data|
-    correct = data[:correct_answer]&.to_sym
-    next unless correct && data[:choices]&.key?(correct)
-
-    @content.questions.create(
-      statement: data[:question],
-      answer_true: data[:choices][correct],
-      answer_1: data[:choices].except(correct).values[0],
-      answer_2: data[:choices].except(correct).values[1],
-      answer_3: data[:choices].except(correct).values[2],
-      explanation: data[:explanation]
-    )
-
-
-
-  end.compact
-
-
+  # if questions_data.blank? || !questions_data.is_a?(Array)
+  #   render json: { error: "Aucune question générée." }, status: :unprocessable_entity
+  #   return
+  # end
     render :show
-
-end
+  end
 
   def index
     @content = Content.new
@@ -82,6 +62,11 @@ end
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def results
+    @content = Content.find(params[:id])
+    @questions = @content.questions
   end
 
   private

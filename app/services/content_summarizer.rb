@@ -15,7 +15,7 @@ class ContentSummarizer
       Vous êtes un professeur d’université expert dans le thème abordé dans la transcription ci-dessous. À partir de cette transcription brute, générez un **cours structuré, détaillé et pédagogique** destiné à des étudiants de niveau master.
 
       ### 🎯 Objectif :
-      Produire un support de cours fidèle et complet à partir de la transcription, sans ajout d’informations extérieures.
+      Produire un support de cours fidèle et complet à partir de la transcription, sans ajout d’informations extérieures sauf pour préciser ou apporter une information mal notée dans la transcription.
       Chaque concept doit être expliqué de manière claire, approfondie et pédagogique, comme dans un vrai cours.
       Le contenu doit permettre de réviser en profondeur et de retrouver facilement toutes les explications et informations abordées dans la vidéo. Il ne doit pas être trop court car c'est l'essentiel du contenu.
 
@@ -23,8 +23,8 @@ class ContentSummarizer
       - Langage : **HTML uniquement** (aucun texte en dehors des balises HTML)
       - ne met pas de balise markdown
       - Structure attendue :
-        - <h2>Partie I : Titre</h2>
-        - <h3><strong> A. Sous-partie</strong> </h3>
+        - <h1>Partie</h1>
+        - <h2>A. Sous-partie</h2>
         - <h3>Contenu pédagogique détaillé et fidèle à la transcription, avec exemples si présents dans la transcription</h3>
         - <strong> mot-clé ou informations importantes </strong>
         - En fin de document : un glossaire des termes techniques

@@ -4,8 +4,8 @@ class ContentJob < ApplicationJob
   def perform(content)
     content.get_transcript!
     content.summarize!
-    Rails.logger.debug "[ContentJob] summary = #{content.summary.inspect}"
-
+    # Rails.logger.debug "[ContentJob] summary = #{content.summary.inspect}"
+    content.generate_questions
     TagContentFromAi.new(content).call
 
   end

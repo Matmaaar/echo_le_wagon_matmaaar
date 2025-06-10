@@ -36,19 +36,25 @@
   <!-- Espacement -->
   <%= turbo_frame_tag :content_title do %>
         <h1 class="title-show">
-          <%= @content.name.truncate(50, omission: "...") %>
+          <span class="title-text">
+            <%= @content.name.truncate(50, omission: "...") %>
+            <%= link_to edit_content_path(@content), class: 'edit-custom-button', data: { action: "toggle-section#toggle", turbo_frame: :content_title, toggle_section_target: "button" }, style: "display: inline;" do %>
+            <i id="edit-pen" class="fa-solid fa-pen"></i>
+            <% end %>
+          </span>
+          </span>
         </h1>
   <% end %>
   <%= render "tags/button_tags" %>
+
   <!-- Container custom -->
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
-            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-            <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
-            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section" } %>
-            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>
-            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button', data: {turbo_frame: :content_title} %>
+            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
+            <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section", toggle_section_target: "button" } %>
+            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section", toggle_section_target: "button" } %>
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
           </div>
         </div>
 
@@ -60,9 +66,12 @@
     <div id="summary-section" data-toggle-section-target="section">
       <div class="spacing-elements"></div>
       <% if @content.summary.blank? %>
-      <div id="summary">
-          <span class="loader"></span>
-      </div>
+        <div id="summary">
+          <div class="spinner">
+            <div class="loader"></div>
+            <p> Loading summary...</p>
+          </div>
+        </div>
       <% else %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
       <% end %>
@@ -77,9 +86,18 @@
         data: { action: "click->quiz-loader#generateQuestions" } do%>
         <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
         <% end %>
-        <br>
-        <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
+
+      <br>
+      <% if @content.questions.blank? %>
+        <div class="spinner">
+          <div class="loader"></div>
+          <p> Loading questions...</p>
+        </div>
+      <% else %>
+        <%= render 'contents/questions', questions: @content.questions%>
       <% end %>
+    <% end %>
+
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">
