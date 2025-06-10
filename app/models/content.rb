@@ -2,10 +2,10 @@
 
 class Content < ApplicationRecord
   belongs_to :user
-  has_many :content_tags
+  has_many :content_tags, dependent: :destroy
   has_many :tags, through: :content_tags
-  has_many :questions
-  has_many :notes
+  has_many :questions, dependent: :destroy
+  has_many :notes, dependent: :destroy
   has_many :messages, dependent: :destroy
 
 

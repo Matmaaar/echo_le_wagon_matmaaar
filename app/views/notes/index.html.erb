@@ -1,0 +1,4 @@
+<%=  turbo_frame_tag :notes do%>
+<%= render 'notes_list', notes: @notes %>
+<%=render 'notes/form', content: @content, note: Note.new%>
+<% end %>

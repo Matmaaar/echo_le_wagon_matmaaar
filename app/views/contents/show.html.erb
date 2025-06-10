@@ -45,12 +45,14 @@
             <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>            
             <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
+            <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
         </div>
 
-
+  
   <!-- Sections Summary-->
    <%= turbo_stream_from "content_#{@content.id}_details" %>
   <div id="summary-section" data-toggle-section-target="section" style="display: none;">
@@ -78,12 +80,36 @@
       <p>Fonctionnalité IA à venir...</p>
     </div>
 
-    <div id="notes-section" data-toggle-section-target="section" style="display: none;">
-      <div class="spacing-elements"></div>
-      <p>Notes utilisateur ici</p>
+    <!-- app/views/contents/show.html.erb -->
+    <!-- Ajoute ceci après la section askia-section -->
+      <div id="notes-section" data-toggle-section-target="section" style="display: none;">
+        <div class="spacing-elements"></div>
+        <h2>Notes</h2>
+        
+        <%= turbo_frame_tag "notes" do %>
+          <%= render partial: "notes/notes_list", locals: { notes: @content.notes } %>
+          
+          <!-- Formulaire pour ajouter une note -->
+          <%=render 'notes/form', content: @content, note: Note.new%>
+          <% end %>
+      </div>
+
+    <!-- Espacement -->
+    <div class="spacing-elements"></div>
+
+    <!-- Bouton pour revenir à la vidéo -->
+    <div id="return-button-wrapper" class="hidden">
+      <button
+        type="button"
+        class="small-round-button mt-3"
+        data-action="click->toggle-section#hide"
+        data-target-id="video-section"
+        data-target-wrapper-id="return-button-wrapper">
+        ← Retour
+      </button>
     </div>
-  </div>
-</div>
+
+    
 
 <!-- À voir si on garde => détails sur la vidéo -->
     <!-- <div class="container-custom" data-controller="toggle-section"> -->

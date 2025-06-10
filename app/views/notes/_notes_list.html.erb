@@ -1,0 +1,9 @@
+<!-- app/views/notes/_notes_list.html.erb -->
+<% notes.each do |note| %>
+  <div id="note_<%= note.id %>" class="note">
+    <p><%= note.description %></p>
+    <%= link_to "Supprimer", content_note_path(note.content, note), 
+                class: "btn red-round-button", 
+                data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" } %>
+  </div>
+<% end %>
