@@ -34,4 +34,24 @@
 
 #edit-pen {
   color: white;
+  font-size: 20px
+}
+
+.tag-custom-container {
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.tag-custom-button {
+  color: $white;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+  background-color: inherit;
+  border: none;
+  padding: 0px;
 }
