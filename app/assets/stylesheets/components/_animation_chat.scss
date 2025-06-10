@@ -1,0 +1,47 @@
+.chat-animation {
+  // Styles de la box (reprenant .ai-answer)
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  max-width: 70%;
+  width: fit-content;
+  word-wrap: break-word;
+  border: 1px solid $light-gray;
+  align-self: flex-start;
+  background: $gray;
+
+  // Positionnement et centrage du spinner
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 60px; // Largeur minimum pour contenir le spinner
+
+  // Styles du spinner (pseudo-élément)
+  &::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: relative;
+    color: #FFF;
+    box-sizing: border-box;
+    animation: animloader 1s linear infinite alternate;
+    margin: 0 25px; // Marge pour éviter que les box-shadow dépassent
+  }
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: -20px -6px, -8px 0, 8px 0, 20px 0;
+  }
+  33% {
+    box-shadow: -20px 0, -8px -6px, 8px 0, 20px 0;
+  }
+  66% {
+    box-shadow: -20px 0, -8px 0, 8px -6px, 20px 0;
+  }
+  100% {
+    box-shadow: -20px 0, -8px 0, 8px 0, 20px -6px;
+  }
+}
