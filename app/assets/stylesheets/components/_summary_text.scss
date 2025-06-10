@@ -1,16 +1,23 @@
+
+// il faut de plus d'espace entre les différents h1, h2, h3
+
 .summary-text h1 {
   font-family: "Inter", sans-serif, bold;
   font-weight: bold;
   font-size: 22px;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .summary-text h2 {
   font-family: "Inter", sans-serif;
   font-weight: semibold;
   font-size: 20px;
+  margin-bottom: 15px;
 }
 
 .summary-text h3 {
   font-family: "Inter", sans-serif, regular;
   font-size: 16px;
+  margin-bottom: 10px;
 }
