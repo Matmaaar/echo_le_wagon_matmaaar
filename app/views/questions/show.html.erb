@@ -6,11 +6,11 @@
     <div class="progress" style="width: 10%;"></div>
   </div>
 
-<div class="question-block mb-4 quizz-content" data-controller="quizz">
+<div class="question-block mb-4 quizz-content" data-quizz-correct-answer-value="<%= @question.answer_true %>", data-controller="quizz">
 <p>Question <%= @questions.index(@question) + 1 %> of <%=@questions.count%></p>
   <h5><%= @question.statement%></h5>
   <p>Answers</p>
-  <% if !@question.validated? %>
+  <%# <% if !@question.validated? %>
 
     <% [@question.answer_true, @question.answer_1, @question.answer_2, @question.answer_3].shuffle.each do |answer| %>
 
@@ -20,32 +20,26 @@
       <%= f.input :validated, input_html: { checked: answer == @question.answer_true } %>
         </div>
       <%# <%= f.submit answer, class: "btn btn-primary mt-2" %>
-      <button type="submit" name="answer" value="<%= answer %>" class="answer-button">
+      <button data-action="quizz#selectAnswer" type="submit" name="answer" value="<%= answer %>" class="answer-button" data-quizz-target="answerButton">
         <div>
           <span class="answer-letter">B</span>
         </div>
-        <%=answer%>
+        <%= answer %>
       </button>
 
 
       <% end %>
     <% end %>
-  <% else %>
-    <% [@question.answer_true, @question.answer_1, @question.answer_2, @question.answer_3].shuffle.each do |answer| %>
-      <button class="btn btn-outline-primary mb-2 answer-button <%= @question.answer_true == answer ? "btn-success" : "" %>">
-        <%= answer %>
-      </button>
-    <% end %>
-  <% end %>
-  <p class="explanation"
-     style="display: none;"
-     data-quiz-target="explanation">
-    ✅ <strong>Explication :</strong> <%= @question.explanation %>
-  </p>
+
+  <div class="explanation d-none" data-quizz-target="explanation">
+    <p>Explanation</p>
+    <p id="Explanation"><%= @question.explanation %></p>
+
+  </div>
 <div class="d-flex justify-content-center">
   <% next_question = @questions.where("id > ?", @question.id).order(:id).first %>
   <% if next_question %>
-    <%= link_to "NEXT QUESTION", content_question_path(next_question.content, next_question), class: "green-round-button mt-5" %>
+    <%= link_to "NEXT QUESTION", content_question_path(next_question.content, next_question), class: "green-round-button mt-3" %>
   <% else %>
     <%= link_to "SHOW RESULT", results_content_path(@question.content), class: "green-round-button" %>
   <% end %>

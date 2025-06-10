@@ -2,29 +2,37 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["answerButton", "explanation"]
+  static values = { correctAnswer: String }
 
   connect() {
     console.log("Quizz controller connected")
+    console.log("Correct answer value:", this.correctAnswerValue)
+    console.log("Answer button targets:", this.answerButtonTargets)
+    console.log("explanation targets:", this.answerButtonTargets)
   }
-
   selectAnswer(event) {
-    const clickedButton = event.target
-    const isCorrect = clickedButton.dataset.correct === "true"
+     event.preventDefault()
 
-    // Désactive tous les boutons et applique les couleurs
-    this.answerButtonTargets.forEach(button => {
+      this.answerButtonTargets.forEach(button => {
       button.disabled = true
 
-      if (button.dataset.correct === "true") {
-        button.classList.remove("btn-outline-primary")
-        button.classList.add("btn-success") // Vert pour la bonne réponse
-      } else {
-        button.classList.remove("btn-outline-primary")
-        button.classList.add("btn-danger") // Rouge pour les mauvaises réponses
+      this.explanationTarget.classList.remove("d-none")
+
+      const isCorrect = button.value === this.correctAnswerValue;
+      const isSelected = button === event.currentTarget;
+
+      if (isCorrect) {
+        button.classList.add("correct-answer");
+      }
+
+      if (isSelected && !isCorrect) {
+        button.classList.add("wrong-answer");
       }
     })
 
-    // Affiche l'explication
-    this.explanationTarget.style.display = "block"
+
+
+
+
   }
 }
