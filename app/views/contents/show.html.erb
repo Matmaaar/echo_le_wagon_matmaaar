@@ -69,9 +69,12 @@
     <div id="summary-section" data-toggle-section-target="section">
       <div class="spacing-elements"></div>
       <% if @content.summary.blank? %>
-      <div id="summary">
-          <span class="loader"></span>
-      </div>
+        <div id="summary">
+          <div class="spinner">
+            <div class="loader"></div>
+            <p> Loading summary...</p>
+          </div>
+        </div>
       <% else %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
       <% end %>
@@ -86,10 +89,15 @@
         data: { action: "click->quiz-loader#generateQuestions" } do%>
         <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
         <% end %>
-
       <br>
-
-      <%= render 'contents/questions', questions: @content.questions  unless @content.questions.empty?%>
+      <% if @content.questions.blank? %>
+        <div class="spinner">
+          <div class="loader"></div>
+          <p> Loading questions...</p>
+        </div>
+      <% else %>
+        <%= render 'contents/questions', questions: @content.questions%>
+      <% end %>
     <% end %>
     </div>
 
