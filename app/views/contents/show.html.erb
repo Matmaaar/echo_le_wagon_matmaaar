@@ -63,18 +63,22 @@
 
 
   <!-- Sections Summary-->
-   <%= turbo_stream_from "content_#{@content.id}_details" %>
-  <div id="summary-section" data-toggle-section-target="section" style="display: none;">
-    <div class="spacing-elements"></div>
-      <h1><%= @content.name %></h1>
-      <%= render partial: "contents/summary_text", locals: { content: @content } %>
-    </div>
+  <%#  stimulus pour un spinner temp que summary pas encore chargé %>
+
+    <%= turbo_stream_from "content_#{@content.id}_details" %>
+    <div id="summary-section" data-toggle-section-target="section">
+      <div class="spacing-elements"></div>
+      <% if @content.summary.blank? %>
+      <div id="summary">
+          <span class="loader"></span>
+      </div>
+      <% else %>
+        <%= render partial: "contents/summary_text", locals: { content: @content } %>
+      <% end %>
+  </div>
 
 
-  <br>
-
-
-
+ <!-- Sections Quizz-->
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
       <%= turbo_frame_tag :quizz_container do %>
