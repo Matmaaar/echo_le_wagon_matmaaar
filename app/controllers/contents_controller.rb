@@ -53,11 +53,7 @@ end
   def update
     @content = Content.find(params[:id])
     @content.update(content_params)
-    if turbo_frame_request?
-      render partial: "contents/title"
-    else
-    redirect_to content_path(@content), notice: "Le titre a bien été mis à jour."
-    end
+    render :show, notice: "Le titre a bien été mis à jour."
   end
 
   def new

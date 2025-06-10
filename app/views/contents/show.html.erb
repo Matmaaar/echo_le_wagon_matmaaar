@@ -34,9 +34,11 @@
     <div class="container-custom">
 
   <!-- Espacement -->
-      <h1 class="title-show">
-        <%= @content.name.truncate(50, omission: "...") %>
-      </h1>
+  <%= turbo_frame_tag :content_title do %>
+        <h1 class="title-show">
+          <%= @content.name.truncate(50, omission: "...") %>
+        </h1>
+        <% end %>
 
       <div class="button-row">
       <% @content.tags.each do |tag| %>
@@ -55,7 +57,7 @@
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section" } %>
             <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>
-            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
+            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button', data: {turbo_frame: :content_title} %>
           </div>
         </div>
 
