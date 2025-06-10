@@ -3,10 +3,12 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   static targets = ["section", "button"]
+
   connect() {
     // Initialiser toutes les sections à "none" sauf la première
+  }
+
   toggle(event) {
-  
     const targetId = event.currentTarget.dataset.targetId
     const targetSection = this.sectionTargets.find(section => section.id === targetId)
     if (!targetSection) return
