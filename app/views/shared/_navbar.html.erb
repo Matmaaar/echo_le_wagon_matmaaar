@@ -1,8 +1,12 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-
+    <%# si l'utilisateur est connecté %>
+    <% if user_signed_in? %>
     <%= link_to contents_path, class: "navbar-brand" do %>
       <%= image_tag "echo_logo.png" %>
+    <% end %>
+    <% else %>
+    <%= image_tag "echo_logo.png" %>
     <% end %>
 
     <div class="navbar-left d-flex align-items-center">
