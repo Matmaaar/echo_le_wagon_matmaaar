@@ -9,6 +9,6 @@ class ContentTagsController < ApplicationController
     content_tag.favorite = !content_tag.favorite
     content_tag.save
 
-    redirect_to contents_path
+    redirect_to content_path(content_tag.content_id)
   end
 end
