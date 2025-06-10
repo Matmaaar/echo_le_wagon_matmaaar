@@ -64,6 +64,11 @@ class ContentsController < ApplicationController
     end
   end
 
+  def results
+    @content = Content.find(params[:id])
+    @questions = @content.questions
+  end
+
   private
 
   def content_params
