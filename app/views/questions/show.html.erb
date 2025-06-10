@@ -7,7 +7,7 @@
   </div>
 
 <div class="question-block mb-4 quizz-content" data-controller="quizz">
-  <p>Question <%= @questions.index(@question) + 1 %> of <%= @questions.count %></p>
+<p>Question <%= @questions.index(@question) + 1 %> of <%=@questions.count%></p>
   <h5><%= @question.statement%></h5>
   <p>Answers</p>
   <% if !@question.validated? %>
@@ -43,7 +43,7 @@
     ✅ <strong>Explication :</strong> <%= @question.explanation %>
   </p>
 <div class="d-flex justify-content-center">
-  <% next_question = Question.where("id > ?", @question.id).order(:id).first %>
+  <% next_question = @questions.where("id > ?", @question.id).order(:id).first %>
   <% if next_question %>
     <%= link_to "NEXT QUESTION", content_question_path(next_question.content, next_question), class: "green-round-button mt-5" %>
   <% else %>

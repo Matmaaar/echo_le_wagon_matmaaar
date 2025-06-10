@@ -10,7 +10,7 @@ You’ve completed the quizz.</h2>
 <br>
   <h2>You scored <%= @questions.where(validated: true).count %> / <%=@questions.count%></h2>
  <br>
-    <%= link_to "REDO QUIZZ", content_question_path(@questions.first), class: "green-round-button" %>
+    <%= link_to "REDO QUIZZ", content_question_path(@content), class: "green-round-button" %>
 
 
 </div>
