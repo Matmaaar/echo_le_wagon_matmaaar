@@ -1,0 +1,33 @@
+<div class="question-block mb-4" data-controller="quizz">
+  <%= @question.statement %>
+  <% if !@question.validated? %>
+    <% [@question.answer_true, @question.answer_1, @question.answer_2, @question.answer_3].shuffle.each do |answer| %>
+
+      <%= simple_form_for @question do |f| %>
+        <div class="d-none">
+
+      <%= f.input :validated, input_html: { checked: answer == @question.answer_true } %>
+        </div>
+      <%= f.submit answer, class: "btn btn-primary mt-2" %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% [@question.answer_true, @question.answer_1, @question.answer_2, @question.answer_3].shuffle.each do |answer| %>
+      <button class="btn btn-outline-primary mb-2 answer-button <%= @question.answer_true == answer ? "btn-success" : "" %>">
+        <%= answer %>
+      </button>
+    <% end %>
+  <% end %>
+  <p class="explanation"
+     style="display: none;"
+     data-quiz-target="explanation">
+    ✅ <strong>Explication :</strong> <%= @question.explanation %>
+  </p>
+
+  <% next_question = Question.where("id > ?", @question.id).order(:id).first %>
+  <% if next_question %>
+    <%= link_to "Next Question", content_question_path(next_question.content, next_question) %>
+    <% else %>
+    <%= link_to "Show Result", results_content_path(@question.content) %>
+  <% end %>
+</div>

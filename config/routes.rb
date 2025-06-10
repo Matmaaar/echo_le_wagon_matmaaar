@@ -15,9 +15,10 @@ Rails.application.routes.draw do
     member do
       get :generate_questions
       post :summary, to: "contents#create_summary"
+      get :results, to: "contents#results"
     end
     resources :messages, only: [:index, :create]
-    resources :questions, only: [:index, :new, :create]
+    resources :questions, only: [:index, :new, :create, :show, :update]
   end
 
   # Questions & answers
