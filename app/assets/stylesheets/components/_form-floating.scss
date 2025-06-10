@@ -31,7 +31,7 @@
     max-width: 70%;
     width: fit-content;
     word-wrap: break-word;
-    border: 1px solid $gray;
+    border: 1px solid $light-gray;
   }
 
   .user-question {
@@ -40,10 +40,10 @@
     margin-left: auto;
   }
 
-//   .ai-answer {
-//     align-self: flex-start;
-//     background: $gray-200;
-//   }
+  .ai-answer {
+    align-self: flex-start;
+    background: $gray;
+  }
 
 //   #new_question {
 //     border-top: 1px solid $gray-200;
@@ -54,3 +54,10 @@
 //     }
 //   }
 // }
+
+.element-sticky {
+  position: sticky;
+  bottom: 0;
+  background: white; /* Optionnel : pour masquer le contenu qui passe derrière */
+  z-index: 10; /* Optionnel : pour s'assurer qu'il reste au-dessus */
+}
