@@ -75,7 +75,7 @@
   text-decoration: none;
 }
 
-.active {
+.btn-active {
   color: $white;
   background-color: $dark;
   border-radius: 33px;
@@ -161,17 +161,11 @@
 }
 
 .edit-custom-button {
-  color: $gray;
-  background-color: $white;
-  border-radius: 33px;
   border: none;
-  font-size: 12px;
-  padding: 5px 30px;
-  font-family: "Inter", sans-serif;
-  text-align: center;
+  padding: none;
+  text-align: left;
   cursor: pointer;
   text-decoration: none;
   display: block;
-  width: 120px;
-  height: 30px;
+  margin: none;
 }
