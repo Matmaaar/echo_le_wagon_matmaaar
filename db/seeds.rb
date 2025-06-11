@@ -44,7 +44,6 @@ puts "✅ #{User.count} users créés : #{User.pluck(:nickname).join(', ')}"
 
 puts "🔄 Création des content en cours…"
 content = Content.create!(
-id: 25,
  source_type: "youtube_video",
  url: "https://www.youtube.com/watch?v=FbjL5OMOB58",
  thumbnail: "https://i.ytimg.com/vi/FbjL5OMOB58/maxresdefault.jpg",
@@ -944,7 +943,6 @@ e d’avoir écrit cet  ",
 
 
 content = Content.create!(
-id: 24,
  source_type: "youtube_video",
  url: "https://www.youtube.com/watch?v=5eJSss02gAQ",
  thumbnail: "https://i.ytimg.com/vi/5eJSss02gAQ/maxresdefault.jpg",
@@ -1661,7 +1659,6 @@ id: 24,
 )
 
 content = Content.create!(
-id: 26,
  source_type: "youtube_video",
  url: "https://www.youtube.com/watch?v=sNhhvQGsMEc",
  thumbnail:
