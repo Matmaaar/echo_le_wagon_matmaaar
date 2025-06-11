@@ -1,31 +1,3 @@
-.note-card {
-  background-color: #1a1a1a;
-  border-radius: 12px; 
-  padding: 15px;
-  margin-bottom: 15px;
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-}
-
-.note-header {
-  font-size: 0.9em;
-  color: #1e90ff; 
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between; /* Pour aligner timestamp et autre contenu si besoin */
-}
-
-.note-timestamp {
-  font-weight: 500; 
-}
-
-.note-body p {
-  margin: 0;
-  font-size: 1em;
-  line-height: 1.4;
-  color: #e0e0e0; 
-}
-
 .note-form-row {
   display: flex;
   align-items: stretch;
@@ -49,3 +21,29 @@
   flex-shrink: 0;
 }
 
+.note-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto; 
+}
+
+.note-header--split {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: $blue;
+
+  .note-time-left {
+    font-weight: 500;
+  }
+
+  .note-time-right {
+    color: $light-gray;
+  }
+}
+
+.note-card-spacing {
+  margin-bottom: 20px;
+}
