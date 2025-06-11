@@ -24,7 +24,7 @@ class ChatbotJob < ApplicationJob
 
    def questions_formatted_for_openai
     @transcription = @message.content.transcription
-    @transcription_text = @transcription.map { |seg| seg["text"] }.join(" ")
+    @transcription_text = @transcription
     messages = @message.content.messages
     results = []
     results << { role: "system",

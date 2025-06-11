@@ -63,7 +63,7 @@
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
-            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
+            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button btn-active', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section", toggle_section_target: "button" } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section", toggle_section_target: "button" } %>
             <%= button_tag "NOTES (#{@content.notes.count})", type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
@@ -94,7 +94,11 @@
  <!-- Sections Quizz-->
   <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
-      <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first&.id) %>">
+      <% if @content.questions.nil?  || @content.questions.empty?%>
+      <div id="quizz_container"></div>
+      <% else %>
+      <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
+        <% end %>
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" class='d-none'>
