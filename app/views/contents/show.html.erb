@@ -46,16 +46,17 @@
         </h1>
   <% end %>
 
-
   <%= turbo_stream_from "content_#{@content.id}_tags" %>
-    <div class="tag-custom-container">
     <% if @content.tags.blank? %>
+    <%= turbo_frame_tag "tags" do %>
+    <div class="button-row ">
       <div class = loading-bar></div>
-      <p class="tag-loading-fsize">Loading tags...</p>
-    <% else %>
-     <%= render "tags/button_tags" %>
+      <p class="tag-loading-fsize pt-2">Loading tags...</p>
+      </div>
     <% end %>
-    </div>
+    <% else %>
+     <%= render "tags/button_tags", content: @content %>
+    <% end %>
 
   <!-- Container custom -->
       <div class="spacing-elements"></div>
@@ -64,14 +65,14 @@
             <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>            
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>
             <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
         </div>
 
-  
+
   <!-- Sections Summary-->
   <%#  stimulus pour un spinner temp que summary pas encore chargé %>
 
@@ -124,11 +125,11 @@
     <div id="notes-section" data-toggle-section-target="section" style="display: none;">
       <div class="spacing-elements"></div>
       <h2>Notes</h2>
-      
+
       <%= turbo_frame_tag "notes" do %>
         <!-- Formulaire pour ajouter une note -->
         <%= render 'notes/form', content: @content, note: Note.new %>
-        
+
         <%= render partial: "notes/notes_list", locals: { notes: @content.notes } %>
       <% end %>
     </div>
@@ -148,7 +149,7 @@
       </button>
     </div>
 
-    
+
 
 <!-- À voir si on garde => détails sur la vidéo -->
     <!-- <div class="container-custom" data-controller="toggle-section"> -->

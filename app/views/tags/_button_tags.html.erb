@@ -1,8 +1,8 @@
-<%= turbo_frame_tag :tags do %>
+<%= turbo_frame_tag "tags" do %>
   <div class="tag-custom-container">
-    <% @content.content_tags.sort.each do |content_tag| %>
+    <% content.content_tags.sort.each do |content_tag| %>
       <%= button_to "##{content_tag.tag.name}",
-          content_tags_toggle_favorite_path(content_id: @content.id, tag_name: content_tag.tag.name),
+          content_tags_toggle_favorite_path(content_id: content.id, tag_name: content_tag.tag.name),
           method: :post,
           class: "tag-custom-button#{content_tag.favorite?  ? '-shift' : ''}"
       %>

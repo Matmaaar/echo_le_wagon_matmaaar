@@ -34,6 +34,24 @@
 <div class="container-custom">
 
   <!-- CARD SECTION START -->
+
+
+  <h3>Latest Content</h3>
+  <%= turbo_frame_tag :content do %>
+    <div class="content-carousel">
+      <div class="content-row">
+        <% if @contents.empty? %>
+          <h3>No results</h3>
+        <% end %>
+        <% @contents.each do |content| %>
+         <%= render partial: "content_card", locals: { content: content } %>
+        <% end %>
+        <!-- CARD SECTION END -->
+        <%# CARDS %>
+      </div>
+    </div>
+  <% end %>
+
   <% if @personal_playlists.present? %>
     <h2>🎧 Own playlist(s)</h2>
     <% @personal_playlists.each do |tag, contents| %>
@@ -48,30 +66,6 @@
         </div>
       <% end %>
     <% end %>
-  <% end %>
-
-  <h3>Latest Content</h3>
-  <%= turbo_frame_tag :content do %>
-    <div class="content-carousel">
-      <div class="content-row">
-        <% if @contents.empty? %>
-          <h3>No results</h3>
-        <% end %>
-        <% @contents.each do |content| %>
-          <%= link_to content_path(content), class: "content-card glow-light", style: "text-decoration: none; color: inherit;", data: { turbo_frame: :_top } do %>
-            <% if content.thumbnail.present? %>
-              <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
-            <% end %>
-            <div class="content-card-infos">
-              <h2><%= (content.name&.downcase&.capitalize&.truncate(45, omission: "...")) || "Nom non disponible" %></h2>
-              <span class="small-round-button">START LEARNING</span>
-            </div>
-          <% end %>
-        <% end %>
-        <!-- CARD SECTION END -->
-        <%# CARDS %>
-      </div>
-    </div>
   <% end %>
 
 

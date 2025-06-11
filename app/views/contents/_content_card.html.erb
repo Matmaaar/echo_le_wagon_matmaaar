@@ -3,7 +3,7 @@
     <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
   <% end %>
   <div class="content-card-infos">
-    <h2><%= content.name&.downcase&.capitalize || "Nom non disponible" %></h2>
+    <h2><%= (content.name&.downcase&.capitalize&.truncate(45, omission: "...")) || "Nom non disponible" %></h2>
     <span class="small-round-button">START LEARNING</span>
   </div>
 <% end %>
