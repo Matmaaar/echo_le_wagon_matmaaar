@@ -1,3 +1,11 @@
+.chat-container {
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
 .chatbot {
   background: $dark;
   margin-top: 9px;
@@ -19,10 +27,6 @@
     padding: 1rem;
   }
 }
-//   .question {
-//     display: flex;
-//     flex-direction: column;
-//   }
 
   .user-question, .ai-answer {
     border-radius: 1rem;
@@ -45,19 +49,18 @@
     background: $gray;
   }
 
-//   #new_question {
-//     border-top: 1px solid $gray-200;
-//     padding: 1rem;
+  .input-group {
+    margin-top: auto;
+  }
+  // .input-group {
 
-//     .form-group {
-//       margin-bottom: 0;
-//     }
-//   }
-// }
+  //   margin-top: auto;
+  // }
+#ai-title {
 
-.element-sticky {
-  position: sticky;
-  bottom: 0;
-  background: white; /* Optionnel : pour masquer le contenu qui passe derrière */
-  z-index: 10; /* Optionnel : pour s'assurer qu'il reste au-dessus */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
