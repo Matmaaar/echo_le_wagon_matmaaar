@@ -45,7 +45,17 @@
           </span>
         </h1>
   <% end %>
-  <%= render "tags/button_tags" %>
+
+
+  <%= turbo_stream_from "content_#{@content.id}_tags" %>
+    <div class="tag-custom-container">
+    <% if @content.tags.blank? %>
+      <div class = loading-bar></div>
+      <p class="tag-loading-fsize">Loading tags...</p>
+    <% else %>
+     <%= render "tags/button_tags" %>
+    <% end %>
+    </div>
 
   <!-- Container custom -->
       <div class="spacing-elements"></div>
