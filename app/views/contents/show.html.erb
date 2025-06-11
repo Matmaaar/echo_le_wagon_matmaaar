@@ -61,16 +61,16 @@
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
-            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section" } %>
-            <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
-            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
-            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>            
+            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
+            <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section", toggle_section_target: "button" } %>
+            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section", toggle_section_target: "button" } %>
+            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
         </div>
 
-  
+
   <!-- Sections Summary-->
   <%#  stimulus pour un spinner temp que summary pas encore chargé %>
 
@@ -93,41 +93,23 @@
  <!-- Sections Quizz-->
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
-      <%= turbo_frame_tag :quizz_container do %>
-        <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
-        data: { action: "click->quiz-loader#generateQuestions" } do%>
-        <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
-        <% end %>
-
-      <br>
-      <% if @content.questions.blank? %>
-        <div class="spinner">
-          <div class="loader"></div>
-          <p> Loading questions...</p>
-        </div>
-      <% else %>
-        <%= render 'contents/questions', questions: @content.questions%>
-      <% end %>
-    <% end %>
-
+      <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first&.id) %>">
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">
       <div class="spacing-elements"></div>
       <turbo-frame id="chat" src="<%= content_messages_path( @content) %>">
-
-      <p>Fonctionnalité IA à venir...</p>
     </div>
 
     <!-- notes -->
     <div id="notes-section" data-toggle-section-target="section" style="display: none;">
       <div class="spacing-elements"></div>
       <h2>Notes</h2>
-      
+
       <%= turbo_frame_tag "notes" do %>
         <!-- Formulaire pour ajouter une note -->
         <%= render 'notes/form', content: @content, note: Note.new %>
-        
+
         <%= render partial: "notes/notes_list", locals: { notes: @content.notes } %>
       <% end %>
     </div>
@@ -136,7 +118,7 @@
     <div class="spacing-elements"></div>
 
     <!-- Bouton pour revenir à la vidéo -->
-    <div id="return-button-wrapper" class="hidden">
+    <%# <div id="return-button-wrapper" class="hidden">
       <button
         type="button"
         class="small-round-button mt-3"
@@ -145,9 +127,8 @@
         data-target-wrapper-id="return-button-wrapper">
         ← Retour
       </button>
-    </div>
+    </div> %>
 
-    
 
 <!-- À voir si on garde => détails sur la vidéo -->
     <!-- <div class="container-custom" data-controller="toggle-section"> -->
