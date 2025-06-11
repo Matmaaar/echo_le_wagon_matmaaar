@@ -4,37 +4,26 @@ export default class extends Controller {
   static targets = ["section", "button"]
 
   connect() {
-    // Ici tous les boutons prennent la classe .hidden
-    this.sectionTargets.forEach(section => {
-      if (section.id !== "summary-section") {
-        section.classList.add("hidden");
-      }
-    });
-
+    console.log(
+    "toggle connected"
+    );
     // Là je mets de base la class active au bouton summary car il s'affiche au chargement
-    const summaryButton = document.getElementById('summary-button');
-    if (summaryButton) {
-      summaryButton.classList.add("btn-active");
-    }
+
   }
 
   toggle(event) {
     const targetId = event.currentTarget.dataset.targetId;
+
+
     const targetSection = this.sectionTargets.find(section => section.id === targetId);
+    console.log(targetSection)
     if (!targetSection) return;
-
-    // Pour afficher ou non la section
-    if (!targetSection.classList.contains("hidden")) return;
-
-    // On cache toutes les sections sauf la vidéo
-    this.sectionTargets.forEach(section => {
-      if (section.id !== "video-section") {
-        section.classList.add("hidden");
-      }
-    });
-
+    this.sectionTargets.forEach((section) =>{
+        section.classList.remove("d-none");
+        section.classList.add("d-none");}
+    )
     // Afficher uniquement la bonne section
-    targetSection.classList.remove("hidden");
+    targetSection.classList.remove("d-none");
 
     // Ici on enlève toutes les classes
     this.buttonTargets.forEach(btn => btn.classList.remove("btn-active"));
