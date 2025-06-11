@@ -9,7 +9,9 @@ end
 def show
   @content = Content.find(params[:content_id])
   @question = Question.find(params[:id])
-  @questions = @content.questions
+  @questions = @content.questions.sort_by(&:id)
+  @next_question =@content.questions.where("id > ?", @question.id).order(:id).first
+  @previous_question =@content.questions.where("id < ?", @question.id).order(id: :desc).first
 end
 
 

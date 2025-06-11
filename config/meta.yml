@@ -1,0 +1,6 @@
+# config/meta.yml
+meta_product_name: "Echo"
+meta_title: "Echo - Résumez, explorez, apprenez avec l'IA"
+meta_description: "Echo transforme vidéos, podcasts et documents en résumés, quiz interactifs et assistant IA. Apprenez plus vite, testez vos connaissances, interagissez avec le contenu."
+meta_image: "echo_logo.png" # assure-toi que l'image existe dans app/assets/images/
+twitter_account: "@echo_app_ai" # à modifier si vous avez un vrai compte Twitter

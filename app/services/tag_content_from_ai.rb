@@ -7,7 +7,7 @@ class TagContentFromAi
 
   def call
     tags = generate_tags(
-      @content.transcription.map { |chunk| chunk["text"] }.join(" ")
+      @content.transcription
     )
 
     tags.each do |tag_name|
@@ -25,7 +25,7 @@ class TagContentFromAi
     prompt = <<~PROMPT
       Analyze this text and identify key concepts, that reflect the general themes discussed.
       Pick from the following list [Nature, Science, Travel, Art, Society, Culture, History, Sport, Cooking, Politics, Other],
-      two to three words that best represent the text. Pick only Other if no other words fit.
+      three words that best represent the text. Pick only Other if no other words fit.
       List them separated by commas, without adding any explanatory phrases.
       Example:
       Text: “Tropical rainforests are home to thousands of species…”

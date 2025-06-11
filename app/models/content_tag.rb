@@ -2,7 +2,7 @@ class ContentTag < ApplicationRecord
   belongs_to :tag
   belongs_to :content
 
-  after_create_commit :broadcast_tag_update
+  after_commit :broadcast_tag_update
 
   def favorite?
     favorite

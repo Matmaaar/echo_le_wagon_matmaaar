@@ -1,40 +1,41 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-
   static targets = ["section", "button"]
 
   connect() {
-    // Initialiser toutes les sections à "none" sauf la première
+    console.log(
+    "toggle connected"
+    );
+    // Là je mets de base la class active au bouton summary car il s'affiche au chargement
+
   }
 
   toggle(event) {
-    const targetId = event.currentTarget.dataset.targetId
-    const targetSection = this.sectionTargets.find(section => section.id === targetId)
-    if (!targetSection) return
+    const targetId = event.currentTarget.dataset.targetId;
 
-    // Pour afficher ou non la section
-    if (targetSection.style.display === "block") return
 
-    // On cache toutes les sections
-    this.sectionTargets.forEach(section => {
-      section.style.display = "none"
-    })
-
+    const targetSection = this.sectionTargets.find(section => section.id === targetId);
+    console.log(targetSection)
+    if (!targetSection) return;
+    this.sectionTargets.forEach((section) =>{
+        section.classList.remove("d-none");
+        section.classList.add("d-none");}
+    )
     // Afficher uniquement la bonne section
-    targetSection.style.display = "block"
+    targetSection.classList.remove("d-none");
 
-    // Pour enlever les class
-    this.buttonTargets.forEach(btn => btn.classList.remove("btn-active"))
+    // Ici on enlève toutes les classes
+    this.buttonTargets.forEach(btn => btn.classList.remove("btn-active"));
+
     // Pour ajouter la classe css active (bouton blanc)
-
-    event.currentTarget.classList.add("btn-active")
+    event.currentTarget.classList.add("btn-active");
   }
 
   hide(event) {
-    const targetId = event.currentTarget.dataset.targetId
-    const targetSection = this.sectionTargets.find(section => section.id === targetId)
-    if (!targetSection) return
-    targetSection.style.display = "none"
+    const targetId = event.currentTarget.dataset.targetId;
+    const targetSection = this.sectionTargets.find(section => section.id === targetId);
+    if (!targetSection) return;
+    targetSection.classList.add("hidden");
   }
 }

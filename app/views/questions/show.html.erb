@@ -14,7 +14,7 @@ data-quizz-url-value="/contents/<%= @question.content.id%>/questions/<%= @questi
   <p>Answers</p>
   <%# <% if !@question.validated? %>
 
-    <% [@question.answer_true, @question.answer_1, @question.answer_2, @question.answer_3].shuffle.each do |answer| %>
+    <% [@question.answer_true, @question.answer_1, @question.answer_2, @question.answer_3].shuffle.each_with_index do |answer, index| %>
 
       <%= simple_form_for @question do |f| %>
         <div class="d-none">
@@ -24,7 +24,7 @@ data-quizz-url-value="/contents/<%= @question.content.id%>/questions/<%= @questi
       <%# <%= f.submit answer, class: "btn btn-primary mt-2" %>
       <button data-action="quizz#selectAnswer" type="submit" name="answer" value="<%= answer %>" class="answer-button" data-quizz-target="answerButton">
         <div>
-          <span class="answer-letter">B</span>
+          <span class="answer-letter"><%= ('A'.ord + index).chr %></span>
         </div>
         <%= answer %>
       </button>
@@ -39,13 +39,12 @@ data-quizz-url-value="/contents/<%= @question.content.id%>/questions/<%= @questi
 
   </div>
 <div class="d-flex justify-content-center">
-  <% next_question = @questions.where("id > ?", @question.id).order(:id).first %>
-  <% previous_question = @questions.where("id < ?", @question.id).order(id: :desc).first %>
-  <% if previous_question %>
-    <%= link_to "PREVIOUS QUESTION", content_question_path(previous_question.content, previous_question), class: "green-round-button mt-3 me-2" %>
+
+  <% if @previous_question %>
+    <%= link_to "PREVIOUS QUESTION", content_question_path(@previous_question.content, @previous_question), class: "green-round-button mt-3 me-2" %>
   <% end %>
-  <% if next_question %>
-    <%= link_to "NEXT QUESTION", content_question_path(next_question.content, next_question), class: "green-round-button mt-3" %>
+  <% if @next_question %>
+    <%= link_to "NEXT QUESTION", content_question_path(@next_question.content, @next_question), class: "green-round-button mt-3" %>
   <% else %>
     <%= link_to "SHOW RESULT", results_content_path(@question.content), class: "green-round-button mt-3" %>
   <% end %>
