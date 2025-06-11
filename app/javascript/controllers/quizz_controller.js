@@ -13,24 +13,27 @@ export default class extends Controller {
     console.log("Quizz controller connected")
     console.log("Correct answer value:", this.validatedValue);
 
+    if (this.validatedValue) {
+      this.showFinalState();
+    }
 
   }
 
 
-  // showFinalState() {
-  //   // Désactiver tous les boutons
-  //   this.answerButtonTargets.forEach(button => {
-  //     button.disabled = true
+  showFinalState() {
+    // Désactiver tous les boutons
+    this.answerButtonTargets.forEach(button => {
+      button.disabled = true
 
-  //     // Montrer la bonne réponse
-  //     if (button.value === this.correctAnswerValue) {
-  //       button.classList.add("correct-answer")
-  //     }
-  //   })
+      // Montrer la bonne réponse
+      if (button.value === this.correctAnswerValue) {
+        button.classList.add("correct-answer")
+      }
+    })
 
-  //   // Montrer l'explication
-  //   this.explanationTarget.classList.remove("d-none")
-  // }
+    // Montrer l'explication
+    this.explanationTarget.classList.remove("d-none")
+  }
 
 
   selectAnswer(event) {
