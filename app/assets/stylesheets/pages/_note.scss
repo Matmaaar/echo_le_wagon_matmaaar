@@ -1,0 +1,42 @@
+.note-card {
+  background-color: #1a1a1a;
+  border-radius: 12px; /* Bordures plus arrondies comme dans l'image */
+  padding: 15px;
+  margin-bottom: 15px;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère pour un effet carte */
+}
+
+.note-header {
+  font-size: 0.9em;
+  color: #1e90ff; /* Bleu pour le timestamp, comme dans l'image */
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between; /* Pour aligner timestamp et autre contenu si besoin */
+}
+
+.note-timestamp {
+  font-weight: 500; /* Légère emphase comme dans l'image */
+}
+
+.note-body p {
+  margin: 0;
+  font-size: 1em;
+  line-height: 1.4; /* Meilleure lisibilité */
+  color: #e0e0e0; /* Légère teinte grise pour le texte, proche du blanc de l'image */
+}
+
+.red-round-button {
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.red-round-button:hover {
+  background-color: #c0392b;
+}

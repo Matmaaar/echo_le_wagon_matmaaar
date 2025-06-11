@@ -1,6 +1,8 @@
 // Import page-specific CSS files here.
 @import "home";
 @import "auth";
+@import "note";
+
 // Pour mettre un effet de lumière sur les composants !
 .glow {
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.35);

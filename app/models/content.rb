@@ -2,10 +2,10 @@
 
 class Content < ApplicationRecord
   belongs_to :user
-  has_many :content_tags
+  has_many :content_tags, dependent: :destroy
   has_many :tags, through: :content_tags
   has_many :questions, dependent: :destroy
-  has_many :notes
+  has_many :notes, dependent: :destroy
   scope :by_recent, -> { order(created_at: :desc) }
   has_many :messages, dependent: :destroy
 

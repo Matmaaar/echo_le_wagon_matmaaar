@@ -195,3 +195,19 @@
   display: block;
   margin: none;
 }
+
+.red-round-button {
+  color: $white;
+  background-color: red;
+  border-radius: 33px;
+  border: none;
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+  padding: 5px 30px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  width: 120px;
+  height: 30px;
+}

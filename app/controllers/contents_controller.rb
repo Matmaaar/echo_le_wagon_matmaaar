@@ -1,5 +1,5 @@
 class ContentsController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!
   def generate_questions
     @content = Content.find(params[:id])
     @saved_questions = @content.generate_questions
@@ -62,6 +62,29 @@ class ContentsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def notes
+    Rails.logger.info "=== ACTION NOTES APPELÉE ==="
+    @content = Content.find(params[:id])
+    @notes = @content.notes
+    @note = @content.notes.build
+    
+    Rails.logger.info "Content ID: #{@content.id}"
+    Rails.logger.info "Notes count: #{@notes.count}"
+    
+    respond_to do |format|
+      format.turbo_stream do
+        Rails.logger.info "=== TURBO STREAM RESPONSE ==="
+      end
+      format.html { redirect_to @content } # Fallback
+    end
+  end
+
+  def destroy
+    @content = Content.find(params[:id])
+    @content.destroy
+    redirect_to contents_path, notice: "Content successfully deleted."
   end
 
   def results

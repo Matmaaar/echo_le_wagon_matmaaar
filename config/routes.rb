@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
 
   # Main content routes
-  resources :contents, except: [:destroy] do
+  resources :contents do
     member do
       get :generate_questions
       post :summary, to: "contents#create_summary"
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     end
     resources :tags, only: :index
     resources :messages, only: [:index, :create]
+    resources :notes, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :questions, only: [:index, :new, :create, :show, :update]
   end
 
