@@ -1,6 +1,7 @@
 <%= simple_form_for [content, note], html: { class: "note-form" } do |f| %>
   <div class="note-form-row">
-    <%= f.text_field :description, class: "round-input", placeholder: "Add a note..." %>
+    <%= f.text_field :video_timestamp, placeholder: "Video time", class: "round-input", style: "max-width: 120px;" %>
+    <%= f.text_field :description, placeholder: "Add a note...", class: "round-input" %>
     <%= button_tag "Add your note", type: :submit, class: "green-round-button" %>
   </div>
 <% end %>

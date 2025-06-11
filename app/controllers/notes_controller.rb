@@ -52,6 +52,6 @@ class NotesController < ApplicationController
   end
 
   def note_params
-    params.require(:note).permit(:description)
+    params.require(:note).permit(:description, :video_timestamp)
   end
 end
