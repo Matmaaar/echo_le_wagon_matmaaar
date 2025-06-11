@@ -80,19 +80,18 @@
       <p>Fonctionnalité IA à venir...</p>
     </div>
 
-    <!-- app/views/contents/show.html.erb -->
-    <!-- Ajoute ceci après la section askia-section -->
-      <div id="notes-section" data-toggle-section-target="section" style="display: none;">
-        <div class="spacing-elements"></div>
-        <h2>Notes</h2>
+    <!-- notes -->
+    <div id="notes-section" data-toggle-section-target="section" style="display: none;">
+      <div class="spacing-elements"></div>
+      <h2>Notes</h2>
+      
+      <%= turbo_frame_tag "notes" do %>
+        <!-- Formulaire pour ajouter une note -->
+        <%= render 'notes/form', content: @content, note: Note.new %>
         
-        <%= turbo_frame_tag "notes" do %>
-          <%= render partial: "notes/notes_list", locals: { notes: @content.notes } %>
-          
-          <!-- Formulaire pour ajouter une note -->
-          <%=render 'notes/form', content: @content, note: Note.new%>
-          <% end %>
-      </div>
+        <%= render partial: "notes/notes_list", locals: { notes: @content.notes } %>
+      <% end %>
+    </div>
 
     <!-- Espacement -->
     <div class="spacing-elements"></div>
