@@ -6,7 +6,8 @@
     <div class="progress" style="width: 10%;"></div>
   </div>
 
-<div class="question-block mb-4 quizz-content" data-quizz-correct-answer-value="<%= @question.answer_true %>", data-controller="quizz">
+<div class="question-block mb-4 quizz-content" data-quizz-validated-value="<%=@question.validated?%>" data-quizz-correct-answer-value="<%= @question.answer_true %>", data-controller="quizz"
+data-quizz-url-value="/contents/<%= @question.content.id%>/questions/<%= @question.id%> ">
 <p>Question <%= @questions.index(@question) + 1 %> of <%=@questions.count%></p>
   <h5><%= @question.statement%></h5>
   <p>Answers</p>

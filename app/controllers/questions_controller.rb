@@ -36,11 +36,14 @@ end
   def update
     # @content = Content.find(params[:content_id])
     @question = Question.find(params[:id])
-
     @question.update!(question_params)
-    redirect_to question_path(@question), notice: "Question mise à jour avec succès !"
+    head :ok
   end
 
+
+
+
+  private
 
  def question_params
     params.require(:question).permit(:validated)
