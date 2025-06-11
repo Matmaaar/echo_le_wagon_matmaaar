@@ -65,7 +65,6 @@
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section" } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "#" } %>
             <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section" } %>            
-            <%= link_to 'EDIT', edit_content_path(@content), class: 'edit-custom-button' %>
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
