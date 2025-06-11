@@ -5,6 +5,10 @@
 @import "navbar";
 @import "thumbnail";
 @import "quizz";
+@import "results";
+@import "spinner";
+@import "animation_chat";
+
 
 
 .container-custom {
@@ -31,3 +35,18 @@
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.10);
 }
 @import "summary_text";
+@import "spinner";
+
+
+.sticky-bottom {
+      position: sticky;
+      bottom: 0;
+    }
+
+
+.sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}

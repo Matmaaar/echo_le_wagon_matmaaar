@@ -1,6 +1,8 @@
-<div id="<%= dom_id(message) %>" class="message">
-  <%= turbo_stream_from dom_id(message) %>
-
+<div id="message_<%= message.id %>" class="message">
   <p class="user-question"><%= message.user_question %></p>
-  <p class="ai-answer"><%= message.ai_answer || "..." %></p>
+  <% if message.ai_answer.present? %>
+    <p class="ai-answer"><%= message.ai_answer %></p>
+  <% else %>
+    <span class="chat-animation"></span>
+  <% end %>
 </div>

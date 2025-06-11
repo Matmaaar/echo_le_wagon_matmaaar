@@ -26,6 +26,7 @@
   cursor: pointer;
   font-family: "Inter", sans-serif;
   font-size: 14px;
+  margin-top: 10px;
 
 }
 
@@ -44,4 +45,18 @@
   font-size: 1rem;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.quizz-content p{
+  color: $light-dark;
+  font-size: 12px;
+  margin-top: 10px;
+  font-family: "Inter", sans-serif;
+}
+
+#Explanation {
+  color: $white;
+  font-size: 16px;
+  margin-top: 10px;
+  font-family: "Inter", sans-serif;
 }

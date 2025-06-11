@@ -18,7 +18,7 @@ class QuestionGeneratorService
   À partir du texte ci-dessous, génère **10 questions à choix multiples (QCM)** pertinentes pour tester la compréhension du contenu.
 
   ### ❌ Interdictions :
-  - Ne fais **aucune** référence à une transcription, vidéo, auteur ou plateforme.
+  - Ne fais **aucune** référence à la source, à une transcription, vidéo, au texte, auteur ou plateforme.
   - Ignore les publicités, partenariats, ou collaborations commerciales.
   - **N’invente aucune information** absente du texte.
   - Ne répète pas les mêmes questions, même reformulées.
@@ -56,8 +56,7 @@ class QuestionGeneratorService
 
   Voici le texte à analyser :
 
-  Le GR20 est l’un des sentiers de grande randonnée les plus difficiles d’Europe. Il traverse la Corse du nord au sud, sur plus de 180 kilomètres. Les randonneurs y découvrent des paysages montagneux spectaculaires, mais doivent aussi affronter des conditions météorologiques imprévisibles, des dénivelés extrêmes et un terrain souvent escarpé. Il est conseillé d’avoir une bonne condition physique et une préparation sérieuse avant de s’y aventurer.
-
+  #{@transcription}
 PROMPT
 
 

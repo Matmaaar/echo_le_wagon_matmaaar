@@ -6,6 +6,7 @@ class Content < ApplicationRecord
   has_many :tags, through: :content_tags
   has_many :questions, dependent: :destroy
   has_many :notes, dependent: :destroy
+  scope :by_recent, -> { order(created_at: :desc) }
   has_many :messages, dependent: :destroy
 
 
@@ -13,7 +14,22 @@ class Content < ApplicationRecord
 
 
     def generate_questions
-      QuestionGeneratorService.new(self.transcription).call
+      questions.destroy_all
+      Rails.logger.info("Generating questions for content ID: #{id} ")
+      questions_data = QuestionGeneratorService.new(self.transcription).call
+      questions_data.map do |data|
+        correct = data[:correct_answer]&.to_sym
+        next unless correct && data[:choices]&.key?(correct)
+
+        self.questions.create(
+          statement: data[:question],
+          answer_true: data[:choices][correct],
+          answer_1: data[:choices].except(correct).values[0],
+          answer_2: data[:choices].except(correct).values[1],
+          answer_3: data[:choices].except(correct).values[2],
+          explanation: data[:explanation]
+        )
+      end.compact
     end
 
     def get_transcript!
