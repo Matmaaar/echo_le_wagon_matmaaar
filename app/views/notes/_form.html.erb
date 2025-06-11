@@ -1,4 +1,6 @@
-<%= simple_form_for [content, note] do |f| %>
-  <%= f.input :description, label:false %>
-  <%= button_tag "Add your note", type: :submit, class:'green-round-button'%>
- <% end %>
+<%= simple_form_for [content, note], html: { class: "note-form" } do |f| %>
+  <div class="note-form-row">
+    <%= f.text_field :description, class: "round-input", placeholder: "Add a note..." %>
+    <%= button_tag "Add your note", type: :submit, class: "green-round-button" %>
+  </div>
+<% end %>
