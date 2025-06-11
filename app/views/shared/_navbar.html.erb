@@ -13,9 +13,11 @@
 
     <div class="navbar-left d-flex align-items-center">
       <!-- Bouton Offcanvas pour mobile : Search -->
+       <% if user_signed_in? %>
       <button class="navbar-search d-block d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSearchMenu" aria-controls="mobileSearchMenu" aria-label="Open search">
         <%= image_tag "search_icon.png" %>
       </button>
+      <% end %>
       <!-- Bouton Offcanvas pour mobile : Menu burger -->
       <button class="navbar-icon d-block d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle navigation">
         <%= image_tag "burger_menu_icon.png" %>
