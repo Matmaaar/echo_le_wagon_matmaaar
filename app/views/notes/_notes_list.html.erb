@@ -15,10 +15,10 @@
       </div>
 
       <div class="note-footer">
-        <%= link_to "Delete", content_note_path(note.content, note), 
-                    class: "btn red-round-button", 
+        <%= link_to "Delete", content_note_path(note.content, note),
+                    class: "btn red-round-button",
                     data: { turbo_method: :delete, turbo_confirm: "Are you sure ?" } %>
-        </div>
+      </div>
     </div>
   </div>
 <% end %>
