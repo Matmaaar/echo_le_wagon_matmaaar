@@ -1,5 +1,6 @@
+<%= turbo_frame_tag :quizz do %>
 
-<div class="container-custom">
+<%# <div class="container-custom"> %>
 <div class="frame glow-light">
 
 <div class="progress-bar">
@@ -39,10 +40,15 @@ data-quizz-url-value="/contents/<%= @question.content.id%>/questions/<%= @questi
   </div>
 <div class="d-flex justify-content-center">
   <% next_question = @questions.where("id > ?", @question.id).order(:id).first %>
+  <% previous_question = @questions.where("id < ?", @question.id).order(id: :desc).first %>
+  <% if previous_question %>
+    <%= link_to "PREVIOUS QUESTION", content_question_path(previous_question.content, previous_question), class: "green-round-button mt-3 me-2" %>
+  <% end %>
   <% if next_question %>
     <%= link_to "NEXT QUESTION", content_question_path(next_question.content, next_question), class: "green-round-button mt-3" %>
   <% else %>
-    <%= link_to "SHOW RESULT", results_content_path(@question.content), class: "green-round-button" %>
+    <%= link_to "SHOW RESULT", results_content_path(@question.content), class: "green-round-button mt-3" %>
+  <% end %>
   <% end %>
 </div>
 </div>

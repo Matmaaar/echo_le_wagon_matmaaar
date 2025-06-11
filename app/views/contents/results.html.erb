@@ -1,17 +1,19 @@
 
+<%= turbo_frame_tag :quizz do %>
 <div class="container-custom">
 <div class="frame glow-light">
   <div class="progress-bar">
-    <div class="progress" style="width: 10%;"></div>
+    <div class="progress" style="width: 100%;"></div>
   </div>
-  <div class="results-content">
+  <div class="results-content mt-5">
 <h1>Congratulations!<br>
 You’ve completed the quizz.</h2>
 <br>
   <h2>You scored <%= @questions.where(validated: true).count %> / <%=@questions.count%></h2>
  <br>
-    <%= link_to "REDO QUIZZ", content_question_path(@content), class: "green-round-button" %>
+    <%= link_to "REDO QUIZZ", content_question_path(@content, @content.questions.first&.id), class: "green-round-button mt-3 mb-5" %>
 
 
 </div>
 </div>
+<% end %>
