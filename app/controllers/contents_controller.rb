@@ -45,20 +45,9 @@ class ContentsController < ApplicationController
     @content.user = current_user
 
     if @content.save
-      begin
-        @content.enrich!
-        ContentJob.perform_later(@content)
-        # @content.get_transcript!
-        # @content.enrich!
-        # @content.summarize!
-        # @content.generate_ai_tags_later
-
-        Rails.logger.info("Contenu créé avec enrichissement et résumé.")
-        redirect_to @content, notice: "Contenu enrichi avec résumé !"
-      rescue => e
-        Rails.logger.error("Erreur enrichissement ou résumé : #{e.message}")
-        redirect_to @content, alert: "Créé, mais une erreur est survenue lors de l’enrichissement ou la génération de résumé."
-      end
+      @content.enrich!
+      ContentJob.perform_later(@content)
+      redirect_to @content, notice: "Contenu enrichi avec résumé !"
     else
       render :new, status: :unprocessable_entity
     end
@@ -69,10 +58,10 @@ class ContentsController < ApplicationController
     @content = Content.find(params[:id])
     @notes = @content.notes
     @note = @content.notes.build
-    
+
     Rails.logger.info "Content ID: #{@content.id}"
     Rails.logger.info "Notes count: #{@notes.count}"
-    
+
     respond_to do |format|
       format.turbo_stream do
         Rails.logger.info "=== TURBO STREAM RESPONSE ==="

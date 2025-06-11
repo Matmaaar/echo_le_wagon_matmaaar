@@ -7,7 +7,7 @@ class TagContentFromAi
 
   def call
     tags = generate_tags(
-      @content.transcription.map { |chunk| chunk["text"] }.join(" ")
+      @content.transcription
     )
 
     tags.each do |tag_name|
