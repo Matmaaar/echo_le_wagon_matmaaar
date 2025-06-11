@@ -4,13 +4,12 @@
       <div class="note-header note-header--split">
         <span class="note-time-left">
           <% if note.video_timestamp.present? %>
-            <% t = note.video_timestamp.split(":").map(&:to_i) %>
-            <% seconds = t[0] * 60 + (t[1] || 0) %>
-            <button data-action="youtube#jumpTo" data-youtube-seconds-param="<%= seconds %>" class="note-timestamp-link">
-              ⏱ <%= note.video_timestamp %>
-            </button>
+            ⏱ <%= note.video_timestamp %>
+          <% else %>
+            @<%= note.created_at.in_time_zone('Paris').strftime("%H:%M") %>
           <% end %>
         </span>
+
         <span class="note-time-right">
           <%= I18n.with_locale(:en) { time_ago_in_words(note.created_at.in_time_zone('Paris')) } %>
         </span>
