@@ -3,11 +3,7 @@ require 'json'
 class QuestionGeneratorService
   def initialize(transcription)
     # Si transcription est un tableau (venant de SupaData), on extrait seulement le texte.
-    @transcription = if transcription.is_a?(Array)
-                       transcription.map { |seg| seg["text"] }.join(" ")
-                     else
-                       transcription
-                     end
+    @transcription = transcription
     @client = OpenAI::Client.new
   end
 
