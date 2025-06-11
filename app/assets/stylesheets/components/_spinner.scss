@@ -1,3 +1,28 @@
+
+.loading-bar{
+        display: block;
+        position: relative;
+        height: 12px;
+        width: 50%;
+        border: 1px solid #fff;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .loading-bar:after{
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: #FFFFFF;
+        animation: 6s prog ease-in infinite;
+      }
+
+      @keyframes prog {
+        to  {   width: 100%;}
+      }
+
 .spinner {
   display: flex;
   justify-content: center;
@@ -27,3 +52,4 @@
         transform: rotate(360deg);
     }
     }
+

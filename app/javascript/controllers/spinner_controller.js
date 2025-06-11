@@ -1,13 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["spinner"]
+  static targets = ["button"]
 
   connect() {
-    console.log("spinner_controller.js")
+    console.log("test")
   }
-  toggle_show() {
-    this.spinnerTarget.classList.toggle("hidden")
+  toggleTag() {
+    this.buttonTarget.classList.toggle('small-round-button')
+    this.buttonTarget.classList.toggle('small-round-button-green')
   }
-
 }

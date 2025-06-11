@@ -46,13 +46,15 @@
         </h1>
   <% end %>
 
-      <div class="tag-custom-container">
-      <% @content.tags.each do |tag| %>
-        <%= button_to "#{tag.name}",
-            content_tags_toggle_favorite_path(content_id: @content.id, tag_name: tag.name),
-            method: :post,
-            class: "tag-custom-button" %>
-      <% end %>
+
+  <%= turbo_stream_from "content_#{@content.id}_tags" %>
+    <div class="tag-custom-container">
+    <% if @content.tags.blank? %>
+      <div class = loading-bar></div>
+      <p class="tag-loading-fsize">Loading tags...</p>
+    <% else %>
+     <%= render "tags/button_tags" %>
+    <% end %>
     </div>
 
   <!-- Container custom -->
@@ -90,10 +92,11 @@
   <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
       <%= turbo_frame_tag :quizz_container do %>
-            <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
+        <%= link_to generate_questions_content_path(@content), class: 'btn  green-round-button',
         data: { action: "click->quiz-loader#generateQuestions" } do%>
         <i class="fas fa-plus"></i> GENERATE 10 QUESTIONS
         <% end %>
+
       <br>
       <% if @content.questions.blank? %>
         <div class="spinner">
@@ -104,6 +107,7 @@
         <%= render 'contents/questions', questions: @content.questions%>
       <% end %>
     <% end %>
+
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" style="display: none;">
