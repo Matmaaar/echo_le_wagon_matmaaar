@@ -1,6 +1,16 @@
 {
- "name": "App",
- "icons": [
+ "name": "Echo",
+  "short_name": "Echo",
+  "description": "Echo est une application qui génère des résumés et des quiz à partir de vidéos, podcasts ou documents. Apprenez vite, révisez mieux.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#000000",
+  "background_color": "white",
+  "icons": [
+  <% files = Dir.entries(Rails.root.join("app/assets/images/icons/")).select {|f| !File.directory? f} %>
+    <% files.each_with_index do |file, index| %>
+      <% match = file.match(/.+-(?<size>\d{2,3}x\d{2,3}).png/) %>
+        <%end%>
   {
    "src": "\/android-icon-36x36.png",
    "sizes": "36x36",
