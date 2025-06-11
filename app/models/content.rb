@@ -12,6 +12,14 @@ class Content < ApplicationRecord
 
     # after_commit :generate_stuff_content, on: [:create]
 
+  def name
+    if self[:name].blank?
+      ""
+    else
+      super
+    end
+  end
+
 
     def generate_questions
       questions.destroy_all

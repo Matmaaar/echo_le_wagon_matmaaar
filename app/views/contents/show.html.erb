@@ -46,25 +46,28 @@
         </h1>
   <% end %>
 
-
   <%= turbo_stream_from "content_#{@content.id}_tags" %>
-    <div class="tag-custom-container">
     <% if @content.tags.blank? %>
+    <%= turbo_frame_tag "tags" do %>
+    <div class="button-row ">
       <div class = loading-bar></div>
-      <p class="tag-loading-fsize">Loading tags...</p>
-    <% else %>
-     <%= render "tags/button_tags" %>
+      <p class="tag-loading-fsize pt-2">Loading tags...</p>
+      </div>
     <% end %>
-    </div>
+    <% else %>
+     <%= render "tags/button_tags", content: @content %>
+    <% end %>
 
   <!-- Container custom -->
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
+
             <%= button_tag 'SUMMARY', type: 'button', id: 'summary-button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section", toggle_section_target: "button" } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section", toggle_section_target: "button" } %>
             <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
+
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
@@ -128,6 +131,7 @@
         ← Retour
       </button>
     </div> %>
+
 
 
 <!-- À voir si on garde => détails sur la vidéo -->
