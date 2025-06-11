@@ -12,10 +12,13 @@
         class="video-overlay hidden">
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
+          <div data-controller="youtube">
             <iframe
+              id="youtube-player"
               src="<%= src %>"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen></iframe>
+              </div>
           </div>
         <% else %>
           <p>Impossible d'extraire l'ID YouTube depuis l'URL !</p>

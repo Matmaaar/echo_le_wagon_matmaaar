@@ -6,11 +6,9 @@
           <% if note.video_timestamp.present? %>
             <% t = note.video_timestamp.split(":").map(&:to_i) %>
             <% seconds = t[0] * 60 + (t[1] || 0) %>
-            <a href="https://www.youtube.com/watch?v=<%= youtube_id(@content.url) %>&t=<%= seconds %>s" target="_blank" class="note-timestamp-link">
+            <button data-action="youtube#jumpTo" data-youtube-seconds-param="<%= seconds %>" class="note-timestamp-link">
               ⏱ <%= note.video_timestamp %>
-            </a>
-          <% else %>
-            @<%= note.created_at.in_time_zone('Paris').strftime("%H:%M") %>
+            </button>
           <% end %>
         </span>
         <span class="note-time-right">
