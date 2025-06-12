@@ -1,7 +1,7 @@
-<div id="message_<%= message.id %>" class="message">
-  <p class="user-question"><%= message.user_question %></p>
+<div data-controller="chat" id="message_<%= message.id %>" class="message">
+  <p quizz_target="messages" class="user-question"><%= message.user_question %></p>
   <% if message.ai_answer.present? %>
-    <p class="ai-answer"><%= message.ai_answer %></p>
+    <p quizz_target="messages" class="ai-answer"><%= message.ai_answer %></p>
   <% else %>
     <span class="chat-animation"></span>
   <% end %>

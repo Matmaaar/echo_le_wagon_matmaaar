@@ -12,20 +12,19 @@ class MessagesController < ApplicationController
   @message = Message.new(message_params)
   @message.content = @content
 
-  if @message.save
-    respond_to do |format|
-      format.turbo_stream { head :ok }
-      format.html { redirect_to messages_path }
+    if @message.save
+          head :ok
+    else
+      @messages = @content.messages
+      render :index, status: :unprocessable_entity
     end
-  else
-    @messages = @content.messages
-    render :index, status: :unprocessable_entity
+
   end
-end
 
   private
 
   def message_params
     params.require(:message).permit(:user_question)
   end
+
 end
