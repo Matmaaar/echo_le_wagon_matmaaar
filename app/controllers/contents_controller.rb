@@ -48,7 +48,7 @@ class ContentsController < ApplicationController
 
       @content.enrich!
       ContentJob.perform_later(@content)
-      flash[:success] = "🎉 Content enriched !"
+      flash[:success] = "🎉 Content enriched!"
       redirect_to content_path(@content)
 
     else
@@ -77,7 +77,7 @@ class ContentsController < ApplicationController
   def destroy
     @content = Content.find(params[:id])
     @content.destroy
-    flash[:success] = "Content deleted. !"
+    flash[:success] = "Content deleted!"
     redirect_to contents_path
   end
 
