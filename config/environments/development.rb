@@ -78,4 +78,6 @@ Rails.application.configure do
   # Setup Ngrok to display app on phone
   config.hosts << /.*\.ngrok\.io$/
   config.hosts << /.*\.ngrok-free\.app$/
+
+  config.hosts.clear
 end
