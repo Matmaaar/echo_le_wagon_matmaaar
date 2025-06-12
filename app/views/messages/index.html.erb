@@ -1,15 +1,26 @@
 
 <%= turbo_frame_tag :chat do %>
 <%= turbo_stream_from "messages_for_content_#{@content.id}" %>
+<div class="frame glow-light">
 <h1 id="ai-title">Ask your content anything</h1>
   <div class="chat-container">
 
-    <!-- Changez l'id de "messages" vers "message" ou ajustez le controller -->
     <div id="messages">
-      <%= render @messages %>
+      <% if @messages.any? %>
+        <%= render @messages %>
+      <% else %>
+      <div id="text-no-messages" class="text-no-messages">
+        <h2>
+          Get instant, AI-powered <br>
+          answers and insights
+        </h2>
+        </div>
+
+      <% end %>
     </div>
     </div>
     <%= render "form", message: @message %>
 
-  
+
 <% end %>
+</div>

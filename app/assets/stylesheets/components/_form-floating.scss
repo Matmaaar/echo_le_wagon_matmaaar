@@ -1,9 +1,10 @@
 .chat-container {
-  height: 800px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
+
 }
 
 .chatbot {
@@ -63,4 +64,15 @@
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.text-no-messages {
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+width: 100%;
+height: 600px;
+color: $light-dark;
+
 }
