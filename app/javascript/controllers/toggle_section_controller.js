@@ -38,4 +38,25 @@ export default class extends Controller {
     if (!targetSection) return;
     targetSection.classList.add("hidden");
   }
+
+
+  scrollToBottom() {
+    // Attendre un petit délai pour que le toggle soit terminé
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      })
+    }, 100)
+  }
+
+  scrollToSummary() {
+    // Attendre un petit délai pour que le toggle soit terminé
+    setTimeout(() => {
+      const summarySection = this.sectionTargets.find(section => section.id === "summary");
+      if (summarySection) {
+        summarySection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
 }
