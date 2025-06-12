@@ -15,12 +15,17 @@
           your favorite content.
         </p>
 
-        <%= form_with model: @content, local: true, class: 'hero-form' do |form| %>
+        <%= form_with model: @content,
+            local: true,
+            data: {controller: "form-submit", action: "turbo:submit-start->form-submit#disable turbo:submit-start->form-submit#showModal"},
+            class: 'hero-form' do |form| %>
           <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
-          <%= form.submit 'START NOW', class: 'cta-button glow' %>
+          <%= form.submit 'START NOW', class: 'cta-button glow',
+            data: {form_submit_target: "submit" } %>
         <% end %>
+      <%= turbo_frame_tag :modal, id: "modal" do %>
+      <% end %>
       </div>
-
       <div class="hero-visual">
         <div class="light-beam"></div>
         <div class="light-glow"></div>
