@@ -1,5 +1,13 @@
 <div   class="b">
-
+   <% if flash[:success] %>
+    <div
+      data-controller="flash"
+      data-flash-timeout-value="3000"
+      class="green-round-button fade-out flash-overlay"
+    >
+      <%= flash[:success] %>
+    </div>
+   <% end %>
 
   <% if @content.thumbnail.present? %>
     <div class="video-thumbnail-container">
@@ -35,7 +43,7 @@
   <%= turbo_frame_tag :content_title do %>
         <h1 class="title-show">
           <span class="title-text">
-            <%= @content.name.truncate(50, omission: "...") %>
+            <%= @content.name&.downcase&.capitalize&.truncate(50, omission: "...") %>
             <%= link_to edit_content_path(@content), class: 'edit-custom-button', data: { action: "toggle-section#toggle", turbo_frame: :content_title, toggle_section_target: "button" }, style: "display: inline;" do %>
             <i id="edit-pen" class="fa-solid fa-pen"></i>
             <% end %>
@@ -47,9 +55,9 @@
   <%= turbo_stream_from "content_#{@content.id}_tags" %>
   <% if @content.tags.blank? %>
     <%= turbo_frame_tag "tags" do %>
-      <div class="button-row ">
-        <div class = loading-bar></div>
-        <p class="tag-loading-fsize pt-2">Loading tags...</p>
+      <div class="button-row-tag">
+        <p class="pt-3 me-1">Loading tags</p>
+        <span class="loadertag"></span>
         </div>
     <% end %>
   <% else %>
