@@ -45,9 +45,12 @@ class ContentsController < ApplicationController
     @content.user = current_user
 
     if @content.save
+
       @content.enrich!
       ContentJob.perform_later(@content)
-      redirect_to content_path(@content), notice: "Contenu enrichi avec résumé !"
+
+      redirect_to content_path(@content)
+
     else
       render :new, status: :unprocessable_entity
     end

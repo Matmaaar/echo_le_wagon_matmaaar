@@ -31,11 +31,15 @@ module ContentsHelper
 
   # Construit l'URL de l'iframe d'embed YouTube avec des params à jour
   # Par défaut : pas de suggestions hors chaîne, branding discret, contrôles visibles
-  def youtube_embed_url(url, params = { rel: 0, modestbranding: 1, controls: 1 })
-    id = youtube_id(url)
-    return unless id
+ def youtube_embed_url(url, params = {})
+  id = youtube_id(url)
+  return unless id
 
-    query = params.map { |k, v| "#{k}=#{v}" }.join('&')
-    "https://www.youtube.com/embed/#{id}?#{query}"
-  end
+  # Ajoute ou fusionne `enablejsapi=1`
+  params = { rel: 0, modestbranding: 1, controls: 1, enablejsapi: 1 }.merge(params)
+  query = params.map { |k, v| "#{k}=#{v}" }.join('&')
+
+  "https://www.youtube.com/embed/#{id}?#{query}"
+end
+
 end

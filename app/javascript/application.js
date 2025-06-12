@@ -4,3 +4,5 @@ import "controllers"
 import "@popperjs/core"
 import "bootstrap"
 import "@hotwired/turbo-rails"
+import TimestampToggleController from "./controllers/timestamp_toggle_controller"
+application.register("timestamp-toggle", TimestampToggleController)

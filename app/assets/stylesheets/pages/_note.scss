@@ -1,22 +1,83 @@
 .note-form-row {
   display: flex;
   align-items: stretch;
-  gap: 10px;
   width: 100%;
+  gap: 10px;
   margin-bottom: 20px;
+  flex-wrap: nowrap;
 }
 
-.note-form-row .round-input {
-  width: 100% !important;
-  flex: 1;
-  height: 44px; 
-  padding: 0 20px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-
-.note-form-row .green-round-button {
+.round-input {
   height: 44px;
+  padding: 0 15px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #111;
+  color: #ccc;
+  border: 1px solid #555;
+  border-radius: 50px;
+}
+
+/* Timestamp (champ + bouton) */
+.timestamp-icon-button,
+.timestamp-input {
+  width: 80px;
+  font-size: 14px;
+  height: 44px;
+  border: 1px solid #ffffff;
+}
+
+.timestamp-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background-color: #2a2a2a;
+  box-shadow: inset 0 0 0 1px #444;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    background-color: #333;
+    box-shadow: inset 0 0 0 1px #666;
+  }
+
+  i {
+    pointer-events: none;
+  }
+}
+
+.timestamp-input::placeholder {
+  color: #777;
+}
+
+.timestamp-input:focus {
+  outline: none; 
+  border-color: #0D6EFD;
+}
+
+.round-input:focus {
+  outline: none;
+}
+
+/* Description */
+.description-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 20px;
+  font-size: 16px;
+  border: 1px solid #ffffff;
+  background-color: $dark;
+  color: $white;
+}
+
+/* Submit button */
+.green-round-button {
+  height: 44px;
+  padding: 5px 15px;
+  font-size: 11px;
+  border-radius: 33px;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -24,7 +85,7 @@
 .note-footer {
   display: flex;
   justify-content: flex-end;
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .note-header--split {
@@ -46,4 +107,68 @@
 
 .note-card-spacing {
   margin-bottom: 20px;
+}
+
+.fixed-note-form {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  padding: 10px 20px;
+  z-index: 1000;
+}
+
+#notes-section {
+  padding-bottom: 60px;
+}
+
+/* -- Responsive -- */
+
+@media (max-width: 600px) {
+  .note-form-row {
+    gap: 6px;
+  }
+
+  .round-input {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+
+  .timestamp-icon-button,
+  .timestamp-input {
+    width: 70px;
+    height: 40px;
+    font-size: 13px;
+  }
+  
+  .description-input {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+
+  .green-round-button {
+    height: 40px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .fixed-note-form {
+    padding: 8px 8px;
+  }
+}
+
+.timestamp-raw-button {
+  all: unset;
+  font-size: 20px;
+  line-height: 1;
+  color: #ccc; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }

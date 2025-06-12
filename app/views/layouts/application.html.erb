@@ -35,10 +35,10 @@
   <body>
     <div>
     <%= render "shared/navbar", class: "sticky-top" %>
-<%= render "shared/flashes", class: "sticky-top" %>
+<%# <%= render "shared/flashes", class: "sticky-top" %>
 </div>
 
     <%= yield %>
-
+  <%= turbo_frame_tag "modal" %>
   </body>
 </html>

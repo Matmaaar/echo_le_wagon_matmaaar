@@ -1,6 +1,4 @@
-<div   class="b">
-
-
+<div class="b">
   <% if @content.thumbnail.present? %>
     <div class="video-thumbnail-container">
       <%= image_tag @content.thumbnail,
@@ -8,14 +6,14 @@
         style: "cursor: pointer;" %>
 
       <!-- Superposition de la vidéo -->
-      <div id="video-section"
-        class="video-overlay hidden">
+      <div id="video-section" class="video-overlay hidden">
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
             <iframe
               src="<%= src %>"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+              allowfullscreen>
+            </iframe>
           </div>
         <% else %>
           <p>Impossible d'extraire l'ID YouTube depuis l'URL !</p>
@@ -28,50 +26,44 @@
   <div class="spacing-elements"></div>
 
   <!-- création du container -->
-
- <div data-controller="toggle-section" class="container-custom">
-
-  <!-- Espacement -->
-  <%= turbo_frame_tag :content_title do %>
-        <h1 class="title-show">
-          <span class="title-text">
-            <%= @content.name.truncate(50, omission: "...") %>
-            <%= link_to edit_content_path(@content), class: 'edit-custom-button', data: { action: "toggle-section#toggle", turbo_frame: :content_title, toggle_section_target: "button" }, style: "display: inline;" do %>
+  <div data-controller="toggle-section" class="container-custom">
+    <!-- Espacement -->
+    <%= turbo_frame_tag :content_title do %>
+      <h1 class="title-show">
+        <span class="title-text">
+          <%= @content.name.truncate(50, omission: "...") %>
+          <%= link_to edit_content_path(@content), class: 'edit-custom-button', data: { action: "toggle-section#toggle", turbo_frame: :content_title, toggle_section_target: "button" }, style: "display: inline;" do %>
             <i id="edit-pen" class="fa-solid fa-pen"></i>
-            <% end %>
-          </span>
-          </span>
-        </h1>
-  <% end %>
-
-  <%= turbo_stream_from "content_#{@content.id}_tags" %>
-  <% if @content.tags.blank? %>
-    <%= turbo_frame_tag "tags" do %>
-      <div class="button-row ">
-        <div class = loading-bar></div>
-        <p class="tag-loading-fsize pt-2">Loading tags...</p>
-        </div>
+          <% end %>
+        </span>
+      </h1>
     <% end %>
-  <% else %>
-    <%= render "tags/button_tags", content: @content %>
-  <% end %>
-  <!-- Container custom -->
 
-      <div class="spacing-elements"></div>
-        <div class="carousel-container">
-          <div class="button-row button-carousel-slider">
-            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button btn-active', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
-            <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section", toggle_section_target: "button" } %>
-            <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section", toggle_section_target: "button" } %>
-            <%= button_tag "NOTES (#{@content.notes.count})", type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
-            <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
-                data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-          </div>
+    <%= turbo_stream_from "content_#{@content.id}_tags" %>
+    <% if @content.tags.blank? %>
+      <%= turbo_frame_tag "tags" do %>
+        <div class="button-row ">
+          <div class="loading-bar"></div>
+          <p class="tag-loading-fsize pt-2">Loading tags...</p>
         </div>
+      <% end %>
+    <% else %>
+      <%= render "tags/button_tags", content: @content %>
+    <% end %>
 
-  <!-- Sections Summary-->
-  <%#  stimulus pour un spinner temp que summary pas encore chargé %>
+    <div class="spacing-elements"></div>
+    <div class="carousel-container">
+      <div class="button-row button-carousel-slider">
+        <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button btn-active', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
+        <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section", toggle_section_target: "button" } %>
+        <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section", toggle_section_target: "button" } %>
+        <%= button_tag "NOTES (#{@content.notes.count})", type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
+        <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+      </div>
+    </div>
 
+    <!-- Sections Summary-->
     <%= turbo_stream_from "content_#{@content.id}_details" %>
     <div id="summary-section" data-toggle-section-target="section">
       <div class="spacing-elements"></div>
@@ -85,39 +77,38 @@
       <% else %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
       <% end %>
-  </div>
-
-
+    </div>
+    
  <!-- Sections Quizz-->
-  <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
+   <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
       <% if @content.questions.nil?  || @content.questions.empty?%>
-      <div id="quizz_container"></div>
+      <div id="quizz">
+        Loading questions...
+      </div>
       <% else %>
-      <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
+        <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
         <% end %>
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" class='d-none'>
       <div class="spacing-elements"></div>
-      <turbo-frame id="chat" src="<%= content_messages_path( @content) %>">
+      <turbo-frame id="chat" src="<%= content_messages_path(@content) %>">
     </div>
 
     <!-- notes -->
     <div id="notes-section" data-toggle-section-target="section" class="d-none">
       <div class="spacing-elements"></div>
       <h2>Notes</h2>
-
-      <%= turbo_frame_tag "notes" do %>
         <!-- Formulaire pour ajouter une note -->
+      <%= turbo_frame_tag "notes" do %>
         <%= render 'notes/form', content: @content, note: Note.new %>
-
-        <%= render partial: "notes/notes_list", locals: { notes: @content.notes } %>
+        <!-- liste des notes -->
+        <%= render partial: "notes/notes_list", locals: { notes: @content.notes.order(created_at: :desc) } %>
       <% end %>
     </div>
 
     <!-- Espacement -->
     <div class="spacing-elements"></div>
-
-    </div>
   </div>
+</div>
