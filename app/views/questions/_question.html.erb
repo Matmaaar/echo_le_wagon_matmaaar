@@ -4,7 +4,7 @@
 <div class="frame glow-light">
 
 <div class="progress-bar">
-    <div class="progress" style="width: 10%;"></div>
+    <div class="progress" style="width: <%= (questions.index(question) + 1) * 10 %>%"></div>
   </div>
 
 <div class="question-block mb-4 quizz-content" data-quizz-validated-value="<%=question.validated?%>" data-quizz-correct-answer-value="<%= question.answer_true %>", data-controller="quizz"
@@ -46,7 +46,7 @@ data-quizz-url-value="/contents/<%= question.content.id%>/questions/<%= question
   <% if next_question %>
     <%= link_to "NEXT QUESTION", content_question_path(next_question.content, next_question), class: "green-round-button mt-5" %>
   <% else %>
-    <%= link_to "SHOW RESULT", results_content_path(question.content), class: "green-round-button mt-3" %>
+    <%= link_to "SHOW RESULT", results_content_path(question.content), class: "green-round-button mt-5" %>
   <% end %>
   <% end %>
 </div>
