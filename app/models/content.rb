@@ -38,6 +38,23 @@ class Content < ApplicationRecord
           explanation: data[:explanation]
         )
       end.compact
+
+      questions = self.questions.sort_by(&:id)
+      question = questions.first
+      next_question = questions[1]
+
+      broadcast_replace_to(
+        "content_#{id}_details",
+        target: "quizz",
+        partial: "questions/question",
+        locals: {
+        question: question,
+        questions: questions,
+        next_question: next_question,
+        previous_question: false,
+        }
+      )
+
     end
 
     def get_transcript!
