@@ -4,7 +4,7 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:edit, :update, :destroy]
 
   def index
-    @notes = @content.notes
+    @notes = @content.notes.order(created_at: :desc)
   end
 
   def new
