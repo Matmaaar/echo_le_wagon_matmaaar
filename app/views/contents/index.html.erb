@@ -1,7 +1,25 @@
 <!-- HERO SECTION START -->
-
+<% if flash[:alert] %>
+  <div
+    data-controller="flash"
+    data-flash-timeout-value="3000"
+    class="red-round-button fade-out flash-overlay"
+  >
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+<% if flash[:success] %>
+  <div
+    data-controller="flash"
+    data-flash-timeout-value="3000"
+    class="green-round-button fade-out flash-overlay"
+  >
+    <%= flash[:success] %>
+  </div>
+<% end %>
 <div class="hero-section">
   <div class="container-custom">
+
     <div class="hero-content">
       <div class="text-content">
 
@@ -57,6 +75,8 @@
     </div>
   <% end %>
 
+  <hr class="my-separator" />
+
   <% if @personal_playlists.present? %>
     <% @personal_playlists.sort_by { |tag, contents| -contents.size }.each do |tag, contents| %>
       <h3><%= tag.name %></h3>
@@ -67,10 +87,9 @@
               <%= render partial: "content_card", locals: { content: content } %>
             <% end %>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
 
 
 </div>

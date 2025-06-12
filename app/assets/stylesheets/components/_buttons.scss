@@ -130,6 +130,12 @@
   padding: 0px;
 }
 
+.button-row-tag {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  font-size: 12px;
+}
 
 .video-title {
   margin-top: 15px;
@@ -242,3 +248,4 @@
 #update-button {
   margin-left: auto;
 }
+

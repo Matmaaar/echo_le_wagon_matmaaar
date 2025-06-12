@@ -33,7 +33,7 @@ class ContentsController < ApplicationController
   def update
     @content = Content.find(params[:id])
     @content.update(content_params)
-    render :show, notice: "Le titre a bien été mis à jour."
+    render :show
   end
 
   def new
@@ -48,11 +48,12 @@ class ContentsController < ApplicationController
 
       @content.enrich!
       ContentJob.perform_later(@content)
-
+      flash[:success] = "🎉 Content enriched !"
       redirect_to content_path(@content)
 
     else
-      render :new, status: :unprocessable_entity
+      flash[:alert] = "🚫 Error occurred!"
+      redirect_to contents_path
     end
   end
 
@@ -76,7 +77,8 @@ class ContentsController < ApplicationController
   def destroy
     @content = Content.find(params[:id])
     @content.destroy
-    redirect_to contents_path, notice: "Content successfully deleted."
+    flash[:success] = "Content deleted. !"
+    redirect_to contents_path
   end
 
   def results
