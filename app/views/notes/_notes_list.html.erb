@@ -20,9 +20,11 @@
       </div>
 
       <div class="note-footer">
-        <%= link_to "Delete", content_note_path(note.content, note),
-                    class: "btn red-round-button",
-                    data: { turbo_method: :delete, turbo_confirm: "Are you sure ?" } %>
+        <%= link_to content_note_path(note.content, note),
+                    class: "trash-button",
+                    data: { turbo_method: :delete, turbo_confirm: "Are you sure ?" } do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>
       </div>
     </div>
   </div>

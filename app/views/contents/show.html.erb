@@ -101,6 +101,7 @@
         <!-- Formulaire pour ajouter une note -->
       <%= turbo_frame_tag "notes" do %>
         <%= render 'notes/form', content: @content, note: Note.new %>
+        <!-- liste des notes -->
         <%= render partial: "notes/notes_list", locals: { notes: @content.notes.order(created_at: :desc) } %>
       <% end %>
     </div>
