@@ -2,10 +2,11 @@
  html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }} do |f| %>
 
   <div class="input-group mb-3 w-100">
+
     <div class="form-floating">
-      <%= f.input :user_question, label: false, wrapper: false, class: "round-input" %>
-      <%= f.label :user_question, "Your question" %>
+      <%= f.input :user_question, label: false, wrapper: false, input_html: { class: "form-control border-radius-left-33", placeholder: "Your question" } %>
+      <%= f.label :user_question, "Your question", class: "ms-2" %>
     </div>
-    <%= f.submit "Ask AI", id: "new-question-button", class: "green-round-button" %>
+    <%= f.submit "ASK AI", id: "new-question-button", class: "green-round-button" %>
     </div>
 <% end %>

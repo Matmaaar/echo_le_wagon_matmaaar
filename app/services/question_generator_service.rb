@@ -13,8 +13,10 @@ class QuestionGeneratorService
 
   À partir du texte ci-dessous, génère **10 questions à choix multiples (QCM)** pertinentes pour tester la compréhension du contenu.
 
-  ### ❌ Interdictions :
-  - Ne fais **aucune** référence à la source, à une transcription, vidéo, au texte, auteur ou plateforme.
+  ### ❌ Interdictions strictes :
+  - Ne pose **aucune question** sur le texte lui-même, son auteur, sa date de publication, ou son contexte.
+  - Ne demande pas d'opinion personnelle ou de jugement de valeur.
+  - Ne fais **aucune** référence à la source, à une transcription, à la vidéo, au texte, à l'auteur ou à la plateforme dans l'énoncé de la question ou les réponses.
   - Ignore les publicités, partenariats, ou collaborations commerciales.
   - **N’invente aucune information** absente du texte.
   - Ne répète pas les mêmes questions, même reformulées.
@@ -63,7 +65,7 @@ PROMPT
       parameters: {
         model: "gpt-4o",
         messages: [{ role: "user", content: prompt }],
-        temperature: 0.7
+        temperature: 0.8
       }
     )
 
