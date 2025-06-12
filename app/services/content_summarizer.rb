@@ -12,41 +12,55 @@ class ContentSummarizer
 
   def call
     prompt = <<~PROMPT
-      Vous êtes un professeur d’université expert dans le thème abordé dans la transcription ci-dessous. À partir de cette transcription brute, générez un **cours structuré, détaillé et pédagogique** destiné à des étudiants de niveau master.
+      You are a university professor who is an expert in the subject discussed in the transcription below. Based on this raw transcription, generate a **structured, detailed, and pedagogical course** intended for master's level students.
 
-      ### 🎯 Objectif :
-      Produire un support de cours fidèle et complet à partir de la transcription, sans ajout d’informations extérieures sauf pour préciser ou apporter une information mal notée dans la transcription.
-      Chaque concept doit être expliqué de manière claire, approfondie et pédagogique, comme dans un vrai cours.
-      Le contenu doit permettre de réviser en profondeur et de retrouver facilement toutes les explications et informations abordées dans la vidéo. Il ne doit pas être trop court car c'est l'essentiel du contenu.
+    ### 🎯 Objective:
+    Produce faithful and comprehensive course material from the transcription, without adding external information except to clarify or supplement unclear parts. Each concept must be explained clearly, thoroughly, and pedagogically, as in a real course. The content should allow for in-depth review and make it easy to find all explanations and information covered in the video. It should not be too short, as it represents the essential content.
 
-      ### 🖥️ Format de sortie :
-      - Langage : **HTML uniquement** (aucun texte en dehors des balises HTML)
-      - ne met pas de balise markdown
-      - Structure attendue :
-        - <h1>Partie</h1>
-        - <h2>A. Sous-partie</h2>
-        - <h3>Contenu pédagogique détaillé et fidèle à la transcription, avec exemples si présents dans la transcription</h3>
-        - <strong> mot-clé ou informations importantes </strong>
-        - En fin de document : un glossaire des termes techniques
-        - <h2>Glossaire</h2>
-        - <ul><li><strong>Terme</strong> : Définition courte et claire</li></ul>
+    ### 🖥️ Output format:
+    - Language: **HTML only** (no text outside HTML tags)
+    - Do not use markdown tags
+    - Expected structure:
+      - <h1>Title</h1>
+      - <h2>Section title</h2>
+      - <h3>Subsection</h3> (obligatory for subsections)
+      - <p>Detailed and faithful pedagogical content, with examples if present in the transcription</p>
+      - For emphasis: wrap any key idea or concept in `<strong>important word or information</strong>`
 
-      ### 📏 Longueur :
-      Le résumé ne doit **pas trop condenser** le contenu. Visez environ **1 ligne de résumé pour 3 à 5 lignes** de transcription.
-      Exemple : pour une transcription de 300 lignes, le résumé HTML devrait contenir **60 à 100 lignes** environ.
+    - Special blocks (pedagogical boxes):
+      Integrate special blocks when pedagogically relevant, depending on their nature:
+      - **Tip**: for sharing a useful piece of advice to learn or apply a concept
+        - Use the tag: `<div class="tip">`
+      - **Warning**: to highlight a frequent mistake, exception, or critical point
+        - Use the tag: `<div class="warning">`
+      - **Frequently Asked Question**: to answer a common question on the topic
+        - Use the tag: `<div class="faq">`
 
-      ### 🚫 Consignes strictes :
-      - Ne mentionnez jamais la vidéo, son auteur, la plateforme, les blagues, la musique ou l’intro/outro.
-      - Le résumé doit être en Anglais.
-      - Ne faites pas de résumé global, mais développez chaque point abordé dans la transcription.
-      - Ne faites pas de conclusion, le contenu doit être autonome.
-      - Développez toutes les idées évoquées, avec des explications claires, précises et pédagogiques.
-      - Aucun avis personnel, aucun commentaire, aucun métadiscours.
-      - Si il y a des colaboration commerciale, des pubs, des partenariats, ne pas en parler.
+    > ❗️**Do not include the labels "Tip", "Warning", or "Frequently Asked Question" in the HTML content.**
+    > These titles are automatically rendered through the SCSS styles of each class.
 
-      Voici la transcription à analyser :
+    - End the document with a glossary containing all glossary terms:
+      - <h3>Glossary</h3>
+      - <ul><li><strong class="important-term">Term</strong>: Short and clear definition</li></ul>
+
+    ### 📏 Length:
+    The summary should **not over-condense** the content. Aim for approximately **1 line of summary for every 2 to 3 lines** of transcription.
+    Example: for a 300-line transcription, the HTML summary should contain **about 100 to 150 lines**.
+
+    ### 🚫 Strict guidelines:
+    - Never mention the video, its author, the platform, jokes, music, or intro/outro.
+    - The summary must be in English.
+    - Do not write a global summary; develop each point raised in the transcription.
+    - Do not write a conclusion at the end; the content must be self-contained.
+    - Expand all mentioned ideas with clear, precise, and pedagogical explanations.
+    - No personal opinions, comments, or meta-discourse.
+    - If there are commercial collaborations, advertisements, or partnerships, do not mention them.
+    - **Do not write the titles "Tip", "Warning", or "Frequently Asked Question" inside the HTML blocks.**
+
+    Here is the transcription to analyze:
+
       #{@transcription}
-    PROMPT
+        PROMPT
 
     response = @client.chat(
       parameters: {
