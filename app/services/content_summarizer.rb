@@ -24,7 +24,7 @@ class ContentSummarizer
       - <h1>Title</h1>
       - <h2>Section title</h2>
       - <h3>Subsection</h3> (obligatory for subsections)
-      - <p>Detailed and faithful pedagogical content, with examples if present in the transcription</p>
+      - <p>Detailed, developed and faithful pedagogical content, with examples if present in the transcription</p>
       - For emphasis: wrap any key idea or concept in `<strong>important word or information</strong>`
 
     - Special blocks (pedagogical boxes):
