@@ -48,6 +48,11 @@ export default class extends Controller {
         behavior: 'smooth'
       })
     }, 100)
+
+    const chatContainer = document.querySelector(".chat-container");
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
   }
 
   scrollToSummary() {

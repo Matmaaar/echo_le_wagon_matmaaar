@@ -4,6 +4,11 @@
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
 
 }
 
@@ -15,6 +20,7 @@
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+  font-family: "Inter", sans-serif;
 
   h1 {
     border-bottom: 1px solid $gray-200;
@@ -29,26 +35,45 @@
   }
 }
 
-  .user-question, .ai-answer {
+  .ai-answer {
     border-radius: 1rem;
     margin-bottom: 1rem;
-    padding: 0.5rem;
+    padding: 15px;
+    max-width: 100%;
+    width: fit-content;
+    word-wrap: break-word;
+    font-family: "Inter", sans-serif;
+    align-self: flex-start;
+    letter-spacing: 1px;
+  }
+
+
+    .user-question{
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    padding: 15px;
     max-width: 70%;
     width: fit-content;
     word-wrap: break-word;
-    border: 1px solid $light-gray;
-  }
-
-  .user-question {
+    border: 1px solid $light-dark;
+    font-family: "Inter", sans-serif;
     align-self: flex-end;
     color: $light-gray;
     margin-left: auto;
+    letter-spacing: 1px;
+    background-color: $gray;
   }
 
-  .ai-answer {
-    align-self: flex-start;
-    background: $gray;
-  }
+  // .user-question {
+  //   align-self: flex-end;
+  //   color: $light-gray;
+  //   margin-left: auto;
+  // }
+
+  // .ai-answer {
+  //   align-self: flex-start;
+  //   background: $gray;
+  // }
 
   .input-group {
     margin-top: auto;
@@ -75,4 +100,9 @@ width: 100%;
 height: 600px;
 color: $light-dark;
 
+}
+
+.border-radius-left-33 {
+  border-top-left-radius: 33px;
+  border-bottom-left-radius: 33px;
 }

@@ -1,8 +1,10 @@
 
 <%= turbo_frame_tag :chat do %>
 <%= turbo_stream_from "messages_for_content_#{@content.id}" %>
-<div class="frame glow-light">
 <h1 id="ai-title">Ask your content anything</h1>
+<div class="frame glow-light" style="padding-top: 0;">
+
+
   <div class="chat-container">
 
     <div id="messages">
