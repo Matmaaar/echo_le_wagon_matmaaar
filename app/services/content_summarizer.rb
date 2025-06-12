@@ -45,7 +45,7 @@ class ContentSummarizer
 
     ### 📏 Length:
     The summary should **not over-condense** the content. Aim for approximately **1 line of summary for every 2 to 3 lines** of transcription.
-    Example: for a 300-line transcription, the HTML summary should contain **about 100 to 150 lines**.
+    Example: for a 300-line transcription, the HTML summary should contain **about 150 to 200 lines**.
 
     ### 🚫 Strict guidelines:
     - Never mention the video, its author, the platform, jokes, music, or intro/outro.

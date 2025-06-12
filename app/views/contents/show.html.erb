@@ -78,13 +78,16 @@
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
       <% end %>
     </div>
-    
+
  <!-- Sections Quizz-->
    <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
       <% if @content.questions.nil?  || @content.questions.empty?%>
       <div id="quizz">
-        Loading questions...
+        <div class="spinner">
+            <div class="loader"></div>
+            <p> Loading questions...</p>
+          </div>
       </div>
       <% else %>
         <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
