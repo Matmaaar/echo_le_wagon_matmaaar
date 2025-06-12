@@ -73,13 +73,16 @@
 }
 
 /* Submit button */
-.green-round-button {
+.add-button {
+  background-color: $green;
   height: 44px;
   padding: 5px 15px;
   font-size: 11px;
   border-radius: 33px;
   white-space: nowrap;
   flex-shrink: 0;
+  border: none;
+  color: $white;
 }
 
 .note-footer {
