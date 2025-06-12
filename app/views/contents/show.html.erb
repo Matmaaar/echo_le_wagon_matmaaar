@@ -89,10 +89,12 @@
 
 
  <!-- Sections Quizz-->
-  <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
+   <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
       <% if @content.questions.nil?  || @content.questions.empty?%>
-      <div id="quizz_container"></div>
+      <div id="quizz">
+        Loading questions...
+      </div>
       <% else %>
       <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
         <% end %>
