@@ -23,15 +23,20 @@ class TagContentFromAi
   def generate_tags(text)
     client = OpenAI::Client.new
     prompt = <<~PROMPT
-      Analyze this text and identify key concepts, that reflect the general themes discussed.
-      Pick from the following list [Nature, Science, Travel, Art, Society, Culture, History, Sport, Cooking, Politics, Other],
-      three words that best represent the text. Pick only Other if no other words fit.
-      List them separated by commas, without adding any explanatory phrases.
-      Example:
-      Text: “Tropical rainforests are home to thousands of species…”
-      Response: Nature, Science
+      Analyze the following text and identify its main themes.
+      From the list below, select exactly three keywords that best match the content.
+      You must strictly choose from this list: [Nature, Science, Travel, Art, Society, Culture, History, Sport, Cooking, Politics, Education, Philosophy, Psychology, Technology, Health, Environment, Economy, Media, Entertainment, Other]
+      Rules:
+      - Use only words from the list, no exceptions.
+      - Return exactly three words, separated only by commas.
+      - No explanations, no punctuation, no quotation marks, no extra words.
+      - If none of the listed categories fit, use "Other" — but only if truly necessary.
+      Example output (correct): Nature, Science, History
+      Example output (incorrect): The main themes are Nature, Science and History.
 
-      Texte :
+      Text:
+
+
       #{text}
     PROMPT
 

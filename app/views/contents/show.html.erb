@@ -1,6 +1,4 @@
-<div   class="b">
-
-
+<div class="b">
   <% if @content.thumbnail.present? %>
     <div class="video-thumbnail-container">
       <%= image_tag @content.thumbnail,
@@ -8,14 +6,14 @@
         style: "cursor: pointer;" %>
 
       <!-- Superposition de la vidéo -->
-      <div id="video-section"
-        class="video-overlay hidden">
+      <div id="video-section" class="video-overlay hidden">
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
             <iframe
               src="<%= src %>"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+              allowfullscreen>
+            </iframe>
           </div>
         <% else %>
           <p>Impossible d'extraire l'ID YouTube depuis l'URL !</p>
@@ -23,7 +21,9 @@
       </div>
     </div>
   <% end %>
-
+  
+  
+  
   <!-- Espacement -->
   <div class="spacing-elements"></div>
 
@@ -56,7 +56,7 @@
     <%= render "tags/button_tags", content: @content %>
   <% end %>
   <!-- Container custom -->
-<%"chier vos mezrges" %>
+<%" vos mergues!!" %>
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
@@ -67,8 +67,8 @@
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
-        </div>
-
+       </div>
+  
   <!-- Sections Summary-->
   <%#  stimulus pour un spinner temp que summary pas encore chargé %>
 
@@ -85,41 +85,42 @@
       <% else %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
       <% end %>
-  </div>
+    </div>
 
-
+  
  <!-- Sections Quizz-->
    <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
       <% if @content.questions.nil?  || @content.questions.empty?%>
       <div id="quizz">
-        Loading questions...
+        <div class="spinner">
+            <div class="loader"></div>
+            <p> Loading questions...</p>
+          </div>
       </div>
       <% else %>
-      <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
+        <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
         <% end %>
     </div>
 
     <div id="askia-section" data-toggle-section-target="section" class='d-none'>
       <div class="spacing-elements"></div>
-      <turbo-frame id="chat" src="<%= content_messages_path( @content) %>">
+      <turbo-frame id="chat" src="<%= content_messages_path(@content) %>">
     </div>
 
     <!-- notes -->
     <div id="notes-section" data-toggle-section-target="section" class="d-none">
       <div class="spacing-elements"></div>
       <h2>Notes</h2>
-
-      <%= turbo_frame_tag "notes" do %>
         <!-- Formulaire pour ajouter une note -->
+      <%= turbo_frame_tag "notes" do %>
         <%= render 'notes/form', content: @content, note: Note.new %>
-
-        <%= render partial: "notes/notes_list", locals: { notes: @content.notes } %>
+        <!-- liste des notes -->
+        <%= render partial: "notes/notes_list", locals: { notes: @content.notes.order(created_at: :desc) } %>
       <% end %>
     </div>
 
     <!-- Espacement -->
     <div class="spacing-elements"></div>
-
-    </div>
   </div>
+</div>

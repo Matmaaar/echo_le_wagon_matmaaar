@@ -1,7 +1,28 @@
-<%= simple_form_for [content, note], html: { class: "note-form" } do |f| %>
-  <div class="note-form-row">
-    <%= f.text_field :video_timestamp, placeholder: "Video time", class: "round-input", style: "max-width: 120px;" %>
-    <%= f.text_field :description, placeholder: "Add a new note", class: "round-input" %>
-    <%= button_tag "Add your note", type: :submit, class: "green-round-button" %>
-  </div>
-<% end %>
+<div class="fixed-note-form">
+  <%= simple_form_for [content, note], html: { class: "note-form" } do |f| %>
+    <div class="note-form-row" data-controller="timestamp-toggle">
+      
+      <!-- Chronomètre (icône remplacée par input au clic) -->
+      <button type="button"
+              data-action="timestamp-toggle#showInput"
+              class="timestamp-raw-button"
+              data-timestamp-toggle-target="button">
+        <i class="fa-solid fa-stopwatch"></i>
+      </button>
+
+      <%= f.text_field :video_timestamp,
+        placeholder: "00:00",
+        class: "round-input timestamp-input d-none",
+        data: { timestamp_toggle_target: "input" } %>
+
+      <!-- Champ principal -->
+      <%= f.text_field :description,
+        placeholder: "Add a new note",
+        class: "round-input description-input" %>
+
+      <!-- Bouton add -->
+      <%= button_tag "ADD", type: :submit, class: "add-button" %>
+      
+    </div>
+  <% end %>
+</div>
