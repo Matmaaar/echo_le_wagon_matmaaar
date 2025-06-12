@@ -1,16 +1,14 @@
-<div data-controller="toggle-section" class="b">
+<div   class="b">
 
 
   <% if @content.thumbnail.present? %>
     <div class="video-thumbnail-container">
       <%= image_tag @content.thumbnail,
         class: "img-fluid w-100 thumbnail",
-        data: { action: "click->toggle-section#toggle", target_id: "video-section" },
         style: "cursor: pointer;" %>
 
       <!-- Superposition de la vidéo -->
       <div id="video-section"
-        data-toggle-section-target="section"
         class="video-overlay hidden">
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
@@ -31,7 +29,7 @@
 
   <!-- création du container -->
 
-    <div class="container-custom">
+ <div data-controller="toggle-section" class="container-custom">
 
   <!-- Espacement -->
   <%= turbo_frame_tag :content_title do %>
@@ -47,32 +45,29 @@
   <% end %>
 
   <%= turbo_stream_from "content_#{@content.id}_tags" %>
-    <% if @content.tags.blank? %>
+  <% if @content.tags.blank? %>
     <%= turbo_frame_tag "tags" do %>
-    <div class="button-row ">
-      <div class = loading-bar></div>
-      <p class="tag-loading-fsize pt-2">Loading tags...</p>
-      </div>
+      <div class="button-row ">
+        <div class = loading-bar></div>
+        <p class="tag-loading-fsize pt-2">Loading tags...</p>
+        </div>
     <% end %>
-    <% else %>
-     <%= render "tags/button_tags", content: @content %>
-    <% end %>
-
+  <% else %>
+    <%= render "tags/button_tags", content: @content %>
+  <% end %>
   <!-- Container custom -->
+
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
-
-            <%= button_tag 'SUMMARY', type: 'button', id: 'summary-button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
+            <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button btn-active', data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "quizz-section", toggle_section_target: "button" } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "askia-section", toggle_section_target: "button" } %>
-            <%= button_tag 'NOTES', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
-
+            <%= button_tag "NOTES (#{@content.notes.count})", type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
         </div>
-
 
   <!-- Sections Summary-->
   <%#  stimulus pour un spinner temp que summary pas encore chargé %>
@@ -94,18 +89,22 @@
 
 
  <!-- Sections Quizz-->
-  <div id="quizz-section" data-toggle-section-target="section" style="display: none;" data-controller="quiz-loader" >
+  <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
-      <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first&.id) %>">
+      <% if @content.questions.nil?  || @content.questions.empty?%>
+      <div id="quizz_container"></div>
+      <% else %>
+      <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
+        <% end %>
     </div>
 
-    <div id="askia-section" data-toggle-section-target="section" style="display: none;">
+    <div id="askia-section" data-toggle-section-target="section" class='d-none'>
       <div class="spacing-elements"></div>
       <turbo-frame id="chat" src="<%= content_messages_path( @content) %>">
     </div>
 
     <!-- notes -->
-    <div id="notes-section" data-toggle-section-target="section" style="display: none;">
+    <div id="notes-section" data-toggle-section-target="section" class="d-none">
       <div class="spacing-elements"></div>
       <h2>Notes</h2>
 
@@ -120,37 +119,5 @@
     <!-- Espacement -->
     <div class="spacing-elements"></div>
 
-    <!-- Bouton pour revenir à la vidéo -->
-    <%# <div id="return-button-wrapper" class="hidden">
-      <button
-        type="button"
-        class="small-round-button mt-3"
-        data-action="click->toggle-section#hide"
-        data-target-id="video-section"
-        data-target-wrapper-id="return-button-wrapper">
-        ← Retour
-      </button>
-    </div> %>
-
-
-
-<!-- À voir si on garde => détails sur la vidéo -->
-    <!-- <div class="container-custom" data-controller="toggle-section"> -->
-    <!-- <p><em>Durée : <%= format_duration(@content.duration) %></em></p> -->
-    <!-- </div> -->
-
-<!-- À voir si on garde => détails sur la vidéo -->
-    <!-- <p>Language <strong><%= @content.language %></strong></p> -->
-    <!-- <p>This content is <%= @content.duration %> min long</p> -->
-
-<!-- À voir si on garde => bouton retour sur l'overlay de la vidéo-->
-     <!-- <div id="return-button-wrapper" class="hidden">-->
-        <!--<button-->
-          <!--type="button"-->
-          <!--class="small-round-button mt-3"-->
-          <!--data-action="click->toggle-section#hide"-->
-          <!--data-target-id="video-section"-->
-          <!--data-target-wrapper-id="return-button-wrapper">-->
-          <!--← Retour-->
-        <!--</button>-->
-      <!--</div>-->
+    </div>
+  </div>

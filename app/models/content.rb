@@ -49,13 +49,14 @@ class Content < ApplicationRecord
           'Content-Type' => 'application/json'
         }
       )
-
       response = JSON.parse(response.body)
       if response.nil? || response["content"].nil? || response["lang"].nil?
         raise "Failed to fetch transcript or language from API"
       else
+        transcript_brut = response["content"]
+        transcription = transcript_brut.map { |chunk| chunk["text"] }.join(" ")
         update!(
-          transcription: response["content"],
+          transcription: transcription,
           language: response["lang"]
         )
       end
