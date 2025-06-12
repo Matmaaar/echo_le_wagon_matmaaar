@@ -58,7 +58,7 @@
   <% end %>
 
   <% if @personal_playlists.present? %>
-    <% @personal_playlists.each do |tag, contents| %>
+    <% @personal_playlists.sort_by { |tag, contents| -contents.size }.each do |tag, contents| %>
       <h3><%= tag.name %></h3>
       <%= turbo_frame_tag "playlist_#{tag.id}" do %>
         <div class="content-carousel">
