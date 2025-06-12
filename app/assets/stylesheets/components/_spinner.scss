@@ -24,6 +24,7 @@
       }
 
 .spinner {
+  margin-top: 60px; // espace au-dessus du spinner
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +42,7 @@
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    margin-bottom: 10px; // espace entre le spinner et le texte
+    margin-bottom: 18px; // espace entre le spinner et le texte
     }
 
     @keyframes rotation {
@@ -52,4 +53,3 @@
         transform: rotate(360deg);
     }
     }
-
