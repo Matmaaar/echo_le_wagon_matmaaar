@@ -12,6 +12,7 @@ class QuestionGeneratorService
   Tu es un assistant pédagogique spécialisé dans la création de quiz pour des étudiants de niveau universitaire.
 
   À partir du texte ci-dessous, génère **10 questions à choix multiples (QCM)** pertinentes pour tester la compréhension du contenu.
+  Les questions doivent être en français.
 
   ### ❌ Interdictions strictes :
   - Ne pose **aucune question** sur le texte lui-même, son auteur, sa date de publication, ou son contexte.
