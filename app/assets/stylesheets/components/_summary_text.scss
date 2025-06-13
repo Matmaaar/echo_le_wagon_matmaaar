@@ -50,6 +50,8 @@
     font-weight: 600;
     color: #f9d054;
   }
+
+  /* TERMES IMPORTANTS */
   .important-term {
   background-color: #f6da8645;
   color: #f9d054;
@@ -82,7 +84,7 @@
     color: #e8f5e9;
 
     &::before {
-      content: "Astuce";
+      content: "Tip";
       display: block;
       font-weight: 600;
       color: #a5d6a7;
@@ -104,7 +106,7 @@
     color: #ffebee;
 
     &::before {
-      content: "Attention";
+      content: "Important";
       display: block;
       font-weight: 600;
       color: #ef9a9a;
