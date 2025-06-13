@@ -1,7 +1,7 @@
 .note-form-row {
   display: flex;
   align-items: stretch;
-  width: 100%;
+  width: 84vw;
   gap: 10px;
   margin-bottom: 20px;
   flex-wrap: nowrap;
@@ -53,7 +53,7 @@
 }
 
 .timestamp-input:focus {
-  outline: none; 
+  outline: none;
   border-color: #0D6EFD;
 }
 
@@ -113,13 +113,9 @@
 }
 
 .fixed-note-form {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  padding: 10px 20px;
-  z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    padding: 10px 20px;
 }
 
 #notes-section {
@@ -144,7 +140,7 @@
     height: 40px;
     font-size: 13px;
   }
-  
+
   .description-input {
     font-size: 13px;
     padding: 0 12px;
@@ -165,7 +161,7 @@
   all: unset;
   font-size: 20px;
   line-height: 1;
-  color: #ccc; 
+  color: #ccc;
   cursor: pointer;
   display: flex;
   align-items: center;
