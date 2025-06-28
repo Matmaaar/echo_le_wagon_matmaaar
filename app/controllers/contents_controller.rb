@@ -86,6 +86,12 @@ class ContentsController < ApplicationController
     @questions = @content.questions
   end
 
+  def toggle_summary_done
+  @content = Content.find(params[:id])
+  @content.update(summary_done: !@content.summary_done)
+  redirect_to content_path(@content), notice: "Résumé mis à jour."
+end
+
   private
 
   def content_params

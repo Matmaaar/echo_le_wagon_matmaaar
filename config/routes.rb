@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get :generate_questions
       post :summary, to: "contents#create_summary"
       get :results, to: "contents#results"
+      patch :toggle_summary_done
     end
     resources :tags, only: :index
     resources :messages, only: [:index, :create]

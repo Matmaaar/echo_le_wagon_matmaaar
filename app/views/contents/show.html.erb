@@ -30,9 +30,9 @@
       </div>
     </div>
   <% end %>
-  
-  
-  
+
+
+
   <!-- Espacement -->
   <div class="spacing-elements"></div>
 
@@ -77,7 +77,7 @@
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
        </div>
-  
+
   <!-- Sections Summary-->
   <%#  stimulus pour un spinner temp que summary pas encore chargé %>
 
@@ -86,17 +86,23 @@
       <div class="spacing-elements"></div>
       <% if @content.summary.blank? %>
         <div id="summary">
+
+
           <div class="spinner">
             <div class="loader"></div>
             <p> Loading summary...</p>
           </div>
         </div>
       <% else %>
+      <%= simple_form_for @content, url: toggle_summary_done_content_path(@content), method: :patch do |f| %>
+              <%= f.button :submit, (@content.summary_done? ? "Marquer comme non fait" : "Marquer comme fait"), class: "btn btn-primary" %>
+            <% end %>
+            <%= @content.summary_done %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
       <% end %>
     </div>
 
-  
+
  <!-- Sections Quizz-->
    <div id="quizz-section" data-toggle-section-target="section" class='d-none' data-controller="quiz-loader" >
       <div class="spacing-elements"></div>
