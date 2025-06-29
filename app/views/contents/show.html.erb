@@ -129,7 +129,6 @@
     <!-- notes -->
     <div id="notes-section" data-toggle-section-target="section" class="d-none">
       <div class="spacing-elements"></div>
-      <h2>Notes</h2>
         <!-- Formulaire pour ajouter une note -->
       <%= turbo_frame_tag "notes" do %>
         <%= render 'notes/form', content: @content, note: Note.new %>

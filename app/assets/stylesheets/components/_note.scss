@@ -1,0 +1,85 @@
+/* Timestamp (champ + bouton) */
+
+.timestamp-input {
+  width: 47px;
+  height: 100%;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  background-color: transparent;
+  border: none;
+  color: #0d6efd;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+    background-color: transparent;
+    border: 1px solid #0d6efd;
+    border-radius: 8px;
+  }
+
+  &::placeholder {
+    color: #0d6efd;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+
+.description-field {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  resize: none;
+  background-color: transparent;
+  color: #ffffff;
+  border-color: transparent;
+  padding: 7px 0 0 0;
+  &:focus {
+    outline: none;
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
+
+.note-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  font-family: "Inter", sans-serif;
+}
+
+.note-body {
+  font-family: "Inter", sans-serif;
+}
+
+.note-header--split {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: $blue;
+
+  .note-time-left {
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+  }
+
+  .note-time-right {
+    color: $light-gray;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+.fixed-note-form {
+    position: fixed;
+    bottom: 0;
+    padding: 10px 20px;
+}
+
+#notes-section {
+  padding-bottom: 60px;
+}
+
+/* -- Responsive -- */
