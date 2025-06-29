@@ -12,13 +12,13 @@ class Content < ApplicationRecord
 
     # after_commit :generate_stuff_content, on: [:create]
 
-  def name
-    if self[:name].blank?
-      ""
-    else
-      super
+    def name
+      if self[:name].blank?
+        ""
+      else
+        super
+      end
     end
-  end
 
 
     def generate_questions
@@ -125,6 +125,14 @@ class Content < ApplicationRecord
       left_joins(:tags)
         .where("LOWER(contents.name) LIKE :q OR LOWER(tags.name) LIKE :q", q: query)
         .distinct
+    end
+
+    def percent_validated
+    total = questions.size
+    validated = questions.where(validated: true).size
+    percent = total > 0 ? ((validated.to_f / total) * 50).round : 0
+    percent += 50 if summary_done
+    percent
     end
 
 end

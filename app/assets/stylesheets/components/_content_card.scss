@@ -2,7 +2,6 @@
   background: $dark;
   border-radius: 8px;
   border: 2px solid $gray;
-
   flex-shrink: 0;
 }
 
@@ -18,7 +17,7 @@
   font-size: 16px;
   font-weight: bold;
   margin: 0;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 
 }
 
@@ -66,4 +65,34 @@
   scrollbar-width: none; // Firefox
   -ms-overflow-style: none; // IE and Edge
 
+}
+
+.progress-bar-content {
+  height: 6px;
+  width: 100%;
+  background: rgba($green, 0.3);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  color: #fff;
+}
+
+.progress-percent {
+  margin-bottom: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+}
+
+.progress-content {
+  height: 100%;
+  background: $green;
+  transition: width 0.4s cubic-bezier(.4,0,.2,1);
+  color: #fff;
+  border-radius: 0px;
 }

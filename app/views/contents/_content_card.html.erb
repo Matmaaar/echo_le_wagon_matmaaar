@@ -3,7 +3,14 @@
     <%= image_tag content.thumbnail, class: "card-img-top thumbnail-even", alt: content.name %>
   <% end %>
   <div class="content-card-infos">
-    <h2><%= (content.name&.downcase&.capitalize&.truncate(45, omission: "...")) || "Nom non disponible" %></h2>
-    <span class="small-round-button">START LEARNING</span>
+    <h2><%= (content.name&.downcase&.capitalize&.truncate(48, omission: "...")) || "Nom non disponible" %></h2>
+    <%# <span class="small-round-button">START LEARNING</span> %>
+</div>
+<div class="progress-percent">
+<p class="mb-0"><%= "#{content.percent_validated}%"  %></p>
+</div>
+<div class="progress-bar-content">
+  <div class="progress-content" style="width: <%= content.percent_validated %>%">
   </div>
+</div>
 <% end %>
