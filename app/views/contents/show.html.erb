@@ -113,11 +113,12 @@
       <div id="quizz">
         <div class="spinner">
             <div class="loader"></div>
+           <%= @content.questions.first.id %>
             <p> Loading questions...</p>
           </div>
       </div>
       <% else %>
-        <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
+        <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.order(:id).first) %>">
         <% end %>
     </div>
 
