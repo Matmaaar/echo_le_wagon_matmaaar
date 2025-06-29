@@ -1,3 +1,3 @@
-<div id="summary" class="summary-text">
+<div id="summary" class="summary-text <%= "summary-done" if content.summary_done %>">
   <%= raw content.summary[7..-4] if content.summary %>
 </div>

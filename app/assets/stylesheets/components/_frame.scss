@@ -13,9 +13,9 @@
 }
 
 .progress-bar {
-  height: 5px;
+  height: 6px;
   width: 100%;
-  background: #fff;
+  background: rgba($green, 0.3);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   overflow: hidden;

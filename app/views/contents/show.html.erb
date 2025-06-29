@@ -80,7 +80,7 @@
 
   <!-- Sections Summary-->
   <%#  stimulus pour un spinner temp que summary pas encore chargé %>
-
+    <%= turbo_frame_tag "summary_toggle_#{@content.id}" do %>
     <%= turbo_stream_from "content_#{@content.id}_details" %>
     <div id="summary-section" data-toggle-section-target="section">
       <div class="spacing-elements"></div>
@@ -94,11 +94,14 @@
           </div>
         </div>
       <% else %>
-      <%= simple_form_for @content, url: toggle_summary_done_content_path(@content), method: :patch do |f| %>
-              <%= f.button :submit, (@content.summary_done? ? "Marquer comme non fait" : "Marquer comme fait"), class: "btn btn-primary" %>
-            <% end %>
-            <%= @content.summary_done %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
+        <div class="d-flex justify-content-center">
+
+        <%= simple_form_for @content, url: toggle_summary_done_content_path(@content), method: :patch do |f| %>
+                <%= f.button :submit, (@content.summary_done? ? "MARK AS UNREAD" : "MARK AS READ"), class: "small-round-button#{' active' if @content.summary_done?} mt-3" %>
+                <% end %>
+              </div>
+            <% end %>
       <% end %>
     </div>
 

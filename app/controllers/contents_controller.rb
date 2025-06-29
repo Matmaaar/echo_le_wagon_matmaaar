@@ -90,6 +90,11 @@ class ContentsController < ApplicationController
   @content = Content.find(params[:id])
   @content.update(summary_done: !@content.summary_done)
   redirect_to content_path(@content), notice: "Résumé mis à jour."
+
+  respond_to do |format|
+    format.turbo_stream
+    format.html { redirect_to content_path(@content) }
+  end
 end
 
   private

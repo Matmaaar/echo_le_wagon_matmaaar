@@ -1,6 +1,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap');
 
+.summary-done {
+  
+  border-radius: 8px;
+  background-color: rgba($green, 0.2);
+  padding: 0px;
+  box-shadow: 0 0 0 2px $green;
+}
+
 .summary-text {
   color: #f5f5f5;
   line-height: 1.7;
