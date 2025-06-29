@@ -113,11 +113,12 @@
       <div id="quizz">
         <div class="spinner">
             <div class="loader"></div>
+           <%= @content.questions.first.id %>
             <p> Loading questions...</p>
           </div>
       </div>
       <% else %>
-        <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.first) %>">
+        <turbo-frame id="quizz" src="<%= content_question_path(@content, @content.questions.order(:id).first) %>">
         <% end %>
     </div>
 
@@ -129,7 +130,6 @@
     <!-- notes -->
     <div id="notes-section" data-toggle-section-target="section" class="d-none">
       <div class="spacing-elements"></div>
-      <h2>Notes</h2>
         <!-- Formulaire pour ajouter une note -->
       <%= turbo_frame_tag "notes" do %>
         <%= render 'notes/form', content: @content, note: Note.new %>

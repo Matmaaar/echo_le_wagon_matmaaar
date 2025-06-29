@@ -1,22 +1,22 @@
 <% notes.each do |note| %>
-  <div id="note_<%= note.id %>" class="content-card note-card-spacing">
+  <div id="note_<%= note.id %>" class="content-card mt-3">
     <div class="content-card-infos">
       <div class="note-header note-header--split">
         <span class="note-time-left">
           <% if note.video_timestamp.present? %>
-            ⏱ <%= note.video_timestamp %>
+            @ <%= note.video_timestamp %>
           <% else %>
-            @<%= note.created_at.in_time_zone('Paris').strftime("%H:%M") %>
+            @ 00:00
           <% end %>
         </span>
 
         <span class="note-time-right">
-          <%= I18n.with_locale(:en) { time_ago_in_words(note.created_at.in_time_zone('Paris')) } %>
+          <%= I18n.with_locale(:en) { time_ago_in_words(note.created_at.in_time_zone('Paris')) } %> ago
         </span>
       </div>
 
       <div class="note-body">
-        <p><%= note.description %></p>
+        <%= simple_format(note.description) %>
       </div>
 
       <div class="note-footer">
