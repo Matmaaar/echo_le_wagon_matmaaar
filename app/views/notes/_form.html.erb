@@ -1,4 +1,4 @@
-<div class="content-card">
+<div class="content-card mt-3">
   <%= simple_form_for [content, note], html: { class: "note-form" } do |f| %>
     <div class="content-card-infos">
 
@@ -41,7 +41,9 @@
       rows: 4 %>
 
       <!-- Bouton add -->
-      <%= button_tag "ADD NOTE", type: :submit, class: "green-round-button" %>
+      <div style="display: flex; justify-content: flex-end;">
+        <%= button_tag "ADD NOTE", type: :submit, class: "green-round-button" %>
+      </div>
 
     </div>
   <% end %>
