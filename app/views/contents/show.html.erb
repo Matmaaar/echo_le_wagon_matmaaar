@@ -66,14 +66,15 @@
     <%= render "tags/button_tags", content: @content %>
   <% end %>
   <!-- Container custom -->
-<%" vos mergues!!" %>
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
             <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button btn-active', onclick: "setTimeout(() => document.getElementById('summary-section').scrollIntoView({behavior: 'smooth', block: 'start'}), 100)", data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle toggle-section#scrollToBottom", target_id: "quizz-section", toggle_section_target: "button"  } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle toggle-section#scrollToBottom", target_id: "askia-section", toggle_section_target: "button" } %>
-            <%= button_tag "NOTES (#{@content.notes.count})", type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
+            <%= button_tag type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } do %>
+                  NOTES&nbsp <span class="notes-count"><%= @content.notes.count %></span>
+             <% end %>
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>

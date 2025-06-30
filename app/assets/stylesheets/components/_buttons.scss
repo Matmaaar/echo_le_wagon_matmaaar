@@ -35,28 +35,47 @@
 
 // BOUTON SMALL ROUND
 .small-round-button {
-  color: $gray;
-  background-color: $white;
+  color: $white;
+  background-color: transparent;
   border-radius: 8px;
-  border: none;
+  border: 1px solid $white;
   font-size: 12px;
-  padding: 5px 30px;
+  padding: 7px 10px 6px 10px;
   font-family: "Inter", sans-serif;
   text-align: center;
   cursor: pointer;
   text-decoration: none;
+  line-height: 0.5;
 
-  display: block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center; // Centre verticalement le texte
+
   width: fit-content;
 
   .card {
     margin-top: 10px;
   }
 
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+}
 
+.btn-active {
+  color: $dark;
+  background-color: $white;
+  border-radius: 8px;
+  border: 1px solid $white;
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+  padding: 6px 15px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  width: fit-content;
+
+
+  .notes-count {
+    color: $light-dark
+  }
 }
 
 .small-round-button-invisible {
@@ -101,26 +120,17 @@
   text-decoration: none;
 }
 
-.btn-active {
-  color: $white;
-  background-color: $dark;
-  border-radius: 8px;
-  border: 1px solid $white;
-  font-size: 12px;
-  font-family: "Inter", sans-serif;
-  padding: 5px 15px;
-  text-align: center;
-  cursor: pointer;
-  display: block;
-  width: fit-content;
-}
 
 .button-row button {
-  width: 120px;
-  height: 30px;
+  width: 96px;
+  height: 32px;
   text-align: center;
-  padding: 5px 10px;
+  padding: 7px 10px 6px 10px;
   margin: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .button-row {
@@ -130,12 +140,6 @@
   padding: 0px;
 }
 
-.button-row-tag {
-  display: flex;
-  align-items: center;
-  padding: 0px;
-  font-size: 12px;
-}
 
 .video-title {
   margin-top: 15px;
