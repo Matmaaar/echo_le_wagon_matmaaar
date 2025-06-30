@@ -1,7 +1,7 @@
 /* Timestamp (champ + bouton) */
 
 .timestamp-input {
-  width: 47px;
+  width: 65px;
   height: 100%;
   font-size: 14px;
   font-family: "Inter", sans-serif;
@@ -82,4 +82,17 @@
   padding-bottom: 60px;
 }
 
-/* -- Responsive -- */
+/* Cache l’icône d’horloge (Chrome, Edge, Opera, etc) */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.note-link {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.notes-count {
+  color: $light-gray
+}

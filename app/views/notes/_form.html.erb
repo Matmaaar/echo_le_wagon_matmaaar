@@ -6,29 +6,29 @@
 
       <div class="timestamp-input-wrapper timestamp-input" style="display: flex; align-items: center;">
         <span style="color: #0d6efd;">@</span>
-        <%= f.text_field :video_timestamp,
-          placeholder: "00:00",
+        <%= f.time_field :video_timestamp,
           class: "timestamp-input",
-          autocomplete: "off",
+          step: 1,
+          placeholder: "00:00:00",
           style: "flex: 1",
-          inputmode: "numeric",
-          pattern: "[0-9]*",
-          maxlength: 5,
-          data: { behavior: "auto-insert-colon" } %>
+          autocomplete: "off"
+        %>
       </div>
 
       <script>
         document.addEventListener("DOMContentLoaded", function() {
           const input = document.querySelector('input[data-behavior="auto-insert-colon"]');
           if (input) {
-            input.addEventListener("input", function(e) {
-              let val = input.value.replace(/[^0-9]/g, "");
-              if (val.length > 2) val = val.slice(0, 4);
-              if (val.length > 2) {
-                val = val.slice(0,2) + ":" + val.slice(2);
-              }
-              input.value = val;
-            });
+        input.addEventListener("input", function(e) {
+          let val = input.value.replace(/[^0-9]/g, "");
+          if (val.length > 6) val = val.slice(0, 6);
+          if (val.length > 4) {
+            val = val.slice(0,2) + ":" + val.slice(2,4) + ":" + val.slice(4);
+          } else if (val.length > 2) {
+            val = val.slice(0,2) + ":" + val.slice(2);
+          }
+          input.value = val;
+        });
           }
         });
       </script>

@@ -1,4 +1,4 @@
-<div   class="b">
+<div class="b">
    <% if flash[:success] %>
     <div
       data-controller="flash"
@@ -19,6 +19,7 @@
         <% if (src = youtube_embed_url(@content.url)) %>
           <div class="video-container">
             <iframe
+              name ="video"
               src="<%= src %>"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen>
@@ -44,7 +45,7 @@
   <%= turbo_frame_tag :content_title do %>
         <h1 class="title-show">
           <span class="title-text">
-            <%= @content.name&.downcase&.capitalize&.truncate(50, omission: "...") %>
+            <%= @content.name&.downcase&.capitalize&.truncate(70, omission: "...") %>
             <%= link_to edit_content_path(@content), class: 'edit-custom-button', data: { action: "toggle-section#toggle", turbo_frame: :content_title, toggle_section_target: "button" }, style: "display: inline;" do %>
             <i id="edit-pen" class="fa-solid fa-pen"></i>
             <% end %>
@@ -65,14 +66,15 @@
     <%= render "tags/button_tags", content: @content %>
   <% end %>
   <!-- Container custom -->
-<%" vos mergues!!" %>
       <div class="spacing-elements"></div>
         <div class="carousel-container">
           <div class="button-row button-carousel-slider">
             <%= button_tag 'SUMMARY', type: 'button', class: 'small-round-button btn-active', onclick: "setTimeout(() => document.getElementById('summary-section').scrollIntoView({behavior: 'smooth', block: 'start'}), 100)", data: { action: "toggle-section#toggle", target_id: "summary-section", toggle_section_target: "button" } %>
             <%= button_tag 'QUIZZ', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle toggle-section#scrollToBottom", target_id: "quizz-section", toggle_section_target: "button"  } %>
             <%= button_tag 'ASK IA', type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle toggle-section#scrollToBottom", target_id: "askia-section", toggle_section_target: "button" } %>
-            <%= button_tag "NOTES (#{@content.notes.count})", type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } %>
+            <%= button_tag type: 'button', class: 'small-round-button', data: { action: "toggle-section#toggle", target_id: "notes-section", toggle_section_target: "button" } do %>
+                  NOTES&nbsp <span class="notes-count"><%= @content.notes.count %></span>
+             <% end %>
             <%= link_to 'DELETE', content_path(@content), class: 'red-round-button',
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
           </div>
@@ -96,11 +98,13 @@
       <% else %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
         <div class="d-flex justify-content-center">
-
-        <%= simple_form_for @content, url: toggle_summary_done_content_path(@content), method: :patch do |f| %>
-                <%= f.button :submit, (@content.summary_done? ? "MARK AS UNREAD" : "MARK AS READ"), class: "small-round-button#{' active' if @content.summary_done?} mt-3" %>
-                <% end %>
-              </div>
+       <%= form_for @content, url: toggle_summary_done_content_path(@content), method: :patch do |f| %>
+          <%= button_tag (@content.summary_done? ? "MARK AS UNREAD" : "MARK AS READ"),
+            type: :submit,
+            class: "small-round-button#{' btn-active' if @content.summary_done?} mt-3",
+            id: "read-button" %>
+        <% end %>
+          </div>
             <% end %>
       <% end %>
     </div>

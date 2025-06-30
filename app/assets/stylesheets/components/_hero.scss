@@ -70,7 +70,7 @@
   padding-left: 20px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
+  border-radius: 8px;
   color: white;
   font-size: 1rem;
   outline: none;
@@ -92,7 +92,7 @@
   background: white;
   color: #000;
   border: none;
-  border-radius: 50px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500; /* "medium" n'est pas une valeur valide */
   cursor: pointer;
@@ -102,6 +102,8 @@
   z-index: 1;
   overflow: hidden;
   animation: glow 2s ease-in-out infinite alternate;
+  display: flex;
+  align-items: center;
 }
 
 /* Animation de brillance */
@@ -125,24 +127,3 @@
 
 
 
-// .overlay-text {
-//   position: relative;
-//   display: inline-block;
-//   font-family: Arial, sans-serif;
-//   font-size: 4rem;
-//   font-weight: bold;
-// }
-
-// .background-text {
-//   color: #333;
-//   opacity: 0.3;
-// }
-
-// .foreground-text {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   color: white;
-//   /* Optionnel : léger décalage pour l'effet */
-//   transform: translate(2px, -2px);
-// }
