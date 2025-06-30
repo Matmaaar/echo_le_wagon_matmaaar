@@ -3,10 +3,9 @@
     <div class="content-card-infos">
       <div class="note-header note-header--split">
         <span class="note-time-left">
-          <% if note.video_timestamp.present? %>
-            @ <%= note.video_timestamp %>
+            <% if note.video_timestamp.present? %>
+            <%= link_to "@ #{note.video_timestamp}", "#{youtube_embed_url(@content.url)}&start=#{note.video_timestamp_in_seconds}&autoplay=1", target: "video", class: "note-link"%>
           <% else %>
-            @ 00:00
           <% end %>
         </span>
 
