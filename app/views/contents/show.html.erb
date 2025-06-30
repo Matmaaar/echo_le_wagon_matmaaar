@@ -1,4 +1,4 @@
-<div   class="b">
+<div class="b">
    <% if flash[:success] %>
     <div
       data-controller="flash"
@@ -45,7 +45,7 @@
   <%= turbo_frame_tag :content_title do %>
         <h1 class="title-show">
           <span class="title-text">
-            <%= @content.name&.downcase&.capitalize&.truncate(50, omission: "...") %>
+            <%= @content.name&.downcase&.capitalize&.truncate(70, omission: "...") %>
             <%= link_to edit_content_path(@content), class: 'edit-custom-button', data: { action: "toggle-section#toggle", turbo_frame: :content_title, toggle_section_target: "button" }, style: "display: inline;" do %>
             <i id="edit-pen" class="fa-solid fa-pen"></i>
             <% end %>
@@ -98,11 +98,13 @@
       <% else %>
         <%= render partial: "contents/summary_text", locals: { content: @content } %>
         <div class="d-flex justify-content-center">
-
-        <%= simple_form_for @content, url: toggle_summary_done_content_path(@content), method: :patch do |f| %>
-                <%= f.button :submit, (@content.summary_done? ? "MARK AS UNREAD" : "MARK AS READ"), class: "small-round-button#{' active' if @content.summary_done?} mt-3" %>
-                <% end %>
-              </div>
+       <%= form_for @content, url: toggle_summary_done_content_path(@content), method: :patch do |f| %>
+          <%= button_tag (@content.summary_done? ? "MARK AS UNREAD" : "MARK AS READ"),
+            type: :submit,
+            class: "small-round-button#{' btn-active' if @content.summary_done?} mt-3",
+            id: "read-button" %>
+        <% end %>
+          </div>
             <% end %>
       <% end %>
     </div>

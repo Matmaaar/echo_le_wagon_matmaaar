@@ -66,7 +66,7 @@
   border: 1px solid $white;
   font-size: 12px;
   font-family: "Inter", sans-serif;
-  padding: 6px 15px;
+  padding: 7px 10px 6px 10px;
   text-align: center;
   cursor: pointer;
   display: block;
@@ -106,13 +106,14 @@
 
 // BOUTON SHOW NEXT QUESTION
 .green-round-button{
+
   color: $white;
   background-color: $green;
   border-radius: 8px;
   border: none;
   font-size: 12px;
   font-family: "Inter", sans-serif;
-  padding: 5px 15px;
+  padding: 7px 10px 6px 10px;
   text-align: center;
   cursor: pointer;
   display: block;
@@ -213,12 +214,12 @@
   border: none;
   font-size: 12px;
   font-family: "Inter", sans-serif;
-  padding: 5px 30px;
+  padding: 7px 10px 6px 10px;
   text-align: center;
   cursor: pointer;
   text-decoration: none;
   display: block;
-  width: 120px;
+  width: 96px;
   height: 30px;
 }
 
@@ -252,3 +253,10 @@
 #update-button {
   margin-left: auto;
 }
+
+#read-button {
+  height: 32px;
+  width: 140px;
+}
+
+
