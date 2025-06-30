@@ -197,15 +197,15 @@
   transition: background-color 9999s ease-in-out 0s;
 }
 
-.edit-custom-button {
-  border: none;
-  padding: none;
-  text-align: left;
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
-  margin: none;
-}
+// .edit-custom-button {
+//   border: none;
+//   padding: none;
+//   text-align: left;
+//   cursor: pointer;
+//   text-decoration: none;
+//   display: block;
+//   margin: none;
+// }
 
 .red-round-button {
   color: $white;
@@ -229,14 +229,16 @@
 
 .edit-input {
   width: 100%;
-  padding: 0 20px;
-  height: 50px;
-  font-size: 16px;
-  color: #eee;
-  background-color: transparent;
-  border: 1px solid #fff;
-  border-radius: 999px;
+  padding: 0 0px;
+  height: 56px;
+  font-size: 20px;
+  color: #fff;
   box-sizing: border-box;
+  background-color: transparent;
+  line-height: 28px;
+  border: none;
+  box-shadow: 0 0 0 1px $green;
+
 
   &::placeholder {
     color: #aaa;
@@ -245,8 +247,15 @@
 
   &:focus {
     outline: none;
-    border-color: #fff;
-    box-shadow: none;
+    box-shadow: 0 0 0 1px #fff;
+    border: none;
+  }
+
+  /* Cacher la scrollbar pour tous les navigateurs */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
   }
 }
 
@@ -258,5 +267,3 @@
   height: 32px;
   width: 140px;
 }
-
-

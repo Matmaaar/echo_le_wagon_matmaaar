@@ -33,41 +33,26 @@
 }
 
 #edit-pen {
-  color: white;
-  font-size: 20px
+  color: $light-gray;
+  font-size: 16px;
+  margin-left: 10px;
 }
 
-.tag-custom-container {
-  text-align: center;
-  display: inline-flex;
+.edit-content {
+  display: flex;
   align-items: center;
-  gap: 0.95rem;
+  margin-bottom: 8px;
+
+  .green-round-button {
+    height: 58px;
+    width: 56px;
+    border-radius: 0 8px 8px 0;
+
+  }
 }
 
-.tag-custom-button {
-  color: $white;
-  font-size: 14px;
-  font-family: "Inter", sans-serif;
-  cursor: pointer;
-  text-decoration: underline;
-  display: block;
-  background-color: inherit;
-  border: none;
-  padding: 0px;
-}
-
-.tag-custom-button-shift {
-  color: $green;
-  font-size: 14px;
-  font-family: "Inter", sans-serif;
-  cursor: pointer;
-  text-decoration: underline;
-  display: block;
-  background-color: inherit;
-  border: none;
-  padding: 0px;
-}
 
 .title-text {
   font-size: 20px;
+  line-height: 29px;
 }
