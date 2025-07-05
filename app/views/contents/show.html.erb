@@ -115,7 +115,9 @@
       <div id="quizz">
         <div class="spinner">
             <div class="loader"></div>
+            <% if @content.questions.any? %>
            <%= @content.questions.first.id %>
+           <% end %>
             <p> Loading questions...</p>
           </div>
       </div>
