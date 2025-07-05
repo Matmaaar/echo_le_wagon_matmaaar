@@ -67,14 +67,13 @@ class Content < ApplicationRecord
         }
       )
       response = JSON.parse(response.body)
-      if response.nil? || response["content"].nil? || response["lang"].nil?
+      if response.nil? || response["content"].nil?
         raise "Failed to fetch transcript or language from API"
       else
         transcript_brut = response["content"]
         transcription = transcript_brut.map { |chunk| chunk["text"] }.join(" ")
         update!(
           transcription: transcription,
-          language: response["lang"]
         )
       end
     end
@@ -104,7 +103,7 @@ class Content < ApplicationRecord
     if transcription.blank?
       Rails.logger.warn("No transcription available for summarization.")
     else
-      summarizer = ContentSummarizer.new(transcription: transcription)
+      summarizer = ContentSummarizer.new(transcription: transcription, language: language)
       summary = summarizer.call
       Rails.logger.info("Generated summary: #{summary}")
       update!(summary: summary) if summary.present?
