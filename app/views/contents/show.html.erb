@@ -32,8 +32,6 @@
     </div>
   <% end %>
 
-
-
   <!-- Espacement -->
   <div class="spacing-elements"></div>
 
@@ -45,9 +43,9 @@
   <%= turbo_frame_tag :content_title do %>
         <h1 class="title-show">
           <span class="title-text">
-            <%= @content.name&.downcase&.capitalize&.truncate(70, omission: "...") %>
+            <%= @content.name&.truncate(60, omission: "...") %>
             <%= link_to edit_content_path(@content), class: 'edit-custom-button', data: { action: "toggle-section#toggle", turbo_frame: :content_title, toggle_section_target: "button" }, style: "display: inline;" do %>
-            <i id="edit-pen" class="fa-solid fa-pen"></i>
+            <i id="edit-pen" class="fa-solid fa-ellipsis-vertical"></i>
             <% end %>
           </span>
           </span>
