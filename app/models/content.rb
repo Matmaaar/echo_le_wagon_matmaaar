@@ -24,7 +24,7 @@ class Content < ApplicationRecord
     def generate_questions
       questions.destroy_all
       Rails.logger.info("Generating questions for content ID: #{id} ")
-      questions_data = QuestionGeneratorService.new(self.transcription).call
+      questions_data = QuestionGeneratorService.new(self.transcription, self.language).call
       questions_data.map do |data|
         correct = data[:correct_answer]&.to_sym
         next unless correct && data[:choices]&.key?(correct)
