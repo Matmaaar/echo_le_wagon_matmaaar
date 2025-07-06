@@ -1,6 +1,12 @@
 .hero-section {
   // background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
 
+  max-width: 1224px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: black;
+  margin-top: 30px;
+
 
   &::before {
     content: "";
@@ -10,28 +16,43 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    background: linear-gradient(to bottom, $dark 0%, transparent 20%, transparent 80%, $dark 100%);
+    background: linear-gradient(to bottom, $dark 0%, transparent 30%, transparent 80%, $dark 100%),
+          linear-gradient(to right, $dark 0%, transparent 15%, transparent 85%, $dark 100%);
     z-index: 1;
+
   }
 
-  background-image: url( asset-path('home_thumbnail'));
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 35%, rgba(0,0,0,0) 65%),
+    url(asset-path('home_thumbnail'));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   position: relative;
-  overflow: hidden;
-  height: 412px;
+  margin-bottom: 40px;
+  height: 100%;
+
+  @media (min-width: 1024px) {
+    min-height: 600px;
+    height: 80vh;
+    background-size: contain;
+    background-position: right center;
+    margin-top: 0;
+    margin-bottom: 0;
+
+  }
 }
 
 .hero-content {
 
   max-width: 1200px;
   margin: 0 auto;
+  margin-bottom: 40px;
   padding: 0 0rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  
   gap: 4rem;
   align-items: center;
 }
@@ -47,20 +68,28 @@
   line-height: 1.0;
   margin-bottom: 10px;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+  @media (min-width: 1024px) {
+    font-size: 74px;
+  }
 }
 
 .hero-subtitle {
   font-size: 14px;
   color: #b8b8b8;
   line-height: 1.4;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   font-weight: 300;
+
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
 }
 
 .hero-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   max-width: 400px;
 }
 
@@ -75,6 +104,7 @@
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
+  padding-top: 2px;
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
@@ -87,14 +117,14 @@
 }
 
 .cta-button {
-  width: 200px;
+  width: 264px;
   height: 40px;
   background: white;
   color: #000;
   border: none;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 500; /* "medium" n'est pas une valeur valide */
+  font-weight: 500;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -104,6 +134,9 @@
   animation: glow 2s ease-in-out infinite alternate;
   display: flex;
   align-items: center;
+  justify-content: center; // Ajouté pour centrer le texte horizontalement
+  text-align: center; // Optionnel pour plusieurs lignes
+  padding-top: 4px;
 }
 
 /* Animation de brillance */
@@ -124,6 +157,10 @@
   background: #f0f0f0;
 }
 
+.hero-disclaimer {
+  color: #b8b8b8;
+  font-size: 12px;
+  margin: 0px;
+  font-family: "Inter", sans-serif;
 
-
-
+}

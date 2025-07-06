@@ -6,3 +6,4 @@
 //= link bootstrap.min.js
 //= link manifest.json
 //= link application.css
+//= link application.css

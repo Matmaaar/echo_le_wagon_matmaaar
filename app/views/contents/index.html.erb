@@ -37,11 +37,17 @@
             local: true,
             data: {controller: "form-submit", action: "turbo:submit-start->form-submit#disable turbo:submit-start->form-submit#showModal"},
             class: 'hero-form' do |form| %>
+            <div class="display-flex gap-2">
           <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
-          <%= form.select :language, options_for_select([['French', 'french'], ['English', 'english'], ['Spanish', 'spanish']], @content.language), {}, class: 'language-select', required: true %>
+            <%= form.select :language, options_for_select([['FR', 'french'], ['EN', 'english'], ['SP', 'spanish']], @content.language.presence || 'english'), { prompt: 'Select Language' }, class: 'button-select', required: true %>
+          </div>
+          <p class="hero-disclaimer">
+          *Choose the language you wish to generate content in </p>
           <%= form.submit 'START NOW', class: 'cta-button glow',
             data: {form_submit_target: "submit" } %>
         <% end %>
+
+
       <%= turbo_frame_tag :modal, id: "modal" do %>
       <% end %>
       </div>

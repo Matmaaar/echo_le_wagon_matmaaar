@@ -28,12 +28,14 @@
   font-size: 14px;
   margin-top: 10px;
   text-align: left;
-  color: black
+  color: black;
+  display: inline-flex;
+  align-items: center;
 }
 
 .answer-letter {
   font-family: "Inter", sans-serif;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   background: #222;
@@ -46,6 +48,8 @@
   font-size: 1rem;
   margin-top: 5px;
   margin-bottom: 5px;
+  padding-top: 2px;
+
 }
 
 .quizz-content p{

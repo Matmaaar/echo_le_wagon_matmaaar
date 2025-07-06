@@ -4,7 +4,11 @@
   <% end %>
   <div class="content-card-infos">
     <h2><%= (content.name&.downcase&.capitalize&.truncate(48, omission: "...")) || "Nom non disponible" %></h2>
-    <%# <span class="small-round-button">START LEARNING</span> %>
+    <div class="d-flex gap-2">
+
+    <span class="small-round-button btn-green <%= 'green-round-button' if content.summary_done %>">SUMMARY</span>
+    <span class="small-round-button btn-green <%= 'green-round-button' if content.questions.where(validated: true).count == content.questions.count && content.questions.count > 0 %>">QUIZZ</span>
+    </div>
 </div>
 <div class="progress-percent">
 <p class="mb-0"><%= "#{content.percent_validated}%"  %></p>
