@@ -52,7 +52,7 @@
   margin-bottom: 40px;
   padding: 0 0rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  
   gap: 4rem;
   align-items: center;
 }
@@ -78,7 +78,7 @@
   font-size: 14px;
   color: #b8b8b8;
   line-height: 1.4;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   font-weight: 300;
 
   @media (min-width: 1024px) {
@@ -89,7 +89,7 @@
 .hero-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   max-width: 400px;
 }
 
@@ -104,6 +104,7 @@
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
+  padding-top: 2px;
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
@@ -116,14 +117,14 @@
 }
 
 .cta-button {
-  width: 200px;
+  width: 264px;
   height: 40px;
   background: white;
   color: #000;
   border: none;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 500; /* "medium" n'est pas une valeur valide */
+  font-weight: 500;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -133,6 +134,9 @@
   animation: glow 2s ease-in-out infinite alternate;
   display: flex;
   align-items: center;
+  justify-content: center; // Ajouté pour centrer le texte horizontalement
+  text-align: center; // Optionnel pour plusieurs lignes
+  padding-top: 4px;
 }
 
 /* Animation de brillance */
@@ -151,4 +155,12 @@
 .cta-button:hover {
   transform: translateY(-2px);
   background: #f0f0f0;
+}
+
+.hero-disclaimer {
+  color: #b8b8b8;
+  font-size: 12px;
+  margin: 0px;
+  font-family: "Inter", sans-serif;
+
 }
