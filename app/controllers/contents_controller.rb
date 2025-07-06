@@ -100,7 +100,7 @@ end
   private
 
   def content_params
-    params.require(:content).permit(:url, :name)
+    params.require(:content).permit(:url, :name, :language)
   end
 
   def build_personal_playlists

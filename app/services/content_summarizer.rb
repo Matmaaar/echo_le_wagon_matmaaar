@@ -1,12 +1,14 @@
 class ContentSummarizer
-  def initialize(transcription:)
+  def initialize(transcription:, language:)
     # Si transcription est un tableau (comme renvoyé par SupaData), on reconstruit le texte.
     @transcription = if transcription.is_a?(Array)
       transcription.map { |seg| seg["text"] }.join(" ")
+
     else
       transcription
     end
 
+    @language = language
     @client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
   end
 
@@ -49,7 +51,7 @@ class ContentSummarizer
 
     ### 🚫 Strict guidelines:
     - Never mention the video, its author, the platform, jokes, music, or intro/outro.
-    - The summary must be in English.
+    - The summary must be in #{@language}.
     - Do not write a global summary; develop each point raised in the transcription.
     - Do not write a conclusion at the end; the content must be self-contained.
     - Expand all mentioned ideas with clear, precise, and pedagogical explanations.
