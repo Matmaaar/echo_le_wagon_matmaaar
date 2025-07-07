@@ -1,4 +1,5 @@
   require "erb"
+  require 'pdf-reader'
 
 class Content < ApplicationRecord
   belongs_to :user
@@ -58,6 +59,7 @@ class Content < ApplicationRecord
     end
 
     def get_transcript!
+      if source_type == "youtube_video"
       api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
       response = HTTParty.get(
         api_url,
@@ -76,9 +78,13 @@ class Content < ApplicationRecord
           transcription: transcription,
         )
       end
+    elsif source_type == "pdf_document"
+      # DEFINIR COMMENT RECUPERER LE TRANSCRIPT D'UN PDF
+    end
     end
 
     def enrich!
+      if source_type == "youtube_video"
       api_url = "https://api.supadata.ai/v1/youtube/video?id=#{ERB::Util.url_encode(url)}"
       response = HTTParty.get(
         api_url,
@@ -97,6 +103,10 @@ class Content < ApplicationRecord
           thumbnail: response["thumbnail"]
         )
       end
+    elsif source_type == "pdf_document"
+      # DEFINIR COMMENT ENRICH UN PDF
+    end
+
     end
 
   def summarize!
