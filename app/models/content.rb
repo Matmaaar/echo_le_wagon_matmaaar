@@ -79,6 +79,7 @@ class Content < ApplicationRecord
         )
       end
     elsif source_type == "pdf_document"
+      require 'pdf-reader'
       # DEFINIR COMMENT RECUPERER LE TRANSCRIPT D'UN PDF
     end
     end
@@ -104,7 +105,11 @@ class Content < ApplicationRecord
         )
       end
     elsif source_type == "pdf_document"
-      # DEFINIR COMMENT ENRICH UN PDF
+      update!(
+          name: "Edit Name",
+          duration: nil,
+          thumbnail: nil,
+        )
     end
 
     end

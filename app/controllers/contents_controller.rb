@@ -43,6 +43,11 @@ class ContentsController < ApplicationController
   def create
     @content = Content.new(content_params)
     @content.user = current_user
+    if params[:content][:pdf_file].present?
+        @content.source_type = 'pdf_document'
+    elsif params[:content][:url].present?
+        @content.source_type = 'youtube_video'
+    end
 
     if @content.save
 
