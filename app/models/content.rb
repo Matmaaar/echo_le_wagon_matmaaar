@@ -79,8 +79,25 @@ class Content < ApplicationRecord
         )
       end
     elsif source_type == "pdf_document"
-      require 'pdf-reader'
-      # DEFINIR COMMENT RECUPERER LE TRANSCRIPT D'UN PDF
+      if pdf_file.attached?
+    require 'pdf-reader'
+
+    # Lire le contenu du PDF depuis ActiveStorage
+    pdf_text = ""
+    reader = PDF::Reader.new(StringIO.new(pdf_file.download))
+
+    reader.pages.each do |page|
+      pdf_text << page.text
+    end
+
+    # Nettoyage de base (optionnel)
+    pdf_text = pdf_text.gsub(/\s+/, ' ').strip
+
+    # Mise à jour de la transcription dans le modèle
+    update!(transcription: pdf_text)
+  else
+    raise "No PDF file attached"
+  end
     end
     end
 
