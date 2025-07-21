@@ -60,46 +60,54 @@ class Content < ApplicationRecord
 
     def get_transcript!
       if source_type == "youtube_video"
-      api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
-      response = HTTParty.get(
-        api_url,
-        headers: {
-          'x-api-key' => ENV['SUPADATA_API_KEY'],
-          'Content-Type' => 'application/json'
-        }
-      )
-      response = JSON.parse(response.body)
-      if response.nil? || response["content"].nil?
-        raise "Failed to fetch transcript or language from API"
-      else
-        transcript_brut = response["content"]
-        transcription = transcript_brut.map { |chunk| chunk["text"] }.join(" ")
-        update!(
-          transcription: transcription,
+        api_url = "https://api.supadata.ai/v1/youtube/transcript?url=#{ERB::Util.url_encode(url)}&lang=en"
+        response = HTTParty.get(
+          api_url,
+          headers: {
+            'x-api-key' => ENV['SUPADATA_API_KEY'],
+            'Content-Type' => 'application/json'
+          }
         )
-      end
-    elsif source_type == "pdf_document"
-      if pdf_file.attached?
-    require 'pdf-reader'
 
-    # Lire le contenu du PDF depuis ActiveStorage
-    pdf_text = ""
-    reader = PDF::Reader.new(StringIO.new(pdf_file.download))
+        if response.code == 206
+          # Traitement spécial pour le code 206
+          Rails.logger.warn("🥲🥲🥲🥲Transcript API returned 206 Partial Content for content ID: #{id}🥲🥲🥲🥲🥲")
+          # Ajoutez ici le comportement spécial souhaité, par exemple :
+          # update!(transcription: "Partial transcript received. Please try again later.")
+          update!(summary: "<h3>Unfortunately, we can't transcribe this content. Some videos are protected by their creators and block automatic access to transcripts.<h3>")
+        end
 
-    reader.pages.each do |page|
-      pdf_text << page.text
-    end
+        response = JSON.parse(response.body)
+        if response.nil? || response["content"].nil?
+          raise "Failed to fetch transcript or language from API"
+        else
+          transcript_brut = response["content"]
+          transcription = transcript_brut.map { |chunk| chunk["text"] }.join(" ")
+          update!(
+            transcription: transcription,
+          )
+        end
+      elsif source_type == "pdf_document"
+        if pdf_file.attached?
+          require 'pdf-reader'
 
-    # Nettoyage de base (optionnel)
-    pdf_text = pdf_text.gsub(/\s+/, ' ').strip
+          # Lire le contenu du PDF depuis ActiveStorage
+          pdf_text = ""
+          reader = PDF::Reader.new(StringIO.new(pdf_file.download))
 
-    # Mise à jour de la transcription dans le modèle
-    update!(transcription: pdf_text)
-  else
-    raise "No PDF file attached"
-  end
-    end
-    end
+          reader.pages.each do |page|
+            pdf_text << page.text
+          end
+
+          # Nettoyage de base (optionnel)
+          pdf_text = pdf_text.gsub(/\s+/, ' ').strip
+
+          # Mise à jour de la transcription dans le modèle
+          update!(transcription: pdf_text)
+        else
+          raise "No PDF file attached"
+        end
+      end  end
 
     def enrich!
       if source_type == "youtube_video"
