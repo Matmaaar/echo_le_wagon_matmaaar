@@ -23,26 +23,9 @@
     <div class="hero-content">
       <div class="text-content">
 
-        <h1 class="hero-title">
-          Turn content<br>into knowledge
-        </h1>
-        <p class="hero-subtitle">
-          Drop a link or file — AI turns it into powerful learning tools.
-        </p>
+        
 
-        <%= form_with model: @content,
-            local: true,
-            data: {controller: "form-submit", action: "turbo:submit-start->form-submit#disable turbo:submit-start->form-submit#showModal"},
-            class: 'hero-form' do |form| %>
-            <div class="display-flex gap-2">
-          <%= form.url_field :url, class: 'url-input', placeholder: 'Enter URL', required: true %>
-            <%= form.select :language, options_for_select([['FR', 'french'], ['EN', 'english'], ['SP', 'spanish']], @content.language.presence || 'english'), { prompt: 'Select Language' }, class: 'button-select', required: true %>
-          </div>
-          <p class="hero-disclaimer">
-          *Choose the language you wish to generate content in </p>
-          <%= form.submit 'START NOW', class: 'cta-button glow',
-            data: {form_submit_target: "submit" } %>
-        <% end %>
+    <%= render partial: "contents/hero", locals: { content: @content } %>
 
 
       <%= turbo_frame_tag :modal, id: "modal" do %>

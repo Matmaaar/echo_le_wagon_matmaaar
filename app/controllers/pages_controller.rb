@@ -1,8 +1,10 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :home ]
-
+  
   def home
+    @content = Content.new
   end
+
   def test
     @content= Content.first
     @question = Question.new

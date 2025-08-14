@@ -3,21 +3,8 @@
     <div class="hero-content">
       <div class="text-content">
 
-        <h1 class="hero-title">
-          Learn<br>
-          Everything<br>
-          Faster
-        </h1>
-        <p class="hero-subtitle">
-          Unlock deeper learning from<br>
-          your favorite content.
-        </p>
+        <%= render partial: "contents/hero", locals: { content: @content } %>
 
-        <%= form_with url: contents_path, local: true, class: 'hero-form' do |form| %>
-          <%= form.url_field :url, name: 'content[url]', class: 'url-input', placeholder: 'Enter URL', required: true %>
-          <%= form.submit 'START NOW', class: 'cta-button glow' %>
-        <% end %>
-      </div>
 
       <div class="hero-visual">
         <div class="light-beam"></div>
@@ -50,19 +37,3 @@
   </div>
 </div>
 <br>
-<div class="container-custom">
-  <h2><strong>Features:</strong></h2>
-  <br>
-  <h4 class="center-texte my-2"><em>1. Enter a youtube url </em> </h4>
-  <div class="home-card-container">
-    <%= image_tag("url.png", alt: "Url", class: "home-card-image") %>
-  </div>
-  <h4 class="center-texte my-2"><em>2. Create a summary </em></h4>
-  <div class="home-card-container">
-    <%= image_tag("summary.png", alt: "Summary", class: "home-card-image") %>
-  </div>
-  <h4 class="center-texte my-2"><em>3. Answer questions</em> </h4>
-  <div class="home-card-container">
-    <%= image_tag("quizz.png", alt: "Quizz", class: "home-card-image") %>
-  </div>
-</div>
